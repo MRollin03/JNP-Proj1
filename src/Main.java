@@ -40,6 +40,9 @@ public class Main {
         p.show(); // viser selve simulationen
         for (int i = 0; i < 200; i++) {
             p.simulate();
+
+            /** tjekkes om det er ant, hvis true tjek om der er personer i persons list. 
+            hvis Person existere i persons list remove alle Person i persons og fra world  **/ 
             if(world.isNight()){
                 if(!persons.isEmpty())
                     for(Person currentPerson : persons){
