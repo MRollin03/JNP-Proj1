@@ -34,7 +34,7 @@ public class Main {
             world.setTile(l, currentPerson);
         }
 
-        DisplayInformation di = new DisplayInformation(Color.red);
+        DisplayInformation di = new DisplayInformation(Color.red,"rabbit-large");
         p.setDisplayInformation(Person.class, di);
 
         p.show(); // viser selve simulationen
