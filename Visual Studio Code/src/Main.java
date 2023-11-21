@@ -7,7 +7,10 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
+<<<<<<< HEAD
         System.out.print("luk");
+=======
+>>>>>>> Rolin
         int size = 15; // st�rrelsen af vores 'map' (dette er altid kvadratisk)
         int delay = 1000; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 800; // sk�rm opl�sningen (i px)
@@ -29,7 +32,11 @@ public class Main {
                 y = r.nextInt(size);
                 l = new Location(x,y);
             }
+<<<<<<< HEAD
             // og herefter kan vi så anvende den:
+=======
+            // og herefter kan vi s� anvende den:
+>>>>>>> Rolin
             Person currentPerson = new Person();
             persons.add(currentPerson);
             world.setTile(l, currentPerson);
