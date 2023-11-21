@@ -33,8 +33,8 @@ public class Main {
             persons.add(currentPerson);
             world.setTile(l, currentPerson);
         }
-
-        DisplayInformation di = new DisplayInformation(Color.blue);
+        
+        DisplayInformation di = new DisplayInformation(Color.blue, "wolf-fungi-small-sleeping");
         p.setDisplayInformation(Person.class, di);
 
         p.show(); // viser selve simulationen
@@ -56,4 +56,5 @@ public class Main {
         } // k�rer 200 runder, alts� kaldes 'act' 200 gange for alle placerede akt�rer
 
     }
+
 }
