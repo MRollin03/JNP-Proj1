@@ -39,11 +39,17 @@ public class Main {
 
         p.show(); // viser selve simulationen
         for (int i = 0; i < 200; i++) {
+            
+
             p.simulate();
+            
+
             if(world.isNight()){
                 if(!persons.isEmpty())
-                    for(Person currentPerson : persons){
-                        world.delete(currentPerson);
+                    for(int j = 0; j < persons.size(); j++){
+                        world.delete(persons.get(0));
+                        persons.remove(0);
+                        
                 }
                 
             }
