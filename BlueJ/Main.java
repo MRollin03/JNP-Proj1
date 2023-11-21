@@ -8,11 +8,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int size = 15; // størrelsen af vores 'map' (dette er altid kvadratisk)
+        int size = 15; // stï¿½rrelsen af vores 'map' (dette er altid kvadratisk)
         int delay = 1000; // forsinkelsen mellem hver skridt af simulationen (i ms)
-        int display_size = 800; // skærm opløsningen (i px)
+        int display_size = 800; // skï¿½rm oplï¿½sningen (i px)
         Program p = new Program(size, display_size, delay); // opret et nyt program
-        World world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilføje ting!
+        World world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilfï¿½je ting!
 
         //Making a person
         int amount = 10;
@@ -23,14 +23,16 @@ public class Main {
             int x = r.nextInt(size);
             int y = r.nextInt(size);
             Location l = new Location(x,y);
-            // Så længe pladsen ikke er tom, forsøger vi med en ny tilfældig plads:
+            // Sï¿½ lï¿½nge pladsen ikke er tom, forsï¿½ger vi med en ny tilfï¿½ldig plads:
             while(!world.isTileEmpty(l)) {
                 x = r.nextInt(size);
                 y = r.nextInt(size);
                 l = new Location(x,y);
             }
-            // og herefter kan vi så anvende den:
-            world.setTile(l, new Person());
+            // og herefter kan vi sï¿½ anvende den:
+            Person currentPerson = new Person();
+            persons.add(currentPerson);
+            world.setTile(l, currentPerson);
         }
 
         DisplayInformation di = new DisplayInformation(Color.red);
@@ -40,12 +42,13 @@ public class Main {
         for (int i = 0; i < 200; i++) {
             p.simulate();
             if(world.isNight()){
-                for(Person currentPerson :persons){
-                    world.remove(currentPerson);
+                if(!persons.isEmpty())
+                    for(Person currentPerson : persons){
+                        world.delete(currentPerson);
                 }
                 
             }
-        } // kører 200 runder, altså kaldes 'act' 200 gange for alle placerede aktører
+        } // kï¿½rer 200 runder, altsï¿½ kaldes 'act' 200 gange for alle placerede aktï¿½rer
 
     }
 }
