@@ -33,28 +33,24 @@ public class Main {
             persons.add(currentPerson);
             world.setTile(l, currentPerson);
         }
-        
-        DisplayInformation di = new DisplayInformation(Color.blue, "wolf-fungi-small-sleeping");
+
+        DisplayInformation di = new DisplayInformation(Color.red);
         p.setDisplayInformation(Person.class, di);
 
         p.show(); // viser selve simulationen
         for (int i = 0; i < 200; i++) {
-            
-
             p.simulate();
-            
 
+            /** tjekkes om det er ant, hvis true tjek om der er personer i persons list. 
+            hvis Person existere i persons list remove alle Person i persons og fra world  **/ 
             if(world.isNight()){
                 if(!persons.isEmpty())
-                    for(int j = 0; j < persons.size(); j++){
-                        world.delete(persons.get(0));
-                        persons.remove(0);
-                        
+                    for(Person currentPerson : persons){
+                        world.delete(currentPerson);
                 }
                 
             }
         } // k�rer 200 runder, alts� kaldes 'act' 200 gange for alle placerede akt�rer
 
     }
-
 }
