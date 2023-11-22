@@ -40,13 +40,17 @@ public class Main {
         p.show(); // viser selve simulationen
         for (int i = 0; i < 200; i++) {
             p.simulate();
+            System.out.println(world.getCurrentTime());
 
             /** tjekkes om det er ant, hvis true tjek om der er personer i persons list. 
             hvis Person existere i persons list remove alle Person i persons og fra world  **/ 
             if(world.isNight()){
-                if(!persons.isEmpty())
-                    for(Person currentPerson : persons){
-                        world.delete(currentPerson);
+                if(!persons.isEmpty()){
+                    for (int j = 0; j < persons.size(); j++) {
+                        world.delete(persons.get(0));
+                        persons.remove(0);
+                    }
+                        
                 }
                 
             }

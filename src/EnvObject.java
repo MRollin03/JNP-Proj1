@@ -8,6 +8,12 @@ import java.util.*;
 public class EnvObject implements NonBlocking {
     Set<Location> neighbours;
     ArrayList<Location> list;
+    ObjectType objType;
+
+    enum ObjectType{
+        grass,
+        hole
+    }
 
     public void act(World world){
         
@@ -21,7 +27,10 @@ public class EnvObject implements NonBlocking {
 
 
 
-
+    //---------------------- set methods----------------------//
+    public void setObjecType(ObjectType type ){
+        this.objType = type;
+    }
 
 
 
