@@ -4,38 +4,79 @@ import itumulator.simulator.*;
 import itumulator.display.*;
 import java.awt.*;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 public class Main {
 
     public static void main(String[] args) {
-        int size = 15; // st�rrelsen af vores 'map' (dette er altid kvadratisk)
+        scan Scan = new scan(); // This will prompt for input
+        int size = Scan.getSize();
         int delay = 1000; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 800; // sk�rm opl�sningen (i px)
         Program p = new Program(size, display_size, delay); // opret et nyt program
         World world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilf�je ting!
 
         //Making a person
-        int amount = 10;
         Random r = new Random();
-        ArrayList<Grass> Grasss = new ArrayList<Grass>(); 
+        HashMap<String, Integer> entSpawnMap = new HashMap<String, Integer>();
+        
+        //spawn Values for each 
+        entSpawnMap.put("Rabbit", Scan.getRabbit());
+        entSpawnMap.put("Grass", Scan.getGrass());
+        entSpawnMap.put("RabbitHole", Scan.getBurrow());
+        entSpawnMap.put("Person", 0);
 
-        for(int i = 0; i < amount; i++){
-            int x = r.nextInt(size);
-            int y = r.nextInt(size);
-            Location l = new Location(x,y);
-            // S� l�nge pladsen ikke er tom, fors�ger vi med en ny tilf�ldig plads:
-            while(!world.isTileEmpty(l)) {
-                x = r.nextInt(size);
-                y = r.nextInt(size);
-                l = new Location(x,y);
+        DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
+
+        // spawner ind hver en type of entreaty.
+        for (String entType : entSpawnMap.keySet()) {
+            if(entSpawnMap.get(entType) == 0){break;} //hvis antallet der skal spawnes er nul
+            for(int i = 0; i <= entSpawnMap.get(entType); i++){
+                int x = r.nextInt(size);
+                int y = r.nextInt(size);
+                Location l = new Location(x,y);
+                // S� l�nge pladsen ikke er tom, fors�ger vi med en ny tilf�ldig plads:
+                while(!world.isTileEmpty(l)) {
+                    x = r.nextInt(size);
+                    y = r.nextInt(size);
+                    l = new Location(x,y);
+                }
+                // og herefter kan vi så anvende den:'
+                switch (entType) {
+                    case "Rabbit":
+                        Animal currentRabbit = new Rabbit();
+                        world.setTile(l, currentRabbit);
+                        di = new DisplayInformation(Color.blue); // Color Settings
+                        p.setDisplayInformation(Rabbit.class, di);
+                        break;
+                /*
+                    case "Grass":
+                        EnvObject currentObject = new Grass();
+                        world.setTile(l, currentObject);
+                        di = new DisplayInformation(Color.Pink); // Color Settings
+                        p.setDisplayInformation(Grass.class, di);
+                        break;
+
+                    case "RabbitHole":
+                        EnvObject currentRabbitHole = new Grass();
+                        world.setTile(l, currentRabbitHole);
+                        di = new DisplayInformation(Color.purple); // Color Settings
+                        p.setDisplayInformation(RabbitHole.class, di);
+                        break;*/
+
+                    case "Person":
+                        Person currentPerson = new Person();
+                        world.setTile(l, currentPerson);
+                        di = new DisplayInformation(Color.red); // Color Settings
+                        p.setDisplayInformation(Person.class, di);
+                        break;
+                
+                }
+                
+                
             }
-            // og herefter kan vi så anvende den:
-            Grass currentgrass = new Grass();
-            Grasss.add(currentgrass);
-            world.setTile(l, currentgrass);
         }
-
-        DisplayInformation di = new DisplayInformation(Color.red);
-        p.setDisplayInformation(Person.class, di);
+        System.out.println("NO more entities");
 
         DisplayInformation di2 = new DisplayInformation(Color.red,"grass");
         p.setDisplayInformation(Grass.class, di2);
@@ -43,14 +84,9 @@ public class Main {
         p.show(); // viser selve simulationen
         for (int i = 0; i < 200; i++) {
             p.simulate();
-            System.out.println(world.getCurrentTime());
-
-            //for (Grass grass:Grasss){
-                //grass.spread(world);
-            //}
-                
-            
         } // k�rer 200 runder, alts� kaldes 'act' 200 gange for alle placerede akt�rer
 
     }
+
+    
 }

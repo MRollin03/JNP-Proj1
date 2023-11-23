@@ -5,5 +5,5 @@ package itumulator.world;
  * However, two objects implementing {@link NonBlocking} cannot exist on top of each other.
  */
 public interface NonBlocking {
-    
+
 }
