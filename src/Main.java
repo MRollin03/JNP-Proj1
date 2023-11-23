@@ -17,10 +17,6 @@ public class Main {
 
         //Making a person
         Random r = new Random();
-<<<<<<< Updated upstream
-        ArrayList<Person> persons = new ArrayList<Person>(); 
-        ArrayList<Animal> animals = new ArrayList<Animal>(); 
-=======
         HashMap<String, Integer> entSpawnMap = new HashMap<String, Integer>();
         
         //spawn Values for each 
@@ -28,14 +24,10 @@ public class Main {
         entSpawnMap.put("Grass", 10);
         entSpawnMap.put("RabbitHole", 10);
         entSpawnMap.put("Person", 10);
->>>>>>> Stashed changes
 
         DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
 
-
-
-
-
+        // spawner ind hver en type of entreaty.
         for (String entType : entSpawnMap.keySet()) {
             for(int i = 0; i < entSpawnMap.get(entType); i++){
                 int x = r.nextInt(size);
@@ -81,57 +73,12 @@ public class Main {
                 
                 
             }
-<<<<<<< Updated upstream
-            // og herefter kan vi så anvende den:
-            Person currentPerson = new Person();
-            persons.add(currentPerson);
-            switch (Animal.type) {
-                case Rabbit:
-                    
-                    break;
-            
-                default:
-                    break;
-            }
-            Animal currentPerson = new Animal();
-            animals.add(currentPerson);
-            world.setTile(l, currentPerson);
-=======
-            
->>>>>>> Stashed changes
         }
         System.out.println("NO more entities");
 
-<<<<<<< Updated upstream
-        DisplayInformation di = new DisplayInformation(Color.blue);
-        p.setDisplayInformation(Person.class, di);
-
-        p.show(); // viser selve simulationen
-        for (int i = 0; i < 200; i++) {
-<<<<<<< Updated upstream
-            
-
-            p.simulate();
-            
-
-            if(world.isNight()){
-                if(!persons.isEmpty())
-                    for(int j = 0; j < persons.size(); j++){
-                        world.delete(persons.get(0));
-                        persons.remove(0);
-                        
-                }
-                
-            }
-=======
-            p.simulate();
->>>>>>> Stashed changes
-=======
-
         p.show(); // viser selve simulationen
         for (int i = 0; i < 200; i++) {
             p.simulate();
->>>>>>> Stashed changes
         } // k�rer 200 runder, alts� kaldes 'act' 200 gange for alle placerede akt�rer
 
     }
