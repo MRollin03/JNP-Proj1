@@ -17,7 +17,6 @@ public class Main {
         World world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilf�je ting!
 
         //Making a person
-        Random r = new Random();
         HashMap<String, Integer> entSpawnMap = new HashMap<String, Integer>();
         
         //spawn Values for each 
@@ -93,5 +92,7 @@ public class Main {
         
         return l;
     }
+
+
     
 }
