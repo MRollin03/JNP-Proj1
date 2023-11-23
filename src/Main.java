@@ -80,7 +80,7 @@ public class Main {
 
     }
 
-    public static Location getRandomLocation(int size, World world){
+    public static Location getRandomLocation(int size, World world){        //gets a random location
         Random r = new Random();
         int x = r.nextInt(size);
         int y = r.nextInt(size);
