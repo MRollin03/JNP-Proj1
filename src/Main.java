@@ -43,7 +43,6 @@ public class Main {
                 
                     case "Grass":
                         EnvObject currentObject = new Grass();
-                        System.out.println(l + " and " + world.containsNonBlocking(l));
                         world.setTile(l, currentObject);
                         di = new DisplayInformation(Color.yellow,"grass"); // Color Settings
                         p.setDisplayInformation(Grass.class, di);
