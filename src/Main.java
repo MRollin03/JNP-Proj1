@@ -35,7 +35,7 @@ public class Main {
                 int y = r.nextInt(size);
                 Location l = new Location(x,y);
                 // S� l�nge pladsen ikke er tom, fors�ger vi med en ny tilf�ldig plads:
-                while(!world.isTileEmpty(l)) {
+                while(!world.isTileEmpty(l) && !world.containsNonBlocking(l)) {
                     x = r.nextInt(size);
                     y = r.nextInt(size);
                     l = new Location(x,y);

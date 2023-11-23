@@ -49,6 +49,10 @@ public class Animal {
         world.delete(this);
     }
 
+    public void remove(World world){
+        
+    }
+
 
 
 
