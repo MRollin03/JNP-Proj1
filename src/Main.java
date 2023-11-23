@@ -17,6 +17,7 @@ public class Main {
         int amount = 10;
         Random r = new Random();
         ArrayList<Person> persons = new ArrayList<Person>(); 
+        ArrayList<Animal> animals = new ArrayList<Animal>(); 
 
         for(int i = 0; i < amount; i++){
             int x = r.nextInt(size);
@@ -31,6 +32,16 @@ public class Main {
             // og herefter kan vi så anvende den:
             Person currentPerson = new Person();
             persons.add(currentPerson);
+            switch (Animal.type) {
+                case Rabbit:
+                    
+                    break;
+            
+                default:
+                    break;
+            }
+            Animal currentPerson = new Animal();
+            animals.add(currentPerson);
             world.setTile(l, currentPerson);
         }
 
@@ -39,6 +50,7 @@ public class Main {
 
         p.show(); // viser selve simulationen
         for (int i = 0; i < 200; i++) {
+<<<<<<< Updated upstream
             
 
             p.simulate();
@@ -53,6 +65,9 @@ public class Main {
                 }
                 
             }
+=======
+            p.simulate();
+>>>>>>> Stashed changes
         } // k�rer 200 runder, alts� kaldes 'act' 200 gange for alle placerede akt�rer
 
     }
