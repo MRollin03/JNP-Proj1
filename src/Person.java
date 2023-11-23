@@ -3,7 +3,6 @@ import itumulator.world.*;
 import itumulator.simulator.*;
 
 import java.util.*;
-import java.util.Random;
 
 public class Person implements Actor {
     @Override
@@ -16,6 +15,8 @@ public class Person implements Actor {
           Location l = list.get(rand.nextInt( list.size()-1)); // Linje 2 og 3 kan erstattes af neighbours.toArray()[0]
           world.move(this,l);
         }
+
+      
     }
 
 

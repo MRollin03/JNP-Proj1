@@ -16,9 +16,6 @@ public class Grass extends EnvObject{
 
     private double spreadChance = 25;
 
-    Set<Location> neighbours;
-    ArrayList<Location> list;
-
     public void act(World world) {
         super.act(world);
 
@@ -36,8 +33,4 @@ public class Grass extends EnvObject{
 
     
     //---------------------- get methods----------------------//
-    public ArrayList getLocation(){
-        return list;
-    }
 }
-

@@ -41,9 +41,9 @@ public class Animal {
     }*/
 
 
-    
-    public void die(){
-        // code that removes entity.
+    // Main die method
+    public void die(World world){
+        world.delete(this);
     }
 
 
