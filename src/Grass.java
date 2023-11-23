@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Set;
+
 import itumulator.world.NonBlocking;
 import itumulator.world.World;
 
@@ -8,7 +12,6 @@ import itumulator.display.*;
 import java.awt.*;
 import java.util.*;
 
-<<<<<<< Updated upstream
 public class Grass extends EnvObject{
 
     private double spreadChance = 25;
@@ -27,16 +30,37 @@ public class Grass extends EnvObject implements Actor{
 >>>>>>> Stashed changes
     public void act(World world) {
         super.act(world);
-
+        spread(world);
         
     }
+    //-------Code that Spreads grass around ----//
+    public void spread(World world){
+        int rand_int = 0;
 
-    public void spread(){
-        //-------Code that Spreads grass around ----//
+        neighbours = world.getEmptySurroundingTiles();  //gets surrounding empty tiles
+        ArrayList<Location> list = new ArrayList<>(neighbours);
+        
+        for (Location neighbor:list){
+            rand_int = rand.nextInt(100);
+            if (rand_int < spreadChance){               
+                try{                                        //
+                    world.setTile(neighbor,new Grass());    //insert new grass at location
+                } catch (IllegalArgumentException e){
+                    //System.out.println("test");
+                }
+            }
+        }
+    }
 
-        //tjek for alle omkring lægende om der er frit
-
-        // hvis  brug spreadchance til en chance for spredning.
+    public static boolean isTileGrass (World world, Location location){
+        try{
+        if (world.getNonBlocking(location) instanceof Grass){
+            return true;
+        }
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+        return false;
     }
         
 

@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Animal {
     private int age;
-    private int foodPoint;
+    protected int foodPoint;
     private int energy;
 
 
@@ -29,6 +29,14 @@ public class Animal {
     public void act(World world){
         
 >>>>>>> Stashed changes
+    }    public void act(World world){
+        if (world.getCurrentTime() == 0) {
+            foodPoint --;
+        }
+        // hvis klokken er 11 og mad point er 0
+        if(world.getCurrentTime() == 0 && this.getFoodPoints() < 1 ){
+            die(world);
+        }
     }
 
     
@@ -52,10 +60,6 @@ public class Animal {
     // Main die method
     public void die(World world){
         world.delete(this);
-    }
-
-    public void remove(World world){
-        
     }
 
 
