@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         scan Scan = new scan(); // This will prompt for input
         int size = Scan.getSize();
-        int delay = 500; // forsinkelsen mellem hver skridt af simulationen (i ms)
+        int delay = 1000; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 800; // sk�rm opl�sningen (i px)
         Program p = new Program(size, display_size, delay); // opret et nyt program
         World world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilf�je ting!
@@ -30,23 +30,14 @@ public class Main {
 
         // spawner ind hver en type of entreaty.
         for (String entType : entSpawnMap.keySet()) {
-            for(int i = 0; i < entSpawnMap.get(entType); i++){
-                int x = r.nextInt(size);
-                int y = r.nextInt(size);
-                Location l = new Location(x,y);
-                // S� l�nge pladsen ikke er tom, fors�ger vi med en ny tilf�ldig plads:
-                while(!world.isTileEmpty(l) && !world.containsNonBlocking(l)) {
-                    System.out.println("du er gay");
-                    x = r.nextInt(size);
-                    y = r.nextInt(size);
-                    l = new Location(x,y);
-                }
-                // og herefter kan vi så anvende den:'
+            for(int i = 0; i <= entSpawnMap.get(entType); i++){
+                Location l = getRandomLocation(size,world);     //Find a random location
+                
                 switch (entType) {
                     case "Rabbit":
                         Animal currentRabbit = new Rabbit();
                         world.setTile(l, currentRabbit);
-                        di = new DisplayInformation(Color.blue, "rabbit-small"); // Color Settings
+                        di = new DisplayInformation(Color.blue,"rabbit-small"); // Color Settings
                         p.setDisplayInformation(Rabbit.class, di);
                         break;
                 
@@ -84,9 +75,23 @@ public class Main {
         p.show(); // viser selve simulationen
         for (int i = 0; i < 200; i++) {
             p.simulate();
-            }
         } // k�rer 200 runder, alts� kaldes 'act' 200 gange for alle placerede akt�rer
 
     }
 
+    public static Location getRandomLocation(int size, World world){        //gets a random location
+        Random r = new Random();
+        int x = r.nextInt(size);
+        int y = r.nextInt(size);
+        Location l = new Location(x,y);
+        if (world.containsNonBlocking(l)){
+            l = getRandomLocation(size, world);
+        } 
+        if ((!world.isTileEmpty(l))){
+            l = getRandomLocation(size, world);
+        } 
+        
+        return l;
+    }
     
+}
