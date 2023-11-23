@@ -40,8 +40,12 @@ public class Grass extends EnvObject implements Actor{
     }
 
     public static boolean isTileGrass (World world, Location location){
+        try{
         if (world.getNonBlocking(location) instanceof Grass){
             return true;
+        }
+        } catch (IllegalArgumentException e) {
+            return false;
         }
         return false;
     }
