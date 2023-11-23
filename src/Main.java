@@ -16,7 +16,7 @@ public class Main {
         //Making a person
         int amount = 10;
         Random r = new Random();
-        ArrayList<Person> persons = new ArrayList<Person>(); 
+        ArrayList<Grass> Grasss = new ArrayList<Grass>(); 
 
         for(int i = 0; i < amount; i++){
             int x = r.nextInt(size);
@@ -29,31 +29,27 @@ public class Main {
                 l = new Location(x,y);
             }
             // og herefter kan vi så anvende den:
-            Person currentPerson = new Person();
-            persons.add(currentPerson);
-            world.setTile(l, currentPerson);
+            Grass currentgrass = new Grass();
+            Grasss.add(currentgrass);
+            world.setTile(l, currentgrass);
         }
 
         DisplayInformation di = new DisplayInformation(Color.red);
         p.setDisplayInformation(Person.class, di);
+
+        DisplayInformation di2 = new DisplayInformation(Color.red,"grass");
+        p.setDisplayInformation(Grass.class, di2);
 
         p.show(); // viser selve simulationen
         for (int i = 0; i < 200; i++) {
             p.simulate();
             System.out.println(world.getCurrentTime());
 
-            /** tjekkes om det er ant, hvis true tjek om der er personer i persons list. 
-            hvis Person existere i persons list remove alle Person i persons og fra world  **/ 
-            if(world.isNight()){
-                if(!persons.isEmpty()){
-                    for (int j = 0; j < persons.size(); j++) {
-                        world.delete(persons.get(0));
-                        persons.remove(0);
-                    }
-                        
-                }
+            //for (Grass grass:Grasss){
+                //grass.spread(world);
+            //}
                 
-            }
+            
         } // k�rer 200 runder, alts� kaldes 'act' 200 gange for alle placerede akt�rer
 
     }
