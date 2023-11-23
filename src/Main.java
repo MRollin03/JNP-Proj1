@@ -87,7 +87,8 @@ public class Main {
         Location l = new Location(x,y);
         if (world.containsNonBlocking(l)){
             l = getRandomLocation(size, world);
-        } else if ((!world.isTileEmpty(l))){
+        } 
+        if ((!world.isTileEmpty(l))){
             l = getRandomLocation(size, world);
         } 
         
