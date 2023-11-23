@@ -29,8 +29,8 @@ public class Grass extends EnvObject implements Actor{
         
         for (Location neighbor:list){
             rand_int = rand.nextInt(100);
-            if (rand_int < spreadChance){               //try catch??
-                try{
+            if (rand_int < spreadChance){               
+                try{                                        //
                     world.setTile(neighbor,new Grass());    //insert new grass at location
                 } catch (IllegalArgumentException e){
                     //System.out.println("test");

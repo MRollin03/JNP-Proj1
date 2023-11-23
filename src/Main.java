@@ -30,13 +30,12 @@ public class Main {
 
         // spawner ind hver en type of entreaty.
         for (String entType : entSpawnMap.keySet()) {
-            if(entSpawnMap.get(entType) == 0){break;} //hvis antallet der skal spawnes er nul
             for(int i = 0; i <= entSpawnMap.get(entType); i++){
                 int x = r.nextInt(size);
                 int y = r.nextInt(size);
                 Location l = new Location(x,y);
                 // S� l�nge pladsen ikke er tom, fors�ger vi med en ny tilf�ldig plads:
-                while(!world.isTileEmpty(l)) {
+                while(!world.isTileEmpty(l) && !world.containsNonBlocking(l)) {
                     x = r.nextInt(size);
                     y = r.nextInt(size);
                     l = new Location(x,y);
@@ -49,14 +48,14 @@ public class Main {
                         di = new DisplayInformation(Color.blue); // Color Settings
                         p.setDisplayInformation(Rabbit.class, di);
                         break;
-                /*
+                
                     case "Grass":
                         EnvObject currentObject = new Grass();
                         world.setTile(l, currentObject);
-                        di = new DisplayInformation(Color.Pink); // Color Settings
+                        di = new DisplayInformation(Color.yellow,"grass"); // Color Settings
                         p.setDisplayInformation(Grass.class, di);
                         break;
-
+                    /* 
                     case "RabbitHole":
                         EnvObject currentRabbitHole = new Grass();
                         world.setTile(l, currentRabbitHole);

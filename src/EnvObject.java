@@ -22,7 +22,9 @@ public class EnvObject implements NonBlocking {
 
     }
     
-
+    public void deleteObj(World world, Location location){      //used to remove grass
+        world.delete(location);
+    }
 
 
 
