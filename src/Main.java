@@ -30,7 +30,7 @@ public class Main {
 
         // spawner ind hver en type of entreaty.
         for (String entType : entSpawnMap.keySet()) {
-            for(int i = 0; i <= entSpawnMap.get(entType); i++){
+            for(int i = 0; i < entSpawnMap.get(entType); i++){
                 Location l = getRandomLocation(size,world);     //Find a random location
                 
                 switch (entType) {
