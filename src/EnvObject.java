@@ -22,8 +22,8 @@ public class EnvObject implements NonBlocking {
 
     }
     
-    public void deleteObj(World world, Location location){      //used to remove grass
-        world.delete(location);
+    public static void deleteObj(World world, Object grass){      //used to remove grass
+        world.delete(grass);
     }
 
 
