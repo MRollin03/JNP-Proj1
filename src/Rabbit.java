@@ -56,9 +56,16 @@ public class Rabbit extends Animal implements Actor{
 
             Random rand = new Random();
 
+            Location l = world.getCurrentLocation();
+
             if(list != null){
-                Location l = list.get(rand.nextInt( list.size()-1)); // Linje 2 og 3 kan erstattes af neighbours.toArray()[0]
+                l = list.get(rand.nextInt( list.size()-1)); // Linje 2 og 3 kan erstattes af neighbours.toArray()[0]
                 world.move(this,l);
+            }
+            
+            if (Grass.isTileGrass(world, l)){
+                EnvObject.deleteObj(world, world.getNonBlocking(l));
+                foodPoint = foodPoint + 5;
             }
 
         }
@@ -66,15 +73,16 @@ public class Rabbit extends Animal implements Actor{
         super.act(world);
     }
 
-    // Checks if grass are near
+    /* Checks if grass are near
     public boolean isGrassNear(){
         boolean res = false;
 
         // ---- Implement code that check if grass is  on neighboring tiles --- 
 
         return res;
-    }
+    }*/
     
+
     // Die funktion kalder remove via 'Animal' superclass
     public void die(World world){
         super.die(world);

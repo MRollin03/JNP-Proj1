@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Animal {
     private int age;
-    private int foodPoint;
+    protected int foodPoint;
     private int energy;
 
 
