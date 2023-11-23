@@ -19,7 +19,6 @@ public class Rabbit extends Animal implements Actor{
     @Override
     // kode til den specefikke Behavior
     public void act(World world) {
-
         // Nat og dags Behavior 
         if(world.isNight()){
 
@@ -64,11 +63,7 @@ public class Rabbit extends Animal implements Actor{
 
         }
 
-        // hvis klokken er 11 og mad point er 0
-        if(world.getCurrentTime() == 11 && this.getFoodPoints() < 1 ){
-            die(world);
-        }
-
+        super.act(world);
     }
 
     // Checks if grass are near
