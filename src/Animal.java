@@ -21,7 +21,15 @@ public class Animal {
         this.energy = 1;
     }
 
-
+    public void act(World world){
+        if (world.getCurrentTime() == 0) {
+            foodPoint --;
+        }
+        // hvis klokken er 11 og mad point er 0
+        if(world.getCurrentTime() == 0 && this.getFoodPoints() < 1 ){
+            die(world);
+        }
+    }
 
     
 
@@ -45,10 +53,6 @@ public class Animal {
     public void die(World world){
         world.delete(this);
     }
-
-
-
-
 
     // get methods
 
