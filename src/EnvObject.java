@@ -16,9 +16,16 @@ public class EnvObject implements NonBlocking {
     }
 
     public void act(World world){
+        
         neighbours = world.getEmptySurroundingTiles();
         list = new ArrayList<>(neighbours);
+
     }
+    
+
+
+
+
 
     //---------------------- set methods----------------------//
     public void setObjecType(ObjectType type ){

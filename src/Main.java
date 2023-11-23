@@ -9,7 +9,8 @@ import java.util.stream.Stream;
 public class Main {
 
     public static void main(String[] args) {
-        int size = 15; // st�rrelsen af vores 'map' (dette er altid kvadratisk)
+        scan Scan = new scan(); // This will prompt for input
+        int size = Scan.getSize();
         int delay = 1000; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 800; // sk�rm opl�sningen (i px)
         Program p = new Program(size, display_size, delay); // opret et nyt program
@@ -82,4 +83,6 @@ public class Main {
         } // k�rer 200 runder, alts� kaldes 'act' 200 gange for alle placerede akt�rer
 
     }
+
+    
 }
