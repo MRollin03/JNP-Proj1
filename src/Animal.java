@@ -21,9 +21,14 @@ public class Animal {
         this.energy = 1;
     }
 
+<<<<<<< Updated upstream
     enum type{
         Rabbit,
         Person,
+=======
+    public void act(World world){
+        
+>>>>>>> Stashed changes
     }
 
     

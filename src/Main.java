@@ -55,13 +55,17 @@ public class Main {
                         di = new DisplayInformation(Color.Pink); // Color Settings
                         p.setDisplayInformation(Grass.class, di);
                         break;
+<<<<<<< Updated upstream
 
+=======
+                    
+>>>>>>> Stashed changes
                     case "RabbitHole":
-                        EnvObject currentRabbitHole = new Grass();
+                        EnvObject currentRabbitHole = new RabbitHole();
                         world.setTile(l, currentRabbitHole);
-                        di = new DisplayInformation(Color.purple); // Color Settings
+                        di = new DisplayInformation(Color.GRAY); // Color Settings
                         p.setDisplayInformation(RabbitHole.class, di);
-                        break;*/
+                        break;
 
                     case "Person":
                         Person currentPerson = new Person();

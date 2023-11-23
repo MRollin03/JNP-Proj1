@@ -11,18 +11,22 @@ import java.util.*;
 
 public class RabbitHole extends EnvObject{
     protected ArrayList<Rabbit> rabbitsInHole= new ArrayList<Rabbit>();
+    RabbitHole(){
+        super(ObjectType.hole);
+    }
     
     @Override
-    public void act(World world) {
-        
-        Set<Location> neighbours = world.getEmptySurroundingTiles();
-        ArrayList<Location> list = new ArrayList<>(neighbours);
-        Random rand = new Random();
-        if(list != null){
-            Location l = list.get(rand.nextInt( list.size()-1)); // Linje 2 og 3 kan erstattes af neighbours.toArray()[0]
-            world.move(this,l);
-        }
+    public void act(World world){
+        super.act(world); 
+    }
 
+    //-------Code that Spreads grass around ----//
+    public void place(Location l, World world){
+        
+        if(placeable(l, world)){
+            
+            world.setTile(l, this);
+        }
     }
 
     // adds rabbits to hole
@@ -37,5 +41,11 @@ public class RabbitHole extends EnvObject{
         //Spawns rabbits on surround empty tiles
     }
 
-
+    public Boolean placeable(Location l , World world){
+        if(!world.containsNonBlocking(l)){
+            return true;
+        }
+        return false;
+    }
+    
 }

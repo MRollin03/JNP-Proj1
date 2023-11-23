@@ -8,10 +8,23 @@ import itumulator.display.*;
 import java.awt.*;
 import java.util.*;
 
+<<<<<<< Updated upstream
 public class Grass extends EnvObject{
 
     private double spreadChance = 25;
 
+=======
+public class Grass extends EnvObject implements Actor{
+    private Set<Location> neighbours;
+    private int spreadChance = 5-1; //15% chance to spread
+    private Random rand = new Random();
+
+    Grass(){
+        super(ObjectType.grass);
+    }
+
+    
+>>>>>>> Stashed changes
     public void act(World world) {
         super.act(world);
 

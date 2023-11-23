@@ -10,16 +10,18 @@ public class EnvObject implements NonBlocking {
     ArrayList<Location> list;
     ObjectType objType;
 
+    EnvObject(ObjectType objType){
+        this.objType = objType;
+    }
+
     enum ObjectType{
         grass,
         hole
     }
 
     public void act(World world){
-        
         neighbours = world.getEmptySurroundingTiles();
         list = new ArrayList<>(neighbours);
-
     }
     
 
@@ -28,7 +30,7 @@ public class EnvObject implements NonBlocking {
 
 
     //---------------------- set methods----------------------//
-    public void setObjecType(ObjectType type ){
+    public void setObjecType(ObjectType type){
         this.objType = type;
     }
 
@@ -37,6 +39,10 @@ public class EnvObject implements NonBlocking {
     //---------------------- get methods----------------------//
     public ArrayList getLocation(){
         return list;
+    }
+
+    public ObjectType getObjectType(){
+        return objType;
     }
 
 
