@@ -31,26 +31,19 @@ public class Main {
         // spawner ind hver en type of entreaty.
         for (String entType : entSpawnMap.keySet()) {
             for(int i = 0; i <= entSpawnMap.get(entType); i++){
-                int x = r.nextInt(size);
-                int y = r.nextInt(size);
-                Location l = new Location(x,y);
-                // S� l�nge pladsen ikke er tom, fors�ger vi med en ny tilf�ldig plads:
-                while(!world.isTileEmpty(l) && !world.containsNonBlocking(l)) {
-                    x = r.nextInt(size);
-                    y = r.nextInt(size);
-                    l = new Location(x,y);
-                }
-                // og herefter kan vi så anvende den:'
+                Location l = getRandomLocation(size,world);     //Find a random location
+                
                 switch (entType) {
                     case "Rabbit":
                         Animal currentRabbit = new Rabbit();
                         world.setTile(l, currentRabbit);
-                        di = new DisplayInformation(Color.blue); // Color Settings
+                        di = new DisplayInformation(Color.blue,"rabbit-small"); // Color Settings
                         p.setDisplayInformation(Rabbit.class, di);
                         break;
                 
                     case "Grass":
                         EnvObject currentObject = new Grass();
+                        System.out.println(l + " and " + world.containsNonBlocking(l));
                         world.setTile(l, currentObject);
                         di = new DisplayInformation(Color.yellow,"grass"); // Color Settings
                         p.setDisplayInformation(Grass.class, di);
@@ -87,5 +80,18 @@ public class Main {
 
     }
 
+    public static Location getRandomLocation(int size, World world){
+        Random r = new Random();
+        int x = r.nextInt(size);
+        int y = r.nextInt(size);
+        Location l = new Location(x,y);
+        if (world.containsNonBlocking(l)){
+            l = getRandomLocation(size, world);
+        } else if ((!world.isTileEmpty(l))){
+            l = getRandomLocation(size, world);
+        } 
+        
+        return l;
+    }
     
 }
