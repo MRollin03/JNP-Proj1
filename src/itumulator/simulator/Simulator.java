@@ -63,7 +63,7 @@ public class Simulator {
     /**
      * Simulate am iteration.
      */
-    public void simulate() {
+    public void simulate () throws IllegalArgumentException {
         // increment both internal tracking of steps as well as for the world.
         steps++; 
         world.step();

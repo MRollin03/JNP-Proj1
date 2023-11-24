@@ -6,6 +6,7 @@ import itumulator.display.*;
 import java.awt.*;
 import java.util.*;
 
+
 public class Rabbit extends Animal implements Actor{
 
     Rabbit(){
@@ -15,40 +16,10 @@ public class Rabbit extends Animal implements Actor{
     @Override
     // kode til den specefikke Behavior
     public void act(World world) {
+
+        
         // Nat og dags Behavior 
         if(world.isNight()){
-
-            // Edit: Her skal der kodes Nat behavoir -------
-
-                /**If statement for mulig død.
-                 * Foodpoints 0 
-                */
-                if(true){
-                    // Kode ker ---- 
-                }
-
-                
-
-
-
-            if(list != null){
-                
-                    
-                }
-                if(){
-                    RabbitHole hole = new RabbitHole();
-                    hole.place(l, world);
-                    System.out.println("NO HOLLES");
-                    super.die(world);
-                    
-                }
-
-            }
-
-        }
-        else{
-
-            // Edit: Her skal der kodes dags behavoir -------
 
             Set<Location> neighbours = world.getEmptySurroundingTiles();
             ArrayList<Location> list = new ArrayList<>(neighbours);
@@ -57,9 +28,49 @@ public class Rabbit extends Animal implements Actor{
 
             Location l = world.getCurrentLocation();
 
+            try {
+                Location holeLocation= holeIsNear(world, l);
+                if(list != null){
+                    try {
+                        l = new Location(
+                            stepFunction((holeLocation.getX() - l.getX()), l.getX()), // finds next X-step
+                            stepFunction((holeLocation.getY() - l.getY()), l.getY()) // finds nexr y_step
+                            );
+                        System.err.println("new loaction " + l);
+
+                        System.err.println(l); 
+                        world.move(this,l);
+                        
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            }
+             catch (Exception e) {
+                System.out.println(e.getMessage() +" This is the ");
+            }
+
+
+            
+        }
+
+        else{
+
+            // Edit: Her skal der kodes dags behavoir -------
+
+            Set<Location> neighbours = world.getEmptySurroundingTiles();
+            ArrayList<Location> list = new ArrayList<>(neighbours);
+
+            Random rand = new Random();
+            Location l = world.getCurrentLocation();
+
             if(list != null){
-                l = list.get(rand.nextInt( list.size()-1)); // Linje 2 og 3 kan erstattes af neighbours.toArray()[0]
-                world.move(this,l);
+                try {
+                    l = list.get(rand.nextInt( list.size()-1)); // Linje 2 og 3 kan erstattes af neighbours.toArray()[0]
+                    world.move(this,l);
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
                 RabbitHole hole = new RabbitHole();
             }
             
@@ -73,7 +84,22 @@ public class Rabbit extends Animal implements Actor{
         super.act(world);
     }
 
-    /* Checks if grass are near
+
+
+    private int stepFunction(int differance, int currentCord){
+        if(differance > 0){
+            return  currentCord + 1;
+        }
+        if(differance < 0){
+            return currentCord - 1;
+        }
+        else{
+            return currentCord;
+        }
+
+    }
+
+    //Checks if grass are near
     public boolean isGrassNear(){
         boolean res = false;
 
@@ -82,53 +108,37 @@ public class Rabbit extends Animal implements Actor{
         return true;
     }
     
-    public Location holeIsNear(World world){
-
-        Set<Location> neighbours = world.getEmptySurroundingTiles();
+    //checks if the is a hole in the given radius
+    public Location holeIsNear(World world, Location l) throws Exception {
+        Set<Location> neighbours =  world.getSurroundingTiles(l, 5);
         ArrayList<Location> list = new ArrayList<>(neighbours);
-        Random rand = new Random();
-        Location l = list.get(rand.nextInt( list.size()-1)); 
+    
+        Set<Object> envObject = new HashSet<>();
 
-                Set<Location> envObject = world.getSurroundingTiles(l, 2);
-                System.out.print(envObject);
 
-                
-                    try{
-                        for(Location currentLocation: envObject){
-                        if(world.getNonBlocking(currentLocation).getClass() == EnvObject.class || world.getNonBlocking(currentLocation).getClass() == RabbitHole.class){
-                        EnvObject obj = (EnvObject) world.getNonBlocking(currentLocation);
-                        System.out.println(obj.getObjectType());
+    
+        for (Location currentLocation : neighbours) {
+            try{
+                envObject.add(world.getNonBlocking(currentLocation));
+            }
+            catch(IllegalArgumentException e){
 
-                        if (world.getNonBlocking(currentLocation) instanceof RabbitHole){
-                            System.out.println("Hole Found");
-                            return currentLocation;
-                        }
-                    
+            }
+        }
 
-                        }}}
-                    catch(IllegalArgumentException e){
-                        //System.out.print(e.getMessage());
-                    }
-                    finally{
-                        return null;
-                    }
+        for (Object object : envObject) {
+             if (object.getClass() == RabbitHole.class) {
+                return world.getLocation(object);
+             }
+        }   
 
-        return null;
+        throw new IllegalArgumentException("no holes nearby");
     }
-
 
     // Die funktion kalder remove via 'Animal' superclass
     public void die(World world){
         super.die(world);
     }
-    
-    /*if(envObjectsNear.isEmpty()){
-                    RabbitHole hole = new RabbitHole();
-                    hole.place(l, world);
-                    System.out.println("NO HOLLES");
-                    super.die(world);
-                    
-                }*/
 
 
 }

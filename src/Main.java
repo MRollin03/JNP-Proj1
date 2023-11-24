@@ -46,13 +46,13 @@ public class Main {
                         di = new DisplayInformation(Color.yellow,"grass"); // Color Settings
                         p.setDisplayInformation(Grass.class, di);
                         break;
-                    /* 
+                     
                     case "RabbitHole":
-                        EnvObject currentRabbitHole = new Grass();
+                        EnvObject currentRabbitHole = new RabbitHole();
                         world.setTile(l, currentRabbitHole);
-                        di = new DisplayInformation(Color.purple); // Color Settings
+                        di = new DisplayInformation(Color.GRAY); // Color Settings
                         p.setDisplayInformation(RabbitHole.class, di);
-                        break;*/
+                        break;
 
                     case "Person":
                         Person currentPerson = new Person();

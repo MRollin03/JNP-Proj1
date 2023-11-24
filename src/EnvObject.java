@@ -14,11 +14,6 @@ public class EnvObject implements NonBlocking {
         this.objType = objType;
     }
 
-    enum ObjectType{
-        grass,
-        hole
-    }
-
     public void act(World world){
         neighbours = world.getEmptySurroundingTiles();
         list = new ArrayList<>(neighbours);

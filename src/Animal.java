@@ -9,6 +9,7 @@ import itumulator.display.*;
 import java.awt.*;
 import java.util.*;
 
+
 public class Animal {
     private int age;
     protected int foodPoint;
@@ -21,15 +22,13 @@ public class Animal {
         this.energy = 1;
     }
 
-<<<<<<< Updated upstream
     enum type{
         Rabbit,
-        Person,
-=======
-    public void act(World world){
+        Person
+    }
+
         
->>>>>>> Stashed changes
-    }    public void act(World world){
+public void act(World world){
         if (world.getCurrentTime() == 0) {
             foodPoint --;
         }

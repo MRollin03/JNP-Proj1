@@ -11,13 +11,9 @@ import java.util.*;
 
 public class RabbitHole extends EnvObject{
     protected ArrayList<Rabbit> rabbitsInHole= new ArrayList<Rabbit>();
+
     RabbitHole(){
         super(ObjectType.hole);
-    }
-    
-    @Override
-    public void act(World world){
-        super.act(world); 
     }
 
     //-------Code that Spreads grass around ----//
@@ -48,4 +44,7 @@ public class RabbitHole extends EnvObject{
         return false;
     }
     
+    public ObjectType getObjectType(){
+        return super.getObjectType();
+    }
 }
