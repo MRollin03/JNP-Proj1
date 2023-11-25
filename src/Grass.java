@@ -20,6 +20,8 @@ public class Grass extends EnvObject implements Actor{
         spread(world);
         
     }
+
+
     //-------Code that Spreads grass around ----//
     public void spread(World world){
         int rand_int = 0;
@@ -30,7 +32,7 @@ public class Grass extends EnvObject implements Actor{
         for (Location neighbor:list){
             rand_int = rand.nextInt(100);
             if (rand_int < spreadChance){               
-                try{                                        //
+                try{                                        //try to insert grass, do nothing if it fails
                     world.setTile(neighbor,new Grass());    //insert new grass at location
                 } catch (IllegalArgumentException e){
                     //System.out.println("test");
@@ -39,6 +41,7 @@ public class Grass extends EnvObject implements Actor{
         }
     }
 
+    //**Takes inputs of type World and Location to determine if location is of type grass. Return type is Boolean */
     public static boolean isTileGrass (World world, Location location){
         try{
         if (world.getNonBlocking(location) instanceof Grass){

@@ -34,7 +34,7 @@ public class Rabbit extends Animal implements Actor{
                 
 
 
-
+            
 
             Set<Location> neighbours = world.getEmptySurroundingTiles();
             ArrayList<Location> list = new ArrayList<>(neighbours);
