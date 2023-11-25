@@ -4,63 +4,63 @@ import itumulator.simulator.*;
 import itumulator.display.*;
 import java.awt.*;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class RabbitHole extends EnvObject{
-    protected ArrayList<Rabbit> rabbitsInHole= new ArrayList<Rabbit>();
 
-    RabbitHole(World world){
+public class RabbitHole extends EnvObject {
+    protected ArrayList<Rabbit> rabbitsInHole = new ArrayList<>();
+
+    public RabbitHole(World world) {
         super(ObjectType.hole, world);
     }
 
-    public void activate(){
-        if(world.isDay()){
+    public void activate() {
+        if (world.isDay()) {
             removeFromHole();
         }
     }
 
-
-    // adds rabbits to hole
-    public void addToHole(Rabbit rabbit){
+    // Adds rabbits to the hole
+    public void addToHole(Rabbit rabbit) {
         System.err.println("Rabbit added");
         rabbitsInHole.add(rabbit);
         world.remove(rabbit);
-
     }
 
-    public void removeFromHole(){
-        // getting surrounding tiles, and current location
-        System.err.println("3");
+    public void removeFromHole() {
         Location l = world.getLocation(this);
         Set<Location> neighbours = world.getEmptySurroundingTiles(l);
         ArrayList<Location> list = new ArrayList<>(neighbours);
-        System.err.println("2");
+        System.out.println("Available locations " + list.toString());
+
         Collections.shuffle(list);
-        
+        DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
 
-        System.err.println("1");
-
+        Iterator<Rabbit> iterator = rabbitsInHole.iterator();
         for (Rabbit currentRabbit : rabbitsInHole) {
-            world.add(currentRabbit);
-            world.setTile(list.get(1), currentRabbit);
-            
-            list.remove(1);
-            
-            rabbitsInHole.remove(currentRabbit);
-            
-            
-        }
-
-        //Spawns rabbits on surround empty tiles
-    }
-
-    public Boolean placeable(Location l , World world){
-        if(!world.containsNonBlocking(l)){
-            return true;
-        }
-        return false;
-    }
+            while (iterator.hasNext()) {
+                System.out.println("1"); 
+                
+                world.setTile(list.get(0), currentRabbit);
     
-    public ObjectType getObjectType(){
+                world.move(currentRabbit, list.get(0));
+    
+                di = new DisplayInformation(Color.blue,"rabbit-small"); // Color Settings
+                Main.p.setDisplayInformation(Rabbit.class, di);
+                
+                list.remove(0);
+                 
+            }
+        }
+    }
+
+    public boolean placeable(Location l, World world) {
+        return !world.containsNonBlocking(l);
+    }
+
+    @Override
+    public ObjectType getObjectType() {
         return super.getObjectType();
     }
-}   
+}
