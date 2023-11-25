@@ -9,9 +9,11 @@ public class EnvObject implements NonBlocking {
     Set<Location> neighbours;
     ArrayList<Location> list;
     ObjectType objType;
+    protected World world;
 
-    EnvObject(ObjectType objType){
+    EnvObject(ObjectType objType, World world){
         this.objType = objType;
+        this.world = world;
     }
 
     public void act(World world){

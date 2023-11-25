@@ -14,12 +14,14 @@ public class Animal {
     private int age;
     protected int foodPoint;
     private int energy;
+    protected World world;
 
 
-    Animal(){
+    Animal(World world){
         this.age = 0;
         this.foodPoint = 1;
         this.energy = 1;
+        this.world = world;
     }
 
     enum type{

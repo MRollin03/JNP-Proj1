@@ -18,8 +18,8 @@ public class Grass extends EnvObject implements Actor{
     private int spreadChance = 2-1; //15% chance to spread
     private Random rand = new Random();
 
-    Grass(){
-        super(ObjectType.grass);
+    Grass(World world){
+        super(ObjectType.grass, world);
     }
 
     
@@ -39,7 +39,7 @@ public class Grass extends EnvObject implements Actor{
             rand_int = rand.nextInt(100);
             if (rand_int < spreadChance){               
                 try{                                        //
-                    world.setTile(neighbor,new Grass());    //insert new grass at location
+                    world.setTile(neighbor,new Grass(world));    //insert new grass at location
                 } catch (IllegalArgumentException e){
                     //System.out.println("test");
                 }

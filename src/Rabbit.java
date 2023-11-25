@@ -8,9 +8,10 @@ import java.util.*;
 
 
 public class Rabbit extends Animal implements Actor{
+    RabbitHole currentRabbitHole = null;
 
-    Rabbit(){
-        super();
+    Rabbit(World world){
+        super(world);
     }
 
     @Override
@@ -20,25 +21,48 @@ public class Rabbit extends Animal implements Actor{
         
         // Nat og dags Behavior 
         if(world.isNight()){
+            if(world.getCurrentLocation() == null) {
+                System.err.println("not on board");
+                return;
+            }
 
+            // getting surrounding tiles, and current location
             Set<Location> neighbours = world.getEmptySurroundingTiles();
             ArrayList<Location> list = new ArrayList<>(neighbours);
-
             Random rand = new Random();
-
             Location l = world.getCurrentLocation();
 
+            if(world.containsNonBlocking(l)){
+                if(checkNonBlocking(l, world)){
+                    RabbitHole hole = (RabbitHole) world.getNonBlocking(l);
+                    currentRabbitHole = (RabbitHole) world.getNonBlocking(l);
+                    hole.addToHole(this);
+                    return;
+                }
+            }
+
+
+            /**
+             * This try method consist of
+             * - finds the differance from the rabbit to the holes
+             * - afterwouds calculates the steps to the hole from
+             * - the current position of the rabbit itself.
+             */
             try {
+
+                // call function that gives us the cordinates of a hole.
                 Location holeLocation= holeIsNear(world, l);
+
                 if(list != null){
                     try {
+
+                        //calculating the new location for the rabbits new step
                         l = new Location(
                             stepFunction((holeLocation.getX() - l.getX()), l.getX()), // finds next X-step
                             stepFunction((holeLocation.getY() - l.getY()), l.getY()) // finds nexr y_step
                             );
-                        System.err.println("new loaction " + l);
 
-                        System.err.println(l); 
+                        //moves the rabbit to the given location
                         world.move(this,l);
                         
                     } catch (IllegalArgumentException e) {
@@ -47,16 +71,17 @@ public class Rabbit extends Animal implements Actor{
                 }
             }
              catch (Exception e) {
-                System.out.println(e.getMessage() +" This is the ");
+                System.out.println(e.getMessage());
             }
-
-
             
         }
 
         else{
 
             // Edit: Her skal der kodes dags behavoir -------
+            if (currentRabbitHole != null) {
+                currentRabbitHole.activate();
+              }
 
             Set<Location> neighbours = world.getEmptySurroundingTiles();
             ArrayList<Location> list = new ArrayList<>(neighbours);
@@ -71,7 +96,7 @@ public class Rabbit extends Animal implements Actor{
                 } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                 }
-                RabbitHole hole = new RabbitHole();
+                RabbitHole hole = new RabbitHole(world);
             }
             
             if (Grass.isTileGrass(world, l)){
@@ -85,7 +110,7 @@ public class Rabbit extends Animal implements Actor{
     }
 
 
-
+    //Calculates the nexstep X - Y / -cordinate between to cordinates.
     private int stepFunction(int differance, int currentCord){
         if(differance > 0){
             return  currentCord + 1;
@@ -100,7 +125,7 @@ public class Rabbit extends Animal implements Actor{
     }
 
     //Checks if grass are near
-    public boolean isGrassNear(){
+    private boolean isGrassNear(){
         boolean res = false;
 
         // ---- Implement code that check if grass is  on neighboring tiles --- 
@@ -109,7 +134,7 @@ public class Rabbit extends Animal implements Actor{
     }
     
     //checks if the is a hole in the given radius
-    public Location holeIsNear(World world, Location l) throws Exception {
+    private Location holeIsNear(World world, Location l) throws Exception {
         Set<Location> neighbours =  world.getSurroundingTiles(l, 5);
         ArrayList<Location> list = new ArrayList<>(neighbours);
     
@@ -140,5 +165,20 @@ public class Rabbit extends Animal implements Actor{
         super.die(world);
     }
 
-
+    
+    private boolean checkNonBlocking(Location location, World world) {
+        try {
+            Object obj = world.getNonBlocking(location);
+    
+            // Check if the object is not null and its class is RabbitHole
+            return obj != null && obj instanceof RabbitHole;
+        } catch (IllegalArgumentException e) {
+            // Handle the exception if needed
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+        
+    
 }

@@ -34,21 +34,21 @@ public class Main {
                 
                 switch (entType) {
                     case "Rabbit":
-                        Animal currentRabbit = new Rabbit();
+                        Animal currentRabbit = new Rabbit(world);
                         world.setTile(l, currentRabbit);
                         di = new DisplayInformation(Color.blue,"rabbit-small"); // Color Settings
                         p.setDisplayInformation(Rabbit.class, di);
                         break;
                 
                     case "Grass":
-                        EnvObject currentObject = new Grass();
+                        EnvObject currentObject = new Grass(world);
                         world.setTile(l, currentObject);
                         di = new DisplayInformation(Color.yellow,"grass"); // Color Settings
                         p.setDisplayInformation(Grass.class, di);
                         break;
                      
                     case "RabbitHole":
-                        EnvObject currentRabbitHole = new RabbitHole();
+                        EnvObject currentRabbitHole = new RabbitHole(world);
                         world.setTile(l, currentRabbitHole);
                         di = new DisplayInformation(Color.GRAY); // Color Settings
                         p.setDisplayInformation(RabbitHole.class, di);
