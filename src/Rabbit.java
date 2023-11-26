@@ -14,12 +14,12 @@ public class Rabbit extends Animal implements Actor {
 
     @Override
     public void act(World world) {
+        
         if (world.isNight()) {
             handleNightBehavior(world);
         } else{
             
             handleDayBehavior(world);
-        
         }
 
         super.act(world);
