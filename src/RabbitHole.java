@@ -39,20 +39,7 @@ public class RabbitHole extends EnvObject {
 
         Iterator<Rabbit> iterator = rabbitsInHole.iterator();
         for (Rabbit currentRabbit : rabbitsInHole) {
-            //while (iterator.hasNext()) {
-                System.out.println("1" + " " +  list.get(0)); 
-            
-                world.setTile(list.get(0), currentRabbit);
-                //currentRabbit.world.setCurrentLocation(l);
-                //world.setCurrentLocation(l);
-                //world.move(currentRabbit,l);
-    
-                //di = new DisplayInformation(Color.blue,"rabbit-small"); // Color Settings
-                //Main.p.setDisplayInformation(Rabbit.class, di);
-                
-                //list.remove(0);
-                 
-            //}
+            world.setTile(list.get(0), currentRabbit);
         }
         list.clear();
         rabbitsInHole.clear();
