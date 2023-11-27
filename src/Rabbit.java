@@ -6,7 +6,6 @@ import java.util.*;
 
 public class Rabbit extends Animal implements Actor {
     private RabbitHole currentRabbitHole = null;
-    private int foodPoint = 0;
 
     public Rabbit(World world){
         super(world);

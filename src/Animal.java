@@ -19,7 +19,7 @@ public class Animal {
 
     Animal(World world){
         this.age = 0;
-        this.foodPoint = 1;
+        this.foodPoint = 100;
         this.energy = 1;
         this.world = world;
     }

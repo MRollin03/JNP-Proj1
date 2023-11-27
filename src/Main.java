@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         scan Scan = new scan(); // This will prompt for input
         int size = Scan.getSize();
-        int delay = 1000; // forsinkelsen mellem hver skridt af simulationen (i ms)
+        int delay = 500; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 800; // sk�rm opl�sningen (i px)
         p = new Program(size, display_size, delay); // opret et nyt program
         world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilf�je ting!
