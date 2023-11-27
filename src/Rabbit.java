@@ -6,6 +6,7 @@ import java.util.*;
 
 public class Rabbit extends Animal implements Actor {
     private RabbitHole currentRabbitHole = null;
+    private int mate_CD = 7;
 
     public Rabbit(World world){
         super(world);
@@ -17,7 +18,6 @@ public class Rabbit extends Animal implements Actor {
         if (world.isNight()) {
             handleNightBehavior(world);
         } else{
-            
             handleDayBehavior(world);
         }
 
@@ -51,40 +51,68 @@ public class Rabbit extends Animal implements Actor {
     }
 
     private void handleDayBehavior(World world) {
-    System.err.println("Day behavior");
+        System.err.println("Day behavior");
 
-    if (world.getCurrentLocation() == null) {
-        System.err.println("Not on the board");
-        if (currentRabbitHole != null) {
-            currentRabbitHole.removeFromHole();
+        if (world.getCurrentLocation() == null) {
+            System.err.println("Not on the board");
+            if (currentRabbitHole != null) {
+                currentRabbitHole.removeFromHole();
+            }
+            return;
         }
-        return;
+
+        // Proceed only if world.getCurrentLocation() is not null
+        Location currentLocation = world.getCurrentLocation();
+
+        Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
+        if (!emptyTiles.isEmpty()) {                                            //move to random location
+            Random rand = new Random();
+            Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));
+            try {
+                world.move(this, newLocation);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+            RabbitHole hole = new RabbitHole(world);
+            System.err.println("Hole created");
+
+            if (Grass.isTileGrass(world, newLocation)) {                        //eat grass
+                EnvObject.deleteObj(world, world.getNonBlocking(newLocation));
+                foodPoint += 5;
+                System.err.println("Grass eaten");
+            }
+        }
+
+        if (mate_CD > 0){
+            mate_CD--;
+        }
+        Location pastLocation = world.getCurrentLocation();
+        Set<Location> surroundingTiles = world.getSurroundingTiles(1);
+        for (Location l : surroundingTiles) {
+            if (world.getTile(l) instanceof Rabbit && mate_CD == 0){
+                world.setCurrentLocation(l);
+                if(getmate_CD() == 0){
+                    Random rand = new Random();
+                    Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));
+                    try {
+                        world.setTile(newLocation,new Rabbit(world));
+                        mate_CD = 10;   //resets Mate cooldown for 1 rabbit
+                        world.setCurrentLocation(pastLocation);
+                        mate_CD = 10;   //resets Mate cooldown for the other rabbit
+                    } catch (Exception e ){
+
+                    }
+                }
+            }
+        }
+        world.setCurrentLocation(pastLocation);
+
+        System.err.println("3");
     }
 
-    // Proceed only if world.getCurrentLocation() is not null
-    Location currentLocation = world.getCurrentLocation();
-
-    Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
-    if (!emptyTiles.isEmpty()) {
-        Random rand = new Random();
-        Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));
-        try {
-            world.move(this, newLocation);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        RabbitHole hole = new RabbitHole(world);
-        System.err.println("Hole created");
-
-        if (Grass.isTileGrass(world, newLocation)) {
-            EnvObject.deleteObj(world, world.getNonBlocking(newLocation));
-            foodPoint += 5;
-            System.err.println("Grass eaten");
-        }
+    private int getmate_CD(){                                   //returns mate cooldown for rabbit at current location
+        return this.mate_CD;
     }
-
-    System.err.println("3");
-}
 
 
     private Location calculateNextStep(Location holeLocation, Location currentLocation) {
@@ -101,11 +129,6 @@ public class Rabbit extends Animal implements Actor {
         } else {
             return currentCoord;
         }
-    }
-
-    private boolean isGrassNear() {
-        // Implement code that checks if grass is on neighboring tiles
-        return true;
     }
 
     private Location holeIsNear(World world, Location l) throws Exception {
