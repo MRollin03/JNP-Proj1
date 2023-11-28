@@ -73,13 +73,11 @@ public class Rabbit extends Animal implements Actor {
     if (mate_CD > 0){
         mate_CD--;
     }
-    Location pastLocation = world.getCurrentLocation();
     Set<Location> surroundingTiles = world.getSurroundingTiles(1);
     for (Location l : surroundingTiles) {
         if (world.getTile(l) instanceof Rabbit && mate_CD == 0){
-            System.out.println("main:" + getmate_CD());
-            world.setCurrentLocation(l);
-            System.out.println("other:" + getothermate_CD(l));
+            //System.out.println("main:" + getmate_CD());
+            //System.out.println("other:" + getothermate_CD(l));
             if(getothermate_CD(l) == 0){
                 Random rand = new Random();
                 Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));      //brug en anden funktion her?
@@ -91,7 +89,6 @@ public class Rabbit extends Animal implements Actor {
 
                 }
             }
-            world.setCurrentLocation(pastLocation);
         }
     }
 
@@ -125,6 +122,9 @@ public class Rabbit extends Animal implements Actor {
         return mate.getmate_CD();
     }
 
+    /**
+     * Resets mate cooldown timer for rabbit at location l
+     */
     private void resetmateCD(Location l){
         Rabbit temp = (Rabbit) world.getTile(l);
         temp.mate_CD = 15;
