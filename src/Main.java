@@ -78,11 +78,10 @@ public class Main {
                         di = new DisplayInformation(Color.yellow,"grass"); // Color Settings
                         p.setDisplayInformation(Grass.class, di);
                         break;
-                     
                     case "RabbitHole":
                         EnvObject currentRabbitHole = new RabbitHole(world);
                         world.setTile(l, currentRabbitHole);
-                        di = new DisplayInformation(Color.GRAY); // Color Settings
+                        di = new DisplayInformation(Color.GRAY, "hole-small"); // Color Settings
                         p.setDisplayInformation(RabbitHole.class, di);
                         break;
 

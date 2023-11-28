@@ -1,6 +1,8 @@
 
+import itumulator.executable.DisplayInformation;
 import itumulator.simulator.Actor;
 import itumulator.world.*;
+import javafx.scene.paint.Color;
 
 import java.util.*;
 
@@ -17,7 +19,6 @@ public class Rabbit extends Animal implements Actor {
         if (world.isNight()) {
             handleNightBehavior(world);
         } else{
-            
             handleDayBehavior(world);
         }
 
@@ -26,7 +27,6 @@ public class Rabbit extends Animal implements Actor {
 
     private void handleNightBehavior(World world) {
         if (world.getCurrentLocation() == null) {
-            System.err.println("Not on the board");
             return;
         }
 
@@ -39,11 +39,17 @@ public class Rabbit extends Animal implements Actor {
         }
 
         try {
+            
             Location holeLocation = holeIsNear(world, currentLocation);
             List<Location> emptyTiles = new ArrayList<>(world.getEmptySurroundingTiles());
             if (!emptyTiles.isEmpty()) {
-                Location newLocation = calculateNextStep(holeLocation, currentLocation);
-                world.move(this, newLocation);
+
+                Location newLocation = diff(holeLocation, currentLocation);
+
+                if(world.isTileEmpty(newLocation)){
+                    world.move(this, newLocation);
+                }
+                
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -51,10 +57,8 @@ public class Rabbit extends Animal implements Actor {
     }
 
     private void handleDayBehavior(World world) {
-    System.err.println("Day behavior");
 
     if (world.getCurrentLocation() == null) {
-        System.err.println("Not on the board");
         if (currentRabbitHole != null) {
             currentRabbitHole.removeFromHole();
         }
@@ -73,8 +77,7 @@ public class Rabbit extends Animal implements Actor {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-        RabbitHole hole = new RabbitHole(world);
-        System.err.println("Hole created");
+        
 
         if (Grass.isTileGrass(world, newLocation)) {
             EnvObject.deleteObj(world, world.getNonBlocking(newLocation));
@@ -82,12 +85,10 @@ public class Rabbit extends Animal implements Actor {
             System.err.println("Grass eaten");
         }
     }
-
-    System.err.println("3");
 }
 
 
-    private Location calculateNextStep(Location holeLocation, Location currentLocation) {
+    private Location diff(Location holeLocation, Location currentLocation) {
         int newX = stepFunction(holeLocation.getX() - currentLocation.getX(), currentLocation.getX());
         int newY = stepFunction(holeLocation.getY() - currentLocation.getY(), currentLocation.getY());
         return new Location(newX, newY);
@@ -124,7 +125,7 @@ public class Rabbit extends Animal implements Actor {
                 return world.getLocation(object);
             }
         }
-
+        Main.spawnIn("RabbitHole", world, world.getLocation(this));
         throw new IllegalArgumentException("No holes nearby");
     }
 
