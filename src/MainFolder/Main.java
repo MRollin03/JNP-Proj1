@@ -10,15 +10,14 @@ import java.util.stream.Stream;
 
 import Animals.*;
 import EnviormentObjects.*;
-import EnviormentObjects.Grass;
 
 public class Main {
     static Program p;
     static World world;
 
     public static void main(String[] args) {
-        scan Scan = new scan(); // This will prompt for input
-        int size = Scan.getSize();
+        scan Scanner = new scan("data/t1-3a.txt");
+        int size = Scanner.getSize();
         int delay = 500; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 800; // sk�rm opl�sningen (i px)
         p = new Program(size, display_size, delay); // opret et nyt program
@@ -28,9 +27,9 @@ public class Main {
         HashMap<String, Integer> entSpawnMap = new HashMap<String, Integer>();
         
         //spawn Values for each 
-        entSpawnMap.put("Rabbit", Scan.getRabbit());
-        entSpawnMap.put("Grass", Scan.getGrass());
-        entSpawnMap.put("RabbitHole", Scan.getBurrow());
+        entSpawnMap.put("Rabbit", Scanner.getRabbit());
+        entSpawnMap.put("Grass", Scanner.getGrass());
+        entSpawnMap.put("RabbitHole", Scanner.getBurrow());
         entSpawnMap.put("Person", 0);
 
         
