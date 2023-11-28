@@ -9,15 +9,14 @@ import java.util.*;
 
 import Animals.*;
 import EnviormentObjects.*;
-import EnviormentObjects.Grass;
 
 public class Main {
     static Program p;
     static World world;
 
     public static void main(String[] args) {
-        scan Scan = new scan(); // This will prompt for input
-        int size = Scan.getSize();
+        scan Scanner = new scan("data/t1-3a.txt");
+        int size = Scanner.getSize();
         int delay = 500; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 800; // sk�rm opl�sningen (i px)
         p = new Program(size, display_size, delay); // opret et nyt program
