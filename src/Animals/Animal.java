@@ -20,7 +20,7 @@ public class Animal {
 
     Animal(World world){
         this.age = 0;
-        this.foodPoint = 100;
+        this.foodPoint = 10;
         this.energy = 1;
         this.world = world;
     }
@@ -42,21 +42,6 @@ public void act(World world){
     }
 
     
-
-    /*  ----- Standard Act behavoir -------
-    
-    public void act(World world) {
-        
-        Set<Location> neighbours = world.getEmptySurroundingTiles();
-        ArrayList<Location> list = new ArrayList<>(neighbours);
-
-        Random rand = new Random();
-
-        if(list != null){
-            Location l = list.get(rand.nextInt( list.size()-1)); // Linje 2 og 3 kan erstattes af neighbours.toArray()[0]
-            world.move(this,l);
-        }
-    }*/
 
 
     // Main die method

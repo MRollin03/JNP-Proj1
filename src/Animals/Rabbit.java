@@ -1,14 +1,8 @@
 package Animals;
-
-import itumulator.executable.DisplayInformation;
 import itumulator.simulator.Actor;
 import itumulator.world.*;
-import javafx.scene.paint.Color;
-
-import Animals.*;
 import EnviormentObjects.*;
 import MainFolder.*;
-
 import java.util.*;
 
 public class Rabbit extends Animal implements Actor {
