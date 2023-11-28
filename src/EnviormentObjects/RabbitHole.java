@@ -61,11 +61,6 @@ public class RabbitHole extends EnvObject {
             rabbitsInHole.remove(0);
         }
     }
-    
-
-    public boolean placeable(Location l, World world) {
-        return !world.containsNonBlocking(l);
-    }
 
     @Override
     public ObjectType getObjectType() {
