@@ -58,37 +58,37 @@ public class Rabbit extends Animal implements Actor {
     }
 
     private void handleDayBehavior(World world) {
-    if (world.getCurrentLocation() == null) {       // Proceed only if world.getCurrentLocation() is not null
-        if (currentRabbitHole != null) {
-            currentRabbitHole.removeFromHole();
+        if (world.getCurrentLocation() == null) {       // Proceed only if world.getCurrentLocation() is not null
+            if (currentRabbitHole != null) {
+                currentRabbitHole.removeFromHole();
+            }
+            return;
         }
-        return;
-    }
-    if (mate_CD > 0){
-        mate_CD--;
-    }
-    Set<Location> surroundingTiles = world.getSurroundingTiles(1);
-    for (Location l : surroundingTiles) {
-        if (world.getTile(l) instanceof Rabbit && mate_CD == 0){
-            //System.out.println("main:" + getmate_CD());
-            //System.out.println("other:" + getothermate_CD(l));
-            if(getothermate_CD(l) == 0){
-                Random rand = new Random();
-                Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));      //brug en anden funktion her?
-                try {
-                    world.setTile(newLocation,new Rabbit(world));
-                    mate_CD = 15;               //resets Mate cooldown for 1 rabbit
-                    resetmateCD(l);             //resets Mate cooldown for the other rabbit
-                } catch (Exception e ){
+        Location currentLocation = world.getCurrentLocation();
 
+        Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
+    
+        if (mate_CD > 0){
+            mate_CD--;
+        }
+        Set<Location> surroundingTiles = world.getSurroundingTiles(1);
+        for (Location l : surroundingTiles) {
+            if (world.getTile(l) instanceof Rabbit && mate_CD == 0){
+                //System.out.println("main:" + getmate_CD());
+                //System.out.println("other:" + getothermate_CD(l));
+                if(getothermate_CD(l) == 0){
+                    Random rand = new Random();
+                    Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));      //brug en anden funktion her?
+                    try {
+                        Utils.spawnIn("Rabbit",newLocation);
+                        mate_CD = 15;               //resets Mate cooldown for 1 rabbit
+                        resetmateCD(l);             //resets Mate cooldown for the other rabbit
+                    } catch (Exception e ){
+
+                    }
                 }
             }
         }
-    }
-
-    
-    
-    Location currentLocation = world.getCurrentLocation();
 
     try {
         Utils.randomMove(currentLocation, this);
@@ -104,14 +104,14 @@ public class Rabbit extends Animal implements Actor {
     }
 }
 
-private int getmate_CD(){                                   //returns mate cooldown for rabbit at current location
-    return this.mate_CD;
-}
+    private int getmate_CD(){                                   //returns mate cooldown for rabbit at current location
+        return this.mate_CD;
+    }
 
-private int getothermate_CD(Location l){ 
-    Rabbit mate = (Rabbit) world.getTile(l);                                  //returns mate cooldown for rabbit at current location
-    return mate.getmate_CD();
-}
+    private int getothermate_CD(Location l){ 
+        Rabbit mate = (Rabbit) world.getTile(l);                 //returns mate cooldown for rabbit at location l
+        return mate.getmate_CD();
+    }
 
 /**
  * Resets mate cooldown timer for rabbit at location l
