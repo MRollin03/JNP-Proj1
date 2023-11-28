@@ -1,3 +1,4 @@
+package EnviormentObjects;
 import itumulator.executable.*;
 import itumulator.world.*;
 import itumulator.simulator.*;
@@ -6,6 +7,8 @@ import java.awt.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import Animals.Rabbit;
 
 
 public class RabbitHole extends EnvObject {
@@ -23,27 +26,42 @@ public class RabbitHole extends EnvObject {
 
     // Adds rabbits to the hole
     public void addToHole(Rabbit rabbit) {
-        System.err.println("Rabbit added");
+        System.out.println("1 : Rabbits in hole size " + rabbitsInHole.size() );
         rabbitsInHole.add(rabbit);
         world.remove(rabbit);
     }
 
     public void removeFromHole() {
+        if (rabbitsInHole.isEmpty()) {
+            return;
+        }
+        
         Location l = world.getLocation(this);
+    
         Set<Location> neighbours = world.getEmptySurroundingTiles(l);
         ArrayList<Location> list = new ArrayList<>(neighbours);
-        System.out.println("Available locations " + list.toString());
-
+    
         Collections.shuffle(list);
-        DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
-
-        Iterator<Rabbit> iterator = rabbitsInHole.iterator();
-        for (Rabbit currentRabbit : rabbitsInHole) {
-            world.setTile(list.get(0), currentRabbit);
+    
+        int rabbitsReleased = 0;
+    
+        for (int i = 0; i < list.size(); i++) {
+            try {
+                if (i >= rabbitsInHole.size()) {
+                    break;
+                }
+                world.setTile(list.get(i), rabbitsInHole.get(i));
+                rabbitsReleased++;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
-        list.clear();
-        rabbitsInHole.clear();
+    
+        for (int index = 0; index < rabbitsReleased; index++) {
+            rabbitsInHole.remove(0);
+        }
     }
+    
 
     public boolean placeable(Location l, World world) {
         return !world.containsNonBlocking(l);

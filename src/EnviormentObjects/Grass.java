@@ -1,16 +1,13 @@
+package EnviormentObjects;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
-import itumulator.world.NonBlocking;
 import itumulator.world.World;
 
-import itumulator.executable.*;
+
 import itumulator.world.*;
 import itumulator.simulator.*;
-import itumulator.display.*;
-import java.awt.*;
-import java.util.*;
 
 
 public class Grass extends EnvObject implements Actor{
@@ -18,7 +15,7 @@ public class Grass extends EnvObject implements Actor{
     private int spreadChance = 2-1; //15% chance to spread
     private Random rand = new Random();
 
-    Grass(World world){
+    public Grass(World world){
         super(ObjectType.grass, world);
     }
 

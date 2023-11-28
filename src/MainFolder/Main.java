@@ -1,3 +1,4 @@
+package MainFolder;
 import itumulator.executable.*;
 import itumulator.world.*;
 import itumulator.simulator.*;
@@ -6,6 +7,11 @@ import java.awt.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import Animals.*;
+import EnviormentObjects.*;
+import EnviormentObjects.Grass;
+
 public class Main {
     static Program p;
     static World world;
@@ -78,11 +84,10 @@ public class Main {
                         di = new DisplayInformation(Color.yellow,"grass"); // Color Settings
                         p.setDisplayInformation(Grass.class, di);
                         break;
-                     
                     case "RabbitHole":
                         EnvObject currentRabbitHole = new RabbitHole(world);
                         world.setTile(l, currentRabbitHole);
-                        di = new DisplayInformation(Color.GRAY); // Color Settings
+                        di = new DisplayInformation(Color.GRAY, "hole-small"); // Color Settings
                         p.setDisplayInformation(RabbitHole.class, di);
                         break;
 
