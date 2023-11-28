@@ -5,8 +5,7 @@ import itumulator.simulator.*;
 import itumulator.display.*;
 import java.awt.*;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 import Animals.*;
 import EnviormentObjects.*;
