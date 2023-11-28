@@ -1,3 +1,4 @@
+package EnviormentObjects;
 
 public enum ObjectType {
  hole,

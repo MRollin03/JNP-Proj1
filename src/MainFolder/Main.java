@@ -1,3 +1,4 @@
+package MainFolder;
 import itumulator.executable.*;
 import itumulator.world.*;
 import itumulator.simulator.*;
@@ -6,6 +7,11 @@ import java.awt.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import Animals.*;
+import EnviormentObjects.*;
+import EnviormentObjects.Grass;
+
 public class Main {
     static Program p;
     static World world;

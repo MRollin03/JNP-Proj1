@@ -1,3 +1,4 @@
+package Animals;
 
 import itumulator.world.*;
 import itumulator.simulator.*;

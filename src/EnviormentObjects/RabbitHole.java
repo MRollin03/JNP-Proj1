@@ -1,3 +1,4 @@
+package EnviormentObjects;
 import itumulator.executable.*;
 import itumulator.world.*;
 import itumulator.simulator.*;
@@ -6,6 +7,8 @@ import java.awt.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import Animals.Rabbit;
 
 
 public class RabbitHole extends EnvObject {
