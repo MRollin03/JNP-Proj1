@@ -67,6 +67,7 @@ public class scan {
             rabbit = dataMap.getOrDefault("rabbit", 0);
             burrow = dataMap.getOrDefault("burrow", 0);
             grass = dataMap.getOrDefault("grass", 0);
+                        
             
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());

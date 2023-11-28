@@ -15,7 +15,7 @@ public class Main {
     static World world;
 
     public static void main(String[] args) {
-        scan Scanner = new scan("data/t1-3a.txt");
+        scan Scanner = new scan("data/t1-2cde.txt");
         int size = Scanner.getSize();
         int delay = 500; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 800; // sk�rm opl�sningen (i px)
@@ -26,10 +26,10 @@ public class Main {
         HashMap<String, Integer> entSpawnMap = new HashMap<String, Integer>();
         
         //spawn Values for each 
-        entSpawnMap.put("Rabbit", Scan.getRabbit());
-        entSpawnMap.put("Grass", Scan.getGrass());
-        entSpawnMap.put("RabbitHole", Scan.getBurrow());
-        entSpawnMap.put("Wolf", Scan.getBurrow());
+        entSpawnMap.put("Rabbit", Scanner.getRabbit());
+        entSpawnMap.put("Grass", Scanner.getGrass());
+        entSpawnMap.put("RabbitHole", Scanner.getBurrow());
+        //entSpawnMap.put("Wolf", Scanner.getBurrow());
 
         
 

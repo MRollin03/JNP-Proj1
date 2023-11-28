@@ -5,10 +5,9 @@ import itumulator.simulator.Actor;
 import itumulator.world.*;
 
 public class Wolf extends Animal implements Actor{
-    private int packnr = 0;
+    private int packnr;
     protected ArrayList<Wolf> WolvesInPacks = new ArrayList<>();
 
-    private Location packCenter = (0,0);
     public Wolf(World world, int packnr){
         super(world);
         this.packnr = packnr;
@@ -21,7 +20,7 @@ public class Wolf extends Animal implements Actor{
         } else{
             handleDayBehavior(world);
         }
-
+        updatePackCenter(world, packnr);
         super.act(world);
     }
 
