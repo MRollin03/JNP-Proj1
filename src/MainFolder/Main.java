@@ -30,7 +30,7 @@ public class Main {
         entSpawnMap.put("Rabbit", Scan.getRabbit());
         entSpawnMap.put("Grass", Scan.getGrass());
         entSpawnMap.put("RabbitHole", Scan.getBurrow());
-        entSpawnMap.put("Person", 0);
+        entSpawnMap.put("Wolf", Scan.getBurrow());
 
         
 
@@ -90,11 +90,11 @@ public class Main {
                         p.setDisplayInformation(RabbitHole.class, di);
                         break;
 
-                    case "Person":
-                        Person currentPerson = new Person();
-                        world.setTile(l, currentPerson);
-                        di = new DisplayInformation(Color.red); // Color Settings
-                        p.setDisplayInformation(Person.class, di);
+                    case "Wolf":
+                        Wolf currentWolf = new Wolf(world, 1);
+                        world.setTile(l, currentWolf);
+                        di = new DisplayInformation(Color.red,"Wolf"); // Color Settings
+                        p.setDisplayInformation(Wolf.class, di);
                         break;
                 
                 }
