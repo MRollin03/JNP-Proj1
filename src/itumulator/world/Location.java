@@ -1,5 +1,6 @@
 package itumulator.world;
 
+
 /**
  * Provides an abstraction to deal with coordinates (x,y) and compare them.
  */
