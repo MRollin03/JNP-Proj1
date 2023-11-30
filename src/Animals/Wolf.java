@@ -7,8 +7,10 @@ import EnviormentObjects.*;
 import MainFolder.Utils;
 import itumulator.simulator.Actor;
 import itumulator.world.*;
+import java.awt.*;
+import itumulator.executable.*;
 
-public class Wolf extends Animal implements Actor{
+public class Wolf extends Animal implements Actor, DynamicDisplayInformationProvider{
     private Homes currentWolfden = null;
     private int packnr;
     protected ArrayList<Wolf> WolvesInPacks = new ArrayList<>();
@@ -17,6 +19,7 @@ public class Wolf extends Animal implements Actor{
     public Wolf(World world, int packnr){
         super(world);
         this.packnr = packnr;
+        //this.packCenter = new Location(x, y);
     }
 
     @Override
@@ -110,5 +113,14 @@ public class Wolf extends Animal implements Actor{
 
     private void updatePackCenter(World world, int packnr){
         
+    }
+
+    public DisplayInformation getInformation() {
+        if(super.getAge() > 1){
+            return new DisplayInformation(Color.BLUE, "wolf-large");
+        }
+        else{
+            return new DisplayInformation(Color.BLUE, "wolf-small");
+        }
     }
 }

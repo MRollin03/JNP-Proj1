@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         scan Scanner = new scan("data/t2-1c.txt");
         int size = Scanner.getSize();
-        int delay = 500; // forsinkelsen mellem hver skridt af simulationen (i ms)
+        int delay = 300; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 800; // sk�rm opl�sningen (i px)
         Utils.newProgram(size, display_size, delay);
 
@@ -25,15 +25,18 @@ public class Main {
         entSpawnMap.put("RabbitHole", Scanner.getBurrow());
         entSpawnMap.put("Wolf", Scanner.getFirstWolfPack());
        
+        //entSpawnMap.put("Wolf", Scanner.getWolf());
+        entSpawnMap.put("Bear" , 1);
+
+        
 
         // Spawns every entitie on map.
         for (String entType : entSpawnMap.keySet()) {
             for(int i = 0; i < entSpawnMap.get(entType); i++){
-                Location l = Utils.getRandomLocation(size);     //Find a random location
+                Location l = Utils.getWorldRandomLocation(size);     //Find a random location
                 Utils.spawnIn(entType, l);
             }
         }
-        System.out.println("NO more entities");
 
         Utils.p.show(); // Shows the simulation
         for (int i = 0; i < 200; i++) {
