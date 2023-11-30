@@ -4,19 +4,24 @@ import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
  * Parser data fra en angivet fil.
- * Dataene inkluderer en størrelse og værdier for kanin, bur og græs.
+ * Dataene inkluderer en størrelse og værdier for kanin, bur, græs, og ulvepakker.
  */
 public class scan {
     private Map<String, Integer> dataMap = new HashMap<>();
+    private List<Integer> wolves = new ArrayList<>();
     private int size;
     private int rabbit;
     private int burrow;
     private int grass;
+    private int firstWolfPack = 0;
+    private int secondWolfPack = 0;
 
     /**
      * Konstruktør for DataParser.
@@ -27,7 +32,7 @@ public class scan {
     }
 
     /**
-     * Parser filen og gemmer værdierne for størrelse, kanin, bur og græs.
+     * Parser filen og gemmer værdierne for størrelse, kanin, bur, græs, og ulvepakker.
      * @param filePath Stien til filen, der skal parses.
      */
     private void scanner(String filePath) {
@@ -45,7 +50,11 @@ public class scan {
                         size = value;
                         isFirstInteger = false;
                     } else {
-                        dataMap.put(lastString, value);
+                        if (lastString.equals("wolf")) {
+                            wolves.add(value);
+                        } else {
+                            dataMap.put(lastString, value);
+                        }
                     }
                 } else {
                     String next = scanner.next();
@@ -59,9 +68,7 @@ public class scan {
                         lastString = next;
                     }
                 }
-            }
-
-            scanner.close();
+            } assignWolfPacks();
 
             // Tildel specifikke værdier til variabler
             rabbit = dataMap.getOrDefault("rabbit", 0);
@@ -70,6 +77,18 @@ public class scan {
             
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
+        }
+
+
+    
+    }
+
+    public void assignWolfPacks() {
+        if (!wolves.isEmpty()) {
+            firstWolfPack = wolves.get(0);
+            if (wolves.size() > 1) {
+                secondWolfPack = wolves.get(1); 
+            }
         }
     }
 
@@ -103,5 +122,21 @@ public class scan {
      */
     public int getGrass() {
         return grass;
+    }
+
+    /**
+     * Henter antal ulve i første flok.
+     * @return antal ulve i første flok.
+     */
+    public int getFirstWolfPack() {
+        return firstWolfPack;
+    }
+
+    /**
+     * Henter antal ulve i anden fol.
+     * @return antal ulve i anden flok.
+     */
+    public int getSecondWolfPack() {
+        return secondWolfPack;
     }
 }
