@@ -7,18 +7,27 @@ import EnviormentObjects.*;
 import MainFolder.*;
 import java.util.*;
 import java.awt.*;
+import java.util.ArrayList.*;;
 
 public class Bear extends Animal implements Actor, DynamicDisplayInformationProvider{
 
     private Location centrum;
+    private Set terrortories;
+    ArrayList<Class<?>> foods = new ArrayList<>();
 
+
+    //Constructors for two different cases
     public Bear(World world){
         super(world);
-        this.centrum = Utils.getRandomLocation(world.getSize());
+        this.centrum = Utils.getWorldRandomLocation(world.getSize());
+        world.setCurrentLocation(centrum);
+        terrortories = world.getSurroundingTiles(1);
     }
     public Bear(Location centrum, World world){
         super(world);
         this.centrum = centrum;
+        world.setCurrentLocation(centrum);
+        terrortories = world.getSurroundingTiles(1);
     }
 
     @Override
@@ -45,37 +54,16 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
             return;
         }
 
+        System.out.println(terrortories);
         
-        Location currentLocation = world.getCurrentLocation();
+        Location l = null;
         
-        // Gets a random move location and checks if theres grass on the tiles.
-        try {
-            Utils.randomMove(currentLocation, this);
-            Location newLocation = world.getLocation(this);
-
-            ArrayList<Class<?>> foods = new ArrayList<>();
-            foods.add(Grass.class);
-            foods.add(Wolf.class);
-            foods.add(Rabbit.class);
-
-
-            for (Class foodType : foods) {
-                if (Utils.checkNonBlockingType(newLocation, foodType)) {
-                    EnvObject.deleteObj(world, world.getNonBlocking(newLocation));
-                    energy += 5;
-                    System.err.println(foodType + " eaten");
-                }
-            }
-
-            
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        world.move(this, l);
     }
 
     @Override
-    
     public DisplayInformation getInformation() {
+
         if (world.isNight()){
             if(super.getAge() > 1){
                 return new DisplayInformation(Color.BLUE, "bear-sleeping");
@@ -93,6 +81,5 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
             }
         }
     }
-
 
 }

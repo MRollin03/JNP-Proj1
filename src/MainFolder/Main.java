@@ -27,11 +27,10 @@ public class Main {
         // Spawns every entitie on map.
         for (String entType : entSpawnMap.keySet()) {
             for(int i = 0; i < entSpawnMap.get(entType); i++){
-                Location l = Utils.getRandomLocation(size);     //Find a random location
+                Location l = Utils.getWorldRandomLocation(size);     //Find a random location
                 Utils.spawnIn(entType, l);
             }
         }
-        System.out.println("NO more entities");
 
         Utils.p.show(); // Shows the simulation
         for (int i = 0; i < 200; i++) {

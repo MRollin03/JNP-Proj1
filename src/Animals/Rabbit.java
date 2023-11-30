@@ -81,7 +81,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
         
         // Gets a random move location and checks if theres grass on the tiles.
         try {
-            Utils.randomMove(currentLocation, this);
+            world.move(this, Utils.randomMove(currentLocation, this));
             Location newLocation = world.getLocation(this);
 
             if (Utils.checkNonBlockingType(newLocation, Grass.class)) {

@@ -18,27 +18,6 @@ public class Utils {
         p = new Program(size, display_size, delay); // opret et nyt program
         world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilf�je ting!
     }
-
-    /**
-     * This Function returns a random Location based on the size of the world.
-     * 
-     * @param size size  is the size of the world f.ex if 5,  5 X 5 there should be 25 possible locations
-     * @return  returns a Location.
-     */
-    public static Location getRandomLocation(int size){        //gets a random location
-        Random r = new Random();
-        int x = r.nextInt(size);
-        int y = r.nextInt(size);
-        Location l = new Location(x,y);
-        if (world.containsNonBlocking(l)){
-            l = getRandomLocation(size);
-        } 
-        if ((!world.isTileEmpty(l))){
-            l = getRandomLocation(size);
-        } 
-        
-        return l;
-    }
     
     /**
      * SpawnsIn entites based on type and location
@@ -75,50 +54,12 @@ public class Utils {
                 break;
 
             case "Bear":
-                Bear currentBear = new Bear(getRandomLocation(5), world);
+                Bear currentBear = new Bear(getWorldRandomLocation(5), world);
                 world.setTile(l, currentBear);
                 di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
                 p.setDisplayInformation(Bear.class, di);
                 break;
         }
-    }
-
-    /**
-     * Checks if there exist a NonBlockingObject Of type objClass.
-     * @param location  Location of checking.
-     * @param objClass  objClass the class to check for.
-     * @return returns either false or true,
-     */
-    public static boolean checkNonBlocking(Location location, Class objClass) {
-        try {
-            Object obj = world.getNonBlocking(location);
-            return true;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Checks if the location has no nonblocking objects.
-     * @param l   Location to check on.
-     * @return    Returns true or false
-     */
-    public static boolean placeable(Location l) {
-        return !world.containsNonBlocking(l);
-    }
-
-    /**
-     * Function that Gives us the diffrence between two 
-     * from Location 2 to Location 1
-     * @param Location1     Where we want to go      
-     * @param Location2     Where we start from
-     * @return
-     */
-    public static Location diff(Location Location1, Location Location2) {
-        int newX = stepFunction(Location1.getX() - Location2.getX(), Location2.getX());
-        int newY = stepFunction(Location1.getY() - Location2.getY(), Location2.getY());
-        return new Location(newX, newY);
     }
 
     /**
@@ -137,6 +78,9 @@ public class Utils {
             return currentCoord;
         }
     }
+    
+
+    //------------ Location Functions --------------//
     
     /**
      * Checks if theres a nonblocking object near.
@@ -197,18 +141,52 @@ public class Utils {
      * @param currentLocation Location to find a random location around.
      * @param obj              the Object you trying to move.
      */
-    public static void randomMove(Location currentLocation, Object obj){
+    public static Location randomMove(Location currentLocation, Object obj){
         Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
     if (!emptyTiles.isEmpty()) {
         Random rand = new Random();
         Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));
-        try {
-            world.move(obj, newLocation);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        return newLocation;
     }
+    return null;
 }
+
+    /**
+     * This Function returns a random Location based on the size of the world.
+     * 
+     * @param size size  is the size of the world f.ex if 5,  5 X 5 there should be 25 possible locations
+     * @return  returns a Location.
+     */
+    public static Location getWorldRandomLocation(int size){        //gets a random location
+        Random r = new Random();
+        int x = r.nextInt(size);
+        int y = r.nextInt(size);
+        Location l = new Location(x,y);
+        if (world.containsNonBlocking(l)){
+            l = getWorldRandomLocation(size);
+        } 
+        if ((!world.isTileEmpty(l))){
+            l = getWorldRandomLocation(size);
+        } 
+        
+        return l;
+    }
+
+    /**
+     * from Location 2 to Location 1
+     * @param Location1     Where we want to go      
+     * @param Location2     Where we start from
+     * @return
+     */
+    public static Location diff(Location Location1, Location Location2) {
+        int newX = stepFunction(Location1.getX() - Location2.getX(), Location2.getX());
+        int newY = stepFunction(Location1.getY() - Location2.getY(), Location2.getY());
+        return new Location(newX, newY);
+    }
+
+
+
+    //------------- Boolean Functions ------------//
 
     /**
      * 
@@ -225,6 +203,31 @@ public class Utils {
             return false;
         }
         return false;
+    }
+
+    /**
+     * Checks if the location has no nonblocking objects.
+     * @param l   Location to check on.
+     * @return    Returns true or false
+     */
+    public static boolean placeable(Location l) {
+        return !world.containsNonBlocking(l);
+    }
+
+    /**
+     * Checks if there exist a NonBlockingObject Of type objClass.
+     * @param location  Location of checking.
+     * @param objClass  objClass the class to check for.
+     * @return returns either false or true,
+     */
+    public static boolean checkNonBlocking(Location location, Class objClass) {
+        try {
+            Object obj = world.getNonBlocking(location);
+            return true;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
 }
