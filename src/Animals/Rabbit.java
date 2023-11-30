@@ -31,7 +31,7 @@ public class Rabbit extends Animal implements Actor {
         }
 
         Location currentLocation = world.getCurrentLocation();
-        if (world.containsNonBlocking(currentLocation) && Utils.checkNonBlocking(currentLocation, RabbitHole.class)) {
+        if (Utils.checkNonBlocking(currentLocation, RabbitHole.class)) {
             Homes hole = (Homes) world.getNonBlocking(currentLocation);
             currentRabbitHole = hole;
             hole.addToHole(this,hole);
@@ -52,8 +52,15 @@ public class Rabbit extends Animal implements Actor {
                 
             }
         } catch (Exception e) {
-            Utils.spawnIn("RabbitHole", world.getLocation(this));
+            if(world.containsNonBlocking(currentLocation)){
+                world.delete(world.getNonBlocking(currentLocation));
+                Utils.spawnIn("RabbitHole", world.getLocation(this));
+                System.out.println(e.getMessage());
+            }
+            else{
+                Utils.spawnIn("RabbitHole", world.getLocation(this));
             System.out.println(e.getMessage());
+            }
         }
     }
 

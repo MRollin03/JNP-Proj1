@@ -52,7 +52,7 @@ public class Wolf extends Animal implements Actor{
             }
 
         //Location currentLocation = world.getCurrentLocation();      //change to fit wolves (old rabbit code for now)
-        if (world.containsNonBlocking(currentLocation) && Utils.checkNonBlocking(currentLocation, Wolfden.class)) {
+        if (Utils.checkNonBlocking(currentLocation, Wolfden.class)) {
             Homes hole = (Homes) world.getNonBlocking(currentLocation);
             currentWolfden = hole;
             hole.addToHole(this,hole);
@@ -70,19 +70,39 @@ public class Wolf extends Animal implements Actor{
         }
         Location currentLocation = world.getCurrentLocation();
 
-        Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
-
-        try {
-            Utils.randomMove(currentLocation, this);
-            //Location newLocation = world.getLocation(this);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        if (canAttack()){
+            System.out.println("Attack Successful!");
+        } else {
+            try {
+                Utils.randomMove(currentLocation, this);
+                //Location newLocation = world.getLocation(this);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
+
 
     }
 
-    private Location makehome(){
-        if (!Wolfden.getexists()){                       //not sure if this works
+    private boolean canAttack(){
+        Set<Location> nearby = world.getSurroundingTiles();
+        for (Location spot : nearby){
+            if (world.getTile(spot) instanceof Rabbit){
+                world.delete(world.getTile(spot));
+                world.move(this, spot);
+                //remember insert energy increase here
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private Location makehome(){                                //make so 
+        if (!Wolfden.getexists(packnr)){                       //not sure if this works
+            if (world.containsNonBlocking(world.getCurrentLocation())){
+                world.delete(world.getNonBlocking(world.getCurrentLocation()));
+            }
             Utils.spawnIn("Wolfden", world.getLocation(this));                          //spawn wolfden if none exists
         }
         return world.getCurrentLocation();

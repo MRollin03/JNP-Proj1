@@ -12,6 +12,7 @@ import itumulator.world.*;
 public class Homes extends EnvObject {
     protected ArrayList<Rabbit> animalsInHome = new ArrayList<>();
     protected ArrayList<Wolf> Wolfden = new ArrayList<>();
+    protected ArrayList<ArrayList<Wolf>> homes = new ArrayList<>();
     ObjectType objType;
 
     Homes(){
@@ -48,6 +49,7 @@ public class Homes extends EnvObject {
      * removes all animals from their respective homes.
      */
     public void removeFromHole() {
+        removeFromDen();
         if (animalsInHome.isEmpty()) {
             return;
         }
@@ -75,6 +77,39 @@ public class Homes extends EnvObject {
         for (int index = 0; index < animalsReleased; index++) {
             animalsInHome.remove(0);
         }
+        
+    }
+
+    public void removeFromDen(){
+
+        if (Wolfden.isEmpty()) {
+            return;
+        }
+        Location l = world.getLocation(this);
+    
+        Set<Location> neighbours = world.getEmptySurroundingTiles(l);
+        ArrayList<Location> list = new ArrayList<>(neighbours);
+    
+        Collections.shuffle(list);
+    
+        int animalsReleased = 0;
+    
+        for (int i = 0; i < list.size(); i++) {
+            try {
+                if (i >= Wolfden.size()) {
+                    break;
+                }
+                world.setTile(list.get(i), Wolfden.get(i));
+                animalsReleased++;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    
+        for (int index = 0; index < animalsReleased; index++) {
+            Wolfden.remove(0);
+        }
+        
     }
 
 

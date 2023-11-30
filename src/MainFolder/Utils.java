@@ -47,6 +47,7 @@ public class Utils {
     public static void spawnIn(String entType, Location l){
 
         DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
+
         
         switch (entType) {
             case "Rabbit":
@@ -74,6 +75,20 @@ public class Utils {
                 world.setTile(l, currentPerson);
                 di = new DisplayInformation(Color.red); // Color Settings
                 p.setDisplayInformation(Person.class, di);
+                break;
+
+            case "Wolf":
+                Wolf currentWolf = new Wolf(world,1);
+                world.setTile(l, currentWolf);
+                di = new DisplayInformation(Color.red,"wolf"); // Color Settings
+                p.setDisplayInformation(Wolf.class, di);
+                break;
+
+            case "Wolfden":
+                Wolfden currentden = new Wolfden(world);
+                world.setTile(l, currentden);
+                di = new DisplayInformation(Color.red,"hole"); // Color Settings
+                p.setDisplayInformation(Wolfden.class, di);
                 break;
         
         }
