@@ -10,7 +10,7 @@ import Animals.Wolf;
 public class Main {
 
     public static void main(String[] args) {
-        scan Scanner = new scan("data/t2-1c.txt");
+        scan Scanner = new scan("data/t2-2a.txt");
         int size = Scanner.getSize();
         int delay = 300; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 800; // sk�rm opl�sningen (i px)

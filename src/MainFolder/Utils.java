@@ -153,7 +153,7 @@ public class Utils {
     /**
      * moves obj to a random location around the current location.
      * @param currentLocation Location to find a random location around.
-     * @param obj              the Object you trying to move.
+     * @param obj             the Object you are trying to move.
      */
     public static Location randomMove(Location currentLocation, Object obj){
         Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);

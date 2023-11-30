@@ -109,6 +109,7 @@ public class Homes extends EnvObject {
         for (int index = 0; index < animalsReleased; index++) {
             Wolfden.remove(0);
         }
+       
         
     }
 

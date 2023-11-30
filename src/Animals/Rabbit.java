@@ -112,7 +112,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
             if (Utils.checkNonBlockingType(newLocation, Grass.class)) {
                 EnvObject.deleteObj(world, world.getNonBlocking(newLocation));
                 energy += 5;
-                System.err.println("Grass eaten");
+                //System.err.println("Grass eaten");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

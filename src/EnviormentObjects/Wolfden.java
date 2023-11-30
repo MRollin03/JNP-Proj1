@@ -1,6 +1,6 @@
 package EnviormentObjects;
 import itumulator.world.*;
-import java.util.ArrayList;
+import java.util.*;
 import Animals.Wolf;
 
 public class Wolfden extends Homes{
@@ -22,6 +22,7 @@ public class Wolfden extends Homes{
     private static int getpacknr(){
         return packnr;
     }
+
 
     @Override
     public ObjectType getObjectType() {

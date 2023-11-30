@@ -38,6 +38,8 @@ public class Wolf extends Animal implements Actor, DynamicDisplayInformationProv
         if (world.getCurrentLocation() == null) {
             return;
         }
+
+
         
         home = makehome();
 
@@ -71,14 +73,21 @@ public class Wolf extends Animal implements Actor, DynamicDisplayInformationProv
             }
             return;
         }
+
         Location currentLocation = world.getCurrentLocation();
+        Set<Location> surroundings;
+        surroundings = world.getSurroundingTiles(currentLocation);
+        for (Location tile : surroundings) {
+            if (world.getTile(tile) instanceof Wolfden){
+                EnvObject.deleteObj(world, world.getNonBlocking(tile));
+            }
+        }
 
         if (canAttack()){
             System.out.println("Attack Successful!");
         } else {
             try {
-                Utils.randomMove(currentLocation, this);
-                //Location newLocation = world.getLocation(this);
+                world.move(this, Utils.randomMove(currentLocation, this));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -87,6 +96,9 @@ public class Wolf extends Animal implements Actor, DynamicDisplayInformationProv
 
     }
 
+    /**
+     * 
+     */
     private boolean canAttack(){
         Set<Location> nearby = world.getSurroundingTiles();
         for (Location spot : nearby){
@@ -101,6 +113,9 @@ public class Wolf extends Animal implements Actor, DynamicDisplayInformationProv
         return false;
     }
 
+    /**
+     * 
+     */
     private Location makehome(){                                //make so 
         if (!Wolfden.getexists(packnr)){                       //not sure if this works
             if (world.containsNonBlocking(world.getCurrentLocation())){
@@ -111,13 +126,18 @@ public class Wolf extends Animal implements Actor, DynamicDisplayInformationProv
         return world.getCurrentLocation();
     }
 
+    /**
+     * 
+     */
     private void updatePackCenter(World world, int packnr){
+        
+
         
     }
 
     public DisplayInformation getInformation() {
         if(super.getAge() > 1){
-            return new DisplayInformation(Color.BLUE, "wolf-large");
+            return new DisplayInformation(Color.BLUE, "wolf");
         }
         else{
             return new DisplayInformation(Color.BLUE, "wolf-small");
