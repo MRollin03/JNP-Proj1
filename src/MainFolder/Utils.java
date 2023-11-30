@@ -6,12 +6,11 @@ import java.util.*;
 
 import Animals.*;
 import EnviormentObjects.*;
-import itumulator.executable.*;
 
 public class Utils {
     
-    static Program p;
-    static World world;
+    public static Program p;
+    public static World world;
 
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
     
@@ -82,12 +81,6 @@ public class Utils {
                 p.setDisplayInformation(Bear.class, di);
                 break;
         }
-    }
-
-    public static void changeDisplaySettings(String imgPath, Animal animal){
-        di = new DisplayInformation(Color.red, imgPath); // Color Settings
-        p.setDisplayInformation( animal.getClass() , di);
-        System.err.println(animal.getClass());
     }
 
     /**
@@ -171,7 +164,6 @@ public class Utils {
         throw new IllegalArgumentException("No "+ objClass.getClass() + "nearby");
     }
     
-
     /**
      * Function that checks if there is a given 'object' in a given radius, from a location.
      * @param l the center location for the search

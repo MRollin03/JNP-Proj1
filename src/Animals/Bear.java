@@ -1,13 +1,16 @@
 package Animals;
+import itumulator.executable.DisplayInformation;
+import itumulator.executable.DynamicDisplayInformationProvider;
 import itumulator.simulator.Actor;
 import itumulator.world.*;
 import EnviormentObjects.*;
 import MainFolder.*;
 import java.util.*;
+import java.awt.*;
 
-public class Bear extends Animal implements Actor {
+public class Bear extends Animal implements Actor, DynamicDisplayInformationProvider{
 
-    private Location centrum = null;
+    private Location centrum;
 
     public Bear(World world){
         super(world);
@@ -33,12 +36,7 @@ public class Bear extends Animal implements Actor {
         if(world.getCurrentLocation() == null){
             return;
         }
-        
-        Utils.changeDisplaySettings("bear-small.sleeping", this);
-        
-        
     }
-
 
     private void handleDayBehavior(World world) {
 
@@ -47,6 +45,7 @@ public class Bear extends Animal implements Actor {
             return;
         }
 
+        
         Location currentLocation = world.getCurrentLocation();
         
         // Gets a random move location and checks if theres grass on the tiles.
@@ -73,4 +72,27 @@ public class Bear extends Animal implements Actor {
             System.out.println(e.getMessage());
         }
     }
+
+    @Override
+    
+    public DisplayInformation getInformation() {
+        if (world.isNight()){
+            if(super.getAge() > 1){
+                return new DisplayInformation(Color.BLUE, "bear-sleeping");
+            }
+            else{
+                return new DisplayInformation(Color.BLUE, "bear-small-sleeping");
+            }
+            
+        } else {
+            if(super.getAge() > 1){
+                return new DisplayInformation(Color.BLUE, "bear");
+            }
+            else{
+                return new DisplayInformation(Color.BLUE, "bear-small");
+            }
+        }
+    }
+
+
 }

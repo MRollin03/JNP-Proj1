@@ -1,10 +1,13 @@
 package Animals;
 import java.util.ArrayList;
 
+import itumulator.executable.DisplayInformation;
+import itumulator.executable.DynamicDisplayInformationProvider;
 import itumulator.simulator.Actor;
 import itumulator.world.*;
+import java.awt.*;
 
-public class Wolf extends Animal implements Actor{
+public class Wolf extends Animal implements Actor, DynamicDisplayInformationProvider{
     private int packnr;
     protected ArrayList<Wolf> WolvesInPacks = new ArrayList<>();
     private Location packCenter = null;
@@ -38,5 +41,14 @@ public class Wolf extends Animal implements Actor{
 
     private void updatePackCenter(World world, int packnr){
         
+    }
+
+    public DisplayInformation getInformation() {
+        if(super.getAge() > 1){
+            return new DisplayInformation(Color.BLUE, "wolf-large");
+        }
+        else{
+            return new DisplayInformation(Color.BLUE, "wolf-small");
+        }
     }
 }

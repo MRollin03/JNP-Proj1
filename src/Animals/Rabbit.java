@@ -1,11 +1,13 @@
 package Animals;
+import itumulator.executable.DisplayInformation;
+import itumulator.executable.DynamicDisplayInformationProvider;
 import itumulator.simulator.Actor;
 import itumulator.world.*;
 import EnviormentObjects.*;
 import MainFolder.*;
-import java.util.*;
+import java.awt.*;
 
-public class Rabbit extends Animal implements Actor {
+public class Rabbit extends Animal implements Actor, DynamicDisplayInformationProvider {
     private RabbitHole currentRabbitHole = null;
     private int mate_CD = 15;
 
@@ -32,7 +34,7 @@ public class Rabbit extends Animal implements Actor {
 
         //jumps into hole if rabbit is ontop of a tile with a hole.
         Location currentLocation = world.getCurrentLocation();
-        if (world.containsNonBlocking(currentLocation) && Utils.checkNonBlocking(currentLocation, RabbitHole.class)) {
+        if (Utils.checkNonBlockingType(currentLocation, RabbitHole.class)) {
             RabbitHole hole = (RabbitHole) world.getNonBlocking(currentLocation);
             currentRabbitHole = hole;
             hole.addToHole(this);
@@ -55,10 +57,13 @@ public class Rabbit extends Animal implements Actor {
         } catch (Exception e) { // If no locations of holes found nearby then create new hole
             if(world.containsNonBlocking(currentLocation)){
                 world.delete(world.getNonBlocking(currentLocation));
+                Utils.spawnIn("RabbitHole", world.getLocation(this));
+                System.out.println(e.getMessage());
             }
-            
-            Utils.spawnIn("RabbitHole", world.getLocation(this));
+            else{
+                Utils.spawnIn("RabbitHole", world.getLocation(this));
             System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -93,4 +98,16 @@ public class Rabbit extends Animal implements Actor {
     public void die(World world) {
         super.die(world);
     }
+
+    public DisplayInformation getInformation() {
+        if(super.getAge() > 1){
+            return new DisplayInformation(Color.BLUE, "rabbit-large");
+        }
+        else{
+            return new DisplayInformation(Color.BLUE, "rabbit-small");
+        }
+    }
+
+
+    
 }
