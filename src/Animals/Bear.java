@@ -56,7 +56,10 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
 
         System.out.println(terrortories);
         
-        Location l = null;
+        Location l = Utils.getWorldRandomLocation(world.getSize());
+        while (!terrortories.contains(l)) {
+            l = Utils.getWorldRandomLocation(world.getSize());
+        }
         
         world.move(this, l);
     }
