@@ -7,10 +7,12 @@ import itumulator.world.*;
 public class Wolf extends Animal implements Actor{
     private int packnr;
     protected ArrayList<Wolf> WolvesInPacks = new ArrayList<>();
-
-    public Wolf(World world, int packnr){
+    private Location packCenter = null;
+    
+    public Wolf(World world, int packnr, int x, int y){
         super(world);
         this.packnr = packnr;
+        this.packCenter = new Location(x, y);
     }
 
     @Override

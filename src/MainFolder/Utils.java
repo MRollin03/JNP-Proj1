@@ -12,6 +12,8 @@ public class Utils {
     
     static Program p;
     static World world;
+
+    private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
     
     public static void  newProgram(int size, int display_size, int delay) {
         p = new Program(size, display_size, delay); // opret et nyt program
@@ -45,9 +47,6 @@ public class Utils {
      * @param l         location of the desired spawn location.
      */
     public static void spawnIn(String entType, Location l){
-
-        DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
-        
         switch (entType) {
             case "Rabbit":
                 Animal currentRabbit = new Rabbit(world);
@@ -75,8 +74,20 @@ public class Utils {
                 di = new DisplayInformation(Color.red); // Color Settings
                 p.setDisplayInformation(Person.class, di);
                 break;
-        
+
+            case "Bear":
+                Bear currentBear = new Bear(getRandomLocation(5), world);
+                world.setTile(l, currentBear);
+                di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
+                p.setDisplayInformation(Bear.class, di);
+                break;
         }
+    }
+
+    public static void changeDisplaySettings(String imgPath, Animal animal){
+        di = new DisplayInformation(Color.red, imgPath); // Color Settings
+        p.setDisplayInformation( animal.getClass() , di);
+        System.err.println(animal.getClass());
     }
 
     /**
@@ -124,7 +135,7 @@ public class Utils {
      * @param currentCoord  the cordinates of current position.
      * @return  returns a number from -1 to 1.
      */
-    public  static int stepFunction(int difference, int currentCoord) {
+    private  static int stepFunction(int difference, int currentCoord) {
         if (difference > 0) {
             return currentCoord + 1;
         } else if (difference < 0) {
@@ -133,7 +144,7 @@ public class Utils {
             return currentCoord;
         }
     }
-
+    
     /**
      * Checks if theres a nonblocking object near.
      * @param l         location to check around
@@ -141,8 +152,8 @@ public class Utils {
      * @return          Location of the object
      * @throws Exception    /IF NO LOCATION FOUND IT THROWS EXCEPTION.
      */
-    public static Location isNonBlocktNear(Location l, Class objClass) throws Exception {
-        Set<Location> neighbours = world.getSurroundingTiles(l, 5);
+    public static Location isNonBlocktNear(Location l, Class objClass, int radius) throws Exception {
+        Set<Location> neighbours = world.getSurroundingTiles(l, radius);
         Set<Object> envObject = new HashSet<>();
 
         for (Location currentLocation : neighbours) {
@@ -157,10 +168,38 @@ public class Utils {
                 return world.getLocation(object);
             }
         }
+        throw new IllegalArgumentException("No "+ objClass.getClass() + "nearby");
+    }
+    
+
+    /**
+     * Function that checks if there is a given 'object' in a given radius, from a location.
+     * @param l the center location for the search
+     * @param objClass  The type of class to search after
+     * @param radius    the radius in which to search
+     * @return          returns the location of the object found
+     * @throws Exception    exception if no object of that class is found.
+     */
+    public static Location isBlockNear(Location l, Class objClass, int radius) throws Exception {
+        Set<Location> neighbours = world.getSurroundingTiles(l, radius);
+        Set<Object> blockingObjects = new HashSet<>();
+
+        for (Location currentLocation : neighbours) {
+            try {
+                blockingObjects.add(world.getTile(currentLocation));
+            } catch (IllegalArgumentException ignored) {
+            }
+        }
+
+        for (Object object : blockingObjects) {
+            if (object.getClass() == objClass) {
+                return world.getLocation(object);
+            }
+        }
         
         throw new IllegalArgumentException("No "+ objClass.getClass() + "nearby");
     }
-
+    
     /**
      * moves obj to a random location around the current location.
      * @param currentLocation Location to find a random location around.
@@ -179,5 +218,21 @@ public class Utils {
     }
 }
 
+    /**
+     * 
+     * @param l
+     * @param objClass
+     * @return
+     */
+    public static boolean checkNonBlockingType (Location l, Class objClass){
+        try{
+        if (world.getNonBlocking(l).getClass() == objClass){
+            return true;
+        }
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+        return false;
+    }
 
 }

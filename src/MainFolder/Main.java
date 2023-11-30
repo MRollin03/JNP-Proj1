@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         scan Scanner = new scan("data/t1-2cde.txt");
         int size = Scanner.getSize();
-        int delay = 500; // forsinkelsen mellem hver skridt af simulationen (i ms)
+        int delay = 300; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 800; // sk�rm opl�sningen (i px)
         Utils.newProgram(size, display_size, delay);
 
@@ -19,7 +19,8 @@ public class Main {
         entSpawnMap.put("Rabbit", Scanner.getRabbit());
         entSpawnMap.put("Grass", Scanner.getGrass());
         entSpawnMap.put("RabbitHole", Scanner.getBurrow());
-        entSpawnMap.put("Wolf", Scanner.getBurrow());
+        //entSpawnMap.put("Wolf", Scanner.getWolf());
+        entSpawnMap.put("Bear" , 1);
 
         
 
