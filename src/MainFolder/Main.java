@@ -26,7 +26,7 @@ public class Main {
         entSpawnMap.put("Wolf", Scanner.getFirstWolfPack());
        
         //entSpawnMap.put("Wolf", Scanner.getWolf());
-        entSpawnMap.put("Bear" , 1);
+        //entSpawnMap.put("Bear" , 1);
 
         
 
