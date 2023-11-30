@@ -6,7 +6,7 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        scan Scanner = new scan("data\\t1-2cde.txt");
+        scan Scanner = new scan("data\\t2-6a.txt");
         int size = Scanner.getSize();
         int delay = 500; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 800; // sk�rm opl�sningen (i px)
@@ -19,7 +19,15 @@ public class Main {
         entSpawnMap.put("Rabbit", Scanner.getRabbit());
         entSpawnMap.put("Grass", Scanner.getGrass());
         entSpawnMap.put("RabbitHole", Scanner.getBurrow());
-        
+        System.out.println("Grass: " + Scanner.getGrass());
+        System.out.println("Rabbit: " + Scanner.getRabbit());
+        System.out.println("Burrow: " + Scanner.getBurrow());
+        System.out.println("Bear locations:");
+        for (scan.BearEntry bear : Scanner.getBears()) {
+            System.out.println(bear.getLocationString());
+        }
+        System.out.println("Wolf Packs: " + Scanner.getHash());
+        System.out.println("NO more entities");
 
         // Spawns every entitie on map.
         for (String entType : entSpawnMap.keySet()) {
