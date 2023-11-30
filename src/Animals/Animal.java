@@ -13,15 +13,15 @@ import java.util.*;
 
 public class Animal {
     private int age;
-    protected int foodPoint;
-    private int energy;
+    protected int foodmax;
+    protected int energy;
     protected World world;
 
 
     Animal(World world){
         this.age = 0;
-        this.foodPoint = 100;
-        this.energy = 1;
+        this.foodmax = 30+age*2;
+        this.energy = 30;
         this.world = world;
     }
 
@@ -31,32 +31,26 @@ public class Animal {
     }
 
         
-public void act(World world){
-        if (world.getCurrentTime() == 0) {
-            foodPoint --;
+    public void act(World world){
+        if (!world.isNight()){
+            energy--;              //whenever they move, spend 1 energy, except at night
         }
-        // hvis klokken er 11 og mad point er 0
-        if(world.getCurrentTime() == 0 && this.getFoodPoints() < 1 ){
+               
+        if (world.getCurrentTime() == 0) {      //animals grow older each day
+            age++;
+        }
+       
+        if(this.getEnergy() < 1 || this.age == 12){     //animals die if they have no energy or get too old
             die(world);
+            System.out.println("Rabbit Died");
         }
+        if (energy > foodmax) {     //makes sure animals cannot overeat
+            energy = foodmax;
+        }
+
     }
 
     
-
-    /*  ----- Standard Act behavoir -------
-    
-    public void act(World world) {
-        
-        Set<Location> neighbours = world.getEmptySurroundingTiles();
-        ArrayList<Location> list = new ArrayList<>(neighbours);
-
-        Random rand = new Random();
-
-        if(list != null){
-            Location l = list.get(rand.nextInt( list.size()-1)); // Linje 2 og 3 kan erstattes af neighbours.toArray()[0]
-            world.move(this,l);
-        }
-    }*/
 
 
     // Main die method
@@ -74,8 +68,8 @@ public void act(World world){
         return age;
     }
 
-    public int getFoodPoints(){
-        return foodPoint;
+    public int getFoodMax(){
+        return foodmax;
     }
 
     public int getEnergy(){
