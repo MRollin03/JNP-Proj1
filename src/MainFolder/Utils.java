@@ -11,7 +11,7 @@ import itumulator.executable.*;
 public class Utils {
     
     static Program p;
-    static World world;
+    public static World world;
     
     public static void  newProgram(int size, int display_size, int delay) {
         p = new Program(size, display_size, delay); // opret et nyt program

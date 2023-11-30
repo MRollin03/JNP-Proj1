@@ -6,7 +6,7 @@ import MainFolder.*;
 import java.util.*;
 
 public class Rabbit extends Animal implements Actor {
-    private RabbitHole currentRabbitHole = null;
+    private Homes currentRabbitHole = null;
     private int mate_CD = 15;
 
     public Rabbit(World world){
@@ -32,9 +32,9 @@ public class Rabbit extends Animal implements Actor {
 
         Location currentLocation = world.getCurrentLocation();
         if (world.containsNonBlocking(currentLocation) && Utils.checkNonBlocking(currentLocation, RabbitHole.class)) {
-            RabbitHole hole = (RabbitHole) world.getNonBlocking(currentLocation);
+            Homes hole = (Homes) world.getNonBlocking(currentLocation);
             currentRabbitHole = hole;
-            hole.addToHole(this);
+            hole.addToHole(this,hole);
             return;
         }
 
@@ -79,13 +79,13 @@ public class Rabbit extends Animal implements Actor {
                 if(getothermate_CD(l) == 0){
                     Random rand = new Random();
                     Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));      //brug en anden funktion her?
-                    try {
+                    //try {
                         Utils.spawnIn("Rabbit",newLocation);
                         mate_CD = 15;               //resets Mate cooldown for 1 rabbit
                         resetmateCD(l);             //resets Mate cooldown for the other rabbit
-                    } catch (Exception e ){
+                    //} catch (Exception e ){
 
-                    }
+                    //}
                 }
             }
         }
@@ -116,10 +116,10 @@ public class Rabbit extends Animal implements Actor {
 /**
  * Resets mate cooldown timer for rabbit at location l
  */
-private void resetmateCD(Location l){
-    Rabbit temp = (Rabbit) world.getTile(l);
-    temp.mate_CD = 15;
-}
+    private void resetmateCD(Location l){
+        Rabbit temp = (Rabbit) world.getTile(l);
+        temp.mate_CD = 15;
+    }
 
     public void die(World world) {
         super.die(world);

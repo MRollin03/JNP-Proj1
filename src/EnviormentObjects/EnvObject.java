@@ -6,6 +6,9 @@ import itumulator.display.*;
 import java.awt.*;
 import java.util.*;
 
+import Animals.Rabbit;
+import Animals.Wolf;
+
 public class EnvObject implements NonBlocking {
     Set<Location> neighbours;
     ArrayList<Location> list;
@@ -27,8 +30,6 @@ public class EnvObject implements NonBlocking {
     }
 
 
-
-
     //---------------------- set methods----------------------//
     public void setObjecType(ObjectType type){
         this.objType = type;
@@ -44,6 +45,7 @@ public class EnvObject implements NonBlocking {
     public ObjectType getObjectType(){
         return objType;
     }
+    
 
 
 }
