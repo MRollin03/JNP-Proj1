@@ -24,7 +24,7 @@ public class Main {
         System.out.println("Grass: " + Scanner.getGrass());
         System.out.println("Rabbit: " + Scanner.getRabbit());
         System.out.println("Burrow: " + Scanner.getBurrow());
-        System.out.println("Bear locations:");
+        entSpawnMap.put("Rabbit", Scanner.getRabbit());
         /*for (scan.BearEntry bear : Scanner.getBears()) {
             System.out.println(bear.getLocationString());
         }

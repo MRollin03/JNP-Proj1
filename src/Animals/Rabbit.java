@@ -18,6 +18,10 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
 
     @Override
     public void act(World world) {
+
+        if(world == null){
+            return;
+        }
         
         if (world.isNight()) {
             handleNightBehavior(world);
@@ -84,23 +88,10 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
             mate_CD--;
         }
         Set<Location> surroundingTiles = world.getSurroundingTiles(1);
-        for (Location l : surroundingTiles) {
-            if (world.getTile(l) instanceof Rabbit && mate_CD == 0){
-                //System.out.println("main:" + getmate_CD());
-                //System.out.println("other:" + getothermate_CD(l));
-                if(getothermate_CD(l) == 0){
-                    Location newLocation = Utils.randomMove(currentLocation, world);      //brug en anden funktion her?
-
-                    Utils.spawnIn("Rabbit",newLocation);
-                    mate_CD = 15;               //resets Mate cooldown for 1 rabbit
-                    resetmateCD(l);             //resets Mate cooldown for the other rabbit
-         
-                }
-            }
-        }
+        Location newLocation = currentLocation;
+        
         try {
             world.move(this, Utils.randomMove(currentLocation,world));
-            Location newLocation = world.getLocation(this);
 
             // checks if there is grass on the next steps if the eat. give 5 engey points.
             if (Utils.checkNonBlockingType(newLocation, Grass.class)) {
@@ -111,6 +102,34 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        for (Location l : surroundingTiles) {
+            if (!world.isTileEmpty(l)) {
+                if(world.getTile(l).getClass() == Bear.class || world.getTile(l).getClass() == Wolf.class){
+                    newLocation = Utils.diff(new Location(-l.getX(), -l.getY()), currentLocation);
+                }
+            }
+            
+
+
+            if (world.getTile(l) instanceof Rabbit && mate_CD == 0){
+                //System.out.println("main:" + getmate_CD());
+                //System.out.println("other:" + getothermate_CD(l));
+                if(getothermate_CD(l) == 0){
+                    newLocation = Utils.randomMove(currentLocation, world);      //brug en anden funktion her?
+
+                    Utils.spawnIn("Rabbit",newLocation);
+                    mate_CD = 15;               //resets Mate cooldown for 1 rabbit
+                    resetmateCD(l);             //resets Mate cooldown for the other rabbit
+         
+                }
+            }
+            
+        }
+
+        newLocation = world.getLocation(this);
+
+        
         
     }
 

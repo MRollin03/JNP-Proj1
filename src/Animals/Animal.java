@@ -51,7 +51,6 @@ public class Animal{
 
 
     // get methods
-
     public int getAge(){
         return age;
     }
