@@ -75,6 +75,8 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
 
         //Tries to find a food source on the next step
         if(world.containsNonBlocking(newLocation)){
+
+            //Berry checker
             if(world.getNonBlocking(newLocation).getClass() == BerryBush.class){
                 BerryBush bush = (BerryBush) world.getNonBlocking(newLocation);
                 if(bush.hasBerries()){
@@ -83,12 +85,15 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
                     System.err.println(this.getEnergy());
                 }
             }
+
+            // Grass checker
             if(world.getNonBlocking(newLocation).getClass() == Grass.class){
                 Grass grass = (Grass) world.getNonBlocking(newLocation);
                 world.delete(grass);
                 super.energy =+ 5;
             }
-
+            
+            //Rabbitchecker
             if (world.getTile(newLocation).getClass() == Rabbit.class) {
                 Rabbit rabbit = (Rabbit) world.getTile(newLocation);
                 rabbit.die(world);
@@ -98,9 +103,7 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         world.move(this, newLocation);
 
     } 
-        
 
-    
 
     public Location getCentrum(){
         return centrum;

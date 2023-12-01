@@ -39,6 +39,7 @@ public class Utils {
                 di = new DisplayInformation(Color.yellow,"grass"); // Color Settings
                 p.setDisplayInformation(Grass.class, di);
                 break;
+                
             case "RabbitHole":
                 EnvObject currentRabbitHole = new RabbitHole(world);
                 world.setTile(l, currentRabbitHole);

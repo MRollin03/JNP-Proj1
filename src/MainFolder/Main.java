@@ -10,7 +10,7 @@ import Animals.Wolf;
 public class Main {
 
     public static void main(String[] args) {
-        scan Scanner = new scan("data/t2-1c.txt");
+        Scan Scanner = new Scan("data/tf2-2.txt");
         int size = Scanner.getSize();
         int delay = 500; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 1000; // sk�rm opl�sningen (i px)
@@ -24,6 +24,7 @@ public class Main {
         System.out.println("Grass: " + Scanner.getGrass());
         System.out.println("Rabbit: " + Scanner.getRabbit());
         System.out.println("Burrow: " + Scanner.getBurrow());
+        System.out.println("berry: " + Scanner.getBerryBush());
         entSpawnMap.put("Rabbit", Scanner.getRabbit());
         /*for (scan.BearEntry bear : Scanner.getBears()) {
             System.out.println(bear.getLocationString());

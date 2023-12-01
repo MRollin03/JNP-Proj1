@@ -1,16 +1,12 @@
 package MainFolder;
 
-import java.util.Scanner;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.List;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
 import itumulator.world.Location;
 
-public class scan {
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class Scan {
     private Map<String, Integer> dataMap = new HashMap<>();
     private HashMap<Integer, Integer> wolfPacks = new HashMap<>();
     private List<BearEntry> bears = new ArrayList<>();
@@ -18,6 +14,7 @@ public class scan {
     private int rabbit;
     private int burrow;
     private int grass;
+    private int berryBush;
     private int packCounter = 1;
 
     public static class BearEntry {
@@ -28,23 +25,17 @@ public class scan {
         }
 
         public String getLocationString() {
-            if (location != null) {
-                return location.getX() + "," + location.getY();
-            } else {
-                return "No location";
-            }
+            return (location != null) ? location.getX() + "," + location.getY() : "No location";
         }
     }
-    
 
-    public scan(String filePath) {
+    public Scan(String filePath) {
         scanner(filePath);
     }
 
     private void scanner(String filePath) {
         File inputFile = new File(filePath);
-        try {
-            Scanner scanner = new Scanner(inputFile);
+        try (Scanner scanner = new Scanner(inputFile)) {
             Random random = new Random();
             boolean isFirstInteger = true;
             String lastString = "";
@@ -81,6 +72,7 @@ public class scan {
             rabbit = dataMap.getOrDefault("rabbit", 0);
             burrow = dataMap.getOrDefault("burrow", 0);
             grass = dataMap.getOrDefault("grass", 0);
+            berryBush = dataMap.getOrDefault("berry", 0);
 
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
@@ -120,6 +112,10 @@ public class scan {
         return grass;
     }
 
+    public int getBerryBush() {
+        return berryBush;
+    }
+
     public HashMap<Integer, Integer> getHash() {
         return wolfPacks;
     }
@@ -127,10 +123,10 @@ public class scan {
     public List<BearEntry> getBears() {
         return bears;
     }
-    
-    public void getbears(){
+
+    public void printBears() {
         for (BearEntry bear : getBears()) {
             System.out.println(bear.getLocationString());
+        }
     }
-}
 }
