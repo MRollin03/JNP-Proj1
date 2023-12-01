@@ -3,17 +3,25 @@ import itumulator.executable.*;
 import itumulator.world.*;
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 import Animals.*;
 import EnviormentObjects.*;
+import MainFolder.scan.BearEntry;
 
 public class Utils {
-    
+    public static scan Scanner = new scan("data/t2-5b.txt");
     public static Program p;
     public static World world;
 
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
     
+    /**
+     * Instansiates a new program and world based on the parameter given in the arguments
+     * @param size  the size of the desired world
+     * @param display_size the display window size
+     * @param delay  the delay in between every frame
+     */
     public static void  newProgram(int size, int display_size, int delay) {
         p = new Program(size, display_size, delay); // opret et nyt program
         world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilf�je ting!
@@ -73,6 +81,14 @@ public class Utils {
                 di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
                 p.setDisplayInformation(Bear.class, di);
                 break;
+        }
+        for (scan.BearEntry bear : Scanner.getBears()) {
+            
+            Bear currentBear = new Bear(world);
+            world.setTile(bear.getBearLocation(), currentBear);
+            di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
+            p.setDisplayInformation(Bear.class, di);
+            break;
         }
     }
 

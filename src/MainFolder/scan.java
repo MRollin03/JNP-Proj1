@@ -27,11 +27,11 @@ public class scan {
             this.location = location;
         }
 
-        public String getLocationString() {
+        public Location getBearLocation() {
             if (location != null) {
-                return location.getX() + "," + location.getY();
+                return new Location(location.getX(), location.getY());
             } else {
-                return "No location";
+                return null;
             }
         }
     }
@@ -52,6 +52,7 @@ public class scan {
             while (scanner.hasNext()) {
                 if (scanner.hasNextInt()) {
                     int value = scanner.nextInt();
+                    System.err.println(value);
                     if (isFirstInteger) {
                         size = value;
                         isFirstInteger = false;
@@ -127,10 +128,5 @@ public class scan {
     public List<BearEntry> getBears() {
         return bears;
     }
-    
-    public void getbears(){
-        for (BearEntry bear : getBears()) {
-            System.out.println(bear.getLocationString());
-    }
-}
+
 }
