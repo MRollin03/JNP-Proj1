@@ -70,18 +70,15 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
 
     private void handleDayBehavior(World world) {
 
+        Location currentLocation = world.getCurrentLocation();
+
         // if Rabbit currently has no location by day call its current holes removefromhole() function.
-        if (world.getCurrentLocation() == null) {
+        if (currentLocation == null) {
             if (currentRabbitHole != null) {
                 currentRabbitHole.removeFromHole();
             }
             return;
         }
-
-        Location currentLocation = world.getCurrentLocation();
-        
-        // Gets a random move location and checks if theres grass on the tiles.
-        Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
     
         if (mate_CD > 0){
             mate_CD--;
@@ -92,15 +89,12 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
                 //System.out.println("main:" + getmate_CD());
                 //System.out.println("other:" + getothermate_CD(l));
                 if(getothermate_CD(l) == 0){
-                    Random rand = new Random();
-                    Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));      //brug en anden funktion her?
-                    //try {
-                        Utils.spawnIn("Rabbit",newLocation);
-                        mate_CD = 15;               //resets Mate cooldown for 1 rabbit
-                        resetmateCD(l);             //resets Mate cooldown for the other rabbit
-                    //} catch (Exception e ){
+                    Location newLocation = Utils.randomMove(currentLocation, world);      //brug en anden funktion her?
 
-                    //}
+                    Utils.spawnIn("Rabbit",newLocation);
+                    mate_CD = 15;               //resets Mate cooldown for 1 rabbit
+                    resetmateCD(l);             //resets Mate cooldown for the other rabbit
+         
                 }
             }
         }
@@ -108,12 +102,12 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
             world.move(this, Utils.randomMove(currentLocation,world));
             Location newLocation = world.getLocation(this);
 
-
+            // checks if there is grass on the next steps if the eat. give 5 engey points.
             if (Utils.checkNonBlockingType(newLocation, Grass.class)) {
                 EnvObject.deleteObj(world, world.getNonBlocking(newLocation));
                 energy += 5;
-                System.err.println("Grass eaten");
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -130,8 +124,9 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
     }
 
 /**
- * Resets mate cooldown timer for rabbit at location l
- */
+ * Resets the mateing CoolDown
+ * @param l location of the rabbit
+*/
     private void resetmateCD(Location l){
         Rabbit temp = (Rabbit) world.getTile(l);
         temp.mate_CD = 15;

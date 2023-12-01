@@ -31,7 +31,8 @@ public class Main {
         System.out.println("Wolf Packs: " + Scanner.getHash());*/
         System.out.println("NO more entities");
         //entSpawnMap.put("Wolf", Scanner.getWolf());
-        entSpawnMap.put("Bear" , 1);
+        entSpawnMap.put("Bear" , 4);
+        entSpawnMap.put("berry-bush" , 20);
 
         
 

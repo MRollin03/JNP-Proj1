@@ -69,10 +69,18 @@ public class Utils {
         
             case "Bear":
                 Bear currentBear = new Bear(getWorldRandomLocation(5), world);
-                world.setTile(l, currentBear);
+                world.setTile(currentBear.getCentrum(), currentBear);
                 di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
                 p.setDisplayInformation(Bear.class, di);
                 break;
+
+            case "berry-bush":
+                BerryBush currentBush = new BerryBush(world);
+                world.setTile(l, currentBush);
+                di = new DisplayInformation(Color.green, "bush"); // Color Settings
+                p.setDisplayInformation(BerryBush.class, di);
+                break;
+
         }
     }
 

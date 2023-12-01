@@ -57,7 +57,7 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
     }
 
     private void handleDayBehavior(World world) {
-        
+
         // check if bear has location
         Location currentLocation = world.getCurrentLocation();
 
@@ -65,18 +65,45 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
             return;
         }
 
+        //get a random location around the bear and sees if the location is inside of  the terrortorie
         Location newLocation = Utils.randomMove(currentLocation, world);
-        int number = 0;
         while (!terrortories.contains(newLocation)) {
+            currentLocation = world.getCurrentLocation();
             newLocation = Utils.randomMove(currentLocation, world);
-            if (terrortories.contains(newLocation)) {
-                System.out.println("yay");
-            }
-            number++;
             System.out.println(newLocation);
         }
 
+        //Tries to find a food source on the next step
+        if(world.containsNonBlocking(newLocation)){
+            if(world.getNonBlocking(newLocation).getClass() == BerryBush.class){
+                BerryBush bush = (BerryBush) world.getNonBlocking(newLocation);
+                if(bush.hasBerries()){
+                    bush.berriesToggle();
+                    super.energy = super.getEnergy() + 5;
+                    System.err.println(this.getEnergy());
+                }
+            }
+            if(world.getNonBlocking(newLocation).getClass() == Grass.class){
+                Grass grass = (Grass) world.getNonBlocking(newLocation);
+                world.delete(grass);
+                super.energy =+ 5;
+            }
+
+            if (world.getTile(newLocation).getClass() == Rabbit.class) {
+                Rabbit rabbit = (Rabbit) world.getTile(newLocation);
+                rabbit.die(world);
+            }
+        }   
+
         world.move(this, newLocation);
+
+    } 
+        
+
+    
+
+    public Location getCentrum(){
+        return centrum;
     }
     
 
