@@ -33,7 +33,7 @@ public class Animal{
         }
         if(this.getEnergy() < 1 || this.age == 12){     //animals die if they have no energy or get too old
             die(world);
-            System.out.println("Rabbit Died");
+            System.out.println(this.getClass() + " Died");
         }
         if (energy > foodmax) {     //makes sure animals cannot overeat
             energy = foodmax;

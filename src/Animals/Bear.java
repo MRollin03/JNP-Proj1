@@ -12,24 +12,30 @@ import java.util.ArrayList.*;;
 public class Bear extends Animal implements Actor, DynamicDisplayInformationProvider{
 
     private Location centrum;
-    private Set terrortories;
+    private Set<Location> terrortories;
     ArrayList<Class<?>> foods = new ArrayList<>();
 
 
-    //Constructors for two different cases
-    public Bear(World world){
+    //-----------Constructors for two different cases
+
+    // random location
+    public Bear(World world) {
         super(world);
         this.centrum = Utils.getWorldRandomLocation(world.getSize());
         world.setCurrentLocation(centrum);
         terrortories = world.getSurroundingTiles(1);
     }
-    public Bear(Location centrum, World world){
+
+    // dedicated location
+    public Bear(Location centrum, World world) {
         super(world);
         this.centrum = centrum;
         world.setCurrentLocation(centrum);
         terrortories = world.getSurroundingTiles(1);
     }
 
+
+    //act function
     @Override
     public void act(World world){
         if (world.isNight()) {
@@ -41,28 +47,38 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         super.act(world);
     }
 
+   
+    
     private void handleNightBehavior(World world) {
-        if(world.getCurrentLocation() == null){
+        Location currentLocation = world.getCurrentLocation();
+        if(currentLocation == null){
             return;
         }
     }
 
     private void handleDayBehavior(World world) {
-
+        
         // check if bear has location
+        Location currentLocation = world.getCurrentLocation();
+
         if (world.getCurrentLocation() == null) {
             return;
         }
 
-        System.out.println(terrortories);
-        
-        Location l = Utils.getWorldRandomLocation(world.getSize());
-        while (!terrortories.contains(l)) {
-            l = Utils.getWorldRandomLocation(world.getSize());
+        Location newLocation = Utils.randomMove(currentLocation, world);
+        int number = 0;
+        while (!terrortories.contains(newLocation)) {
+            newLocation = Utils.randomMove(currentLocation, world);
+            if (terrortories.contains(newLocation)) {
+                System.out.println("yay");
+            }
+            number++;
+            System.out.println(newLocation);
         }
-        
-        world.move(this, l);
+
+        world.move(this, newLocation);
     }
+    
 
     @Override
     public DisplayInformation getInformation() {

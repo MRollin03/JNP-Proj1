@@ -81,7 +81,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
         Location currentLocation = world.getCurrentLocation();
         
         // Gets a random move location and checks if theres grass on the tiles.
-                Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
+        Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
     
         if (mate_CD > 0){
             mate_CD--;
@@ -105,7 +105,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
             }
         }
         try {
-            world.move(this, Utils.randomMove(currentLocation, this));
+            world.move(this, Utils.randomMove(currentLocation,world));
             Location newLocation = world.getLocation(this);
 
 

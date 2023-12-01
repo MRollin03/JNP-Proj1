@@ -155,15 +155,17 @@ public class Utils {
      * @param currentLocation Location to find a random location around.
      * @param obj              the Object you trying to move.
      */
-    public static Location randomMove(Location currentLocation, Object obj){
+    public static Location randomMove(Location currentLocation,World wor) {
         Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
-    if (!emptyTiles.isEmpty()) {
-        Random rand = new Random();
-        Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));
-        return newLocation;
+        if (!emptyTiles.isEmpty()) {
+            Random rand = new Random();
+            Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));
+            return newLocation;
+        }
+        return null;
     }
-    return null;
-}
+    
+
 
     /**
      * This Function returns a random Location based on the size of the world.
