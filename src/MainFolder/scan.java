@@ -35,7 +35,6 @@ public class scan {
             }
         }
     }
-    
 
     public scan(String filePath) {
         scanner(filePath);
@@ -44,48 +43,60 @@ public class scan {
     private void scanner(String filePath) {
         File inputFile = new File(filePath);
         try {
-            Scanner scanner = new Scanner(inputFile);
+            Scanner fileScanner = new Scanner(inputFile);
             Random random = new Random();
             boolean isFirstInteger = true;
             String lastString = "";
 
-            while (scanner.hasNext()) {
-                if (scanner.hasNextInt()) {
-                    int value = scanner.nextInt();
-                    if (isFirstInteger) {
-                        size = value;
-                        isFirstInteger = false;
-                    } else {
-                        if (lastString.equals("wolf")) {
-                            wolfPacks.put(packCounter++, value);
-                        } else if (lastString.equals("bear")) {
-                            handleBearEntry(scanner, value);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                Scanner lineScanner = new Scanner(line);
+
+                while (lineScanner.hasNext()) {
+                    if (lineScanner.hasNextInt()) {
+                        int value = lineScanner.nextInt();
+                        if (isFirstInteger) {
+                            size = value;
+                            isFirstInteger = false;
+                        } else {
+                            if (lastString.equals("wolf")) {
+                                    wolfPacks.put(packCounter++, value);
+                                
+                            } else if (lastString.equals("bear")) {
+                            handleBearEntry(lineScanner, value);
                         } else {
                             dataMap.put(lastString, value);
                         }
                     }
                 } else {
-                    String next = scanner.next();
+                    
+                    String next = lineScanner.next();
                     if (next.contains("-")) {
+                        // Handling range for lastString
                         String[] parts = next.split("-");
                         int lowerBound = Integer.parseInt(parts[0]);
                         int upperBound = Integer.parseInt(parts[1]);
                         int randomValue = lowerBound + random.nextInt(upperBound - lowerBound + 1);
-                        dataMap.put(lastString, randomValue);
-                    } else {
+                        if (lastString.equals("wolf")) {
+                            wolfPacks.put(packCounter++, randomValue);
+                        } else {
+                            dataMap.put(lastString, randomValue);
+                    }} else {
                         lastString = next;
                     }
                 }
             }
 
-            rabbit = dataMap.getOrDefault("rabbit", 0);
-            burrow = dataMap.getOrDefault("burrow", 0);
-            grass = dataMap.getOrDefault("grass", 0);
-
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + e.getMessage());
         }
+
+        rabbit = dataMap.getOrDefault("rabbit", 0);
+        burrow = dataMap.getOrDefault("burrow", 0);
+        grass = dataMap.getOrDefault("grass", 0);
+
+    } catch (FileNotFoundException e) {
+        System.err.println("File not found: " + e.getMessage());
     }
+}
 
     private void handleBearEntry(Scanner scanner, int bearCount) {
         Location location = null;
@@ -131,6 +142,6 @@ public class scan {
     public void getbears(){
         for (BearEntry bear : getBears()) {
             System.out.println(bear.getLocationString());
+        } // Added missing brace here
     }
-}
 }
