@@ -60,22 +60,8 @@ public class scan {
                             isFirstInteger = false;
                         } else {
                             if (lastString.equals("wolf")) {
-                                if (lineScanner.hasNext()) {
-                                    String next = lineScanner.next();
-                                    if (next.contains("-")) {
-                                        // Wolf range
-                                        String[] parts = next.split("-");
-                                        int lowerBound = Integer.parseInt(parts[0]);
-                                        int upperBound = Integer.parseInt(parts[1]);
-                                        int randomValue = lowerBound + random.nextInt(upperBound - lowerBound + 1);
-                                        wolfPacks.put(packCounter++, randomValue);
-                                        } else {
-                                        // Single wolf pack
-                                        wolfPacks.put(packCounter++, value);
-                                    }
-                                } else {
                                     wolfPacks.put(packCounter++, value);
-                                }
+                                
                             } else if (lastString.equals("bear")) {
                             handleBearEntry(lineScanner, value);
                         } else {
@@ -95,9 +81,7 @@ public class scan {
                             wolfPacks.put(packCounter++, randomValue);
                         } else {
                             dataMap.put(lastString, randomValue);
-                        System.out.println(dataMap);
                     }} else {
-                        System.out.println("Setting Last String: " + next); // Debugging line
                         lastString = next;
                     }
                 }
