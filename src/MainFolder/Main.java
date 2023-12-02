@@ -12,8 +12,8 @@ public class Main {
     public static void main(String[] args) {
         scan Scanner = new scan("data/t2-2a.txt");
         int size = Scanner.getSize();
-        int delay = 500; // forsinkelsen mellem hver skridt af simulationen (i ms)
-        int display_size = 1000; // sk�rm opl�sningen (i px)
+        int delay = 800; // forsinkelsen mellem hver skridt af simulationen (i ms)
+        int display_size = 600; // sk�rm opl�sningen (i px)
         Utils.newProgram(size, display_size, delay);
 
         //Making hashmap for entities and amount
@@ -30,8 +30,8 @@ public class Main {
         }
         System.out.println("Wolf Packs: " + Scanner.getHash());*/
         System.out.println("NO more entities");
-        //entSpawnMap.put("Wolf", Scanner.getWolf());
-        entSpawnMap.put("Bear" , 1);
+        entSpawnMap.put("Wolf", 3);
+        //entSpawnMap.put("Bear" , 1);
 
         
 

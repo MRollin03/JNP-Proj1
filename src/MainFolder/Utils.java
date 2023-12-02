@@ -12,6 +12,7 @@ public class Utils {
     public static Program p;
     public static World world;
 
+
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
     
     public static void  newProgram(int size, int display_size, int delay) {
@@ -54,8 +55,9 @@ public class Utils {
                 break;
 
             case "Wolf":
-                Wolf currentWolf = new Wolf(world,1);
+                Wolf currentWolf = new Wolf(world,1,1);
                 world.setTile(l, currentWolf);
+                //WolvesInPacks.add(currentWolf);
                 di = new DisplayInformation(Color.red,"wolf"); // Color Settings
                 p.setDisplayInformation(Wolf.class, di);
                 break;

@@ -10,16 +10,20 @@ import itumulator.world.*;
 import java.awt.*;
 import itumulator.executable.*;
 
-public class Wolf extends Animal implements Actor, DynamicDisplayInformationProvider{
+public class Wolf extends Wolfpack implements DynamicDisplayInformationProvider{
     private Homes currentWolfden = null;
-    private int packnr;
-    protected ArrayList<Wolf> WolvesInPacks = new ArrayList<>();
+    int packnr;
+    int wolves;
+    
     private Location home;
 
-    public Wolf(World world, int packnr){
-        super(world);
-        this.packnr = packnr;
+    public Wolf(World world, int packnr, int wolves){
+        super(world, packnr, wolves);
+        WolvesInPacks.add(this);
+        //this.packnr = packnr;
         //this.packCenter = new Location(x, y);
+
+        //location = random location = packCenter -> spawn in territories
     }
 
     @Override
@@ -29,7 +33,6 @@ public class Wolf extends Animal implements Actor, DynamicDisplayInformationProv
         } else{
             handleDayBehavior(world);
         }
-        updatePackCenter(world, packnr);
         super.act(world);
     }
 
@@ -41,7 +44,7 @@ public class Wolf extends Animal implements Actor, DynamicDisplayInformationProv
 
 
         
-        home = makehome();
+        home = packCenter;      //change home to packCenter
 
         Location currentLocation = world.getCurrentLocation();
         //Location holeLocation = Utils.isNonBlocktNear(currentLocation, RabbitHole.class);
@@ -73,14 +76,28 @@ public class Wolf extends Animal implements Actor, DynamicDisplayInformationProv
             }
             return;
         }
+        updatePackCenter(world, packnr);
 
         Location currentLocation = world.getCurrentLocation();
         Set<Location> surroundings;
         surroundings = world.getSurroundingTiles(currentLocation);
-        for (Location tile : surroundings) {
+        for (Location tile : surroundings) {        //delete wolfdens - could be moved to a seperate function
+            hasHome = false;
             if (world.getTile(tile) instanceof Wolfden){
                 EnvObject.deleteObj(world, world.getNonBlocking(tile));
             }
+        }
+
+        try {
+            if (!world.getSurroundingTiles(packCenter,2).contains(currentLocation)){
+                Location newLocation = Utils.diff(packCenter,currentLocation);
+                if(world.isTileEmpty(newLocation)){
+                    world.move(this, newLocation);
+                    return;
+                }
+            } 
+        } catch (NullPointerException e) {      //for ignoring out-of-bounds checking
+            //System.out.println("not working");
         }
 
         if (canAttack()){
@@ -92,8 +109,6 @@ public class Wolf extends Animal implements Actor, DynamicDisplayInformationProv
                 System.out.println(e.getMessage());
             }
         }
-
-
     }
 
     /**
@@ -114,25 +129,42 @@ public class Wolf extends Animal implements Actor, DynamicDisplayInformationProv
     }
 
     /**
-     * 
+     * updates the center of a pack based on the current locations of all wolves in that pack
+     * @param world of type World, used to manipulate the world
+     * @param packnr indicates which pack is being updated
      */
-    private Location makehome(){                                //make so 
-        if (!Wolfden.getexists(packnr)){                       //not sure if this works
-            if (world.containsNonBlocking(world.getCurrentLocation())){
-                world.delete(world.getNonBlocking(world.getCurrentLocation()));
+    private void updatePackCenter(World world, int packnr){
+        ArrayList<Location> accumulator = new ArrayList<>();
+        int accumulatorX = 0, accumulatorY = 0, counter = 0;
+
+        for (Wolf wolf : WolvesInPacks){                    //first, collect all locations for wolves in pack number: packnr
+            if (wolf.getPacknr() == packnr){
+                accumulator.add(world.getLocation(wolf));
             }
-            Utils.spawnIn("Wolfden", world.getLocation(this));                          //spawn wolfden if none exists
         }
-        return world.getCurrentLocation();
+        for (Location place : accumulator) {                //second, accumulate value of ALL locations from wolves in the pack
+            accumulatorX += place.getX();
+            accumulatorY += place.getY();
+            counter++;
+        }
+        accumulatorX = accumulatorX/counter;                //third, compute average of ALL locations, and set it to packCenter
+        accumulatorY = accumulatorY/counter;
+        Location tempLocation = new Location(accumulatorX, accumulatorY);
+        packCenter = tempLocation;
+        
     }
 
     /**
-     * 
+     * returns pack number
      */
-    private void updatePackCenter(World world, int packnr){
-        
+    public int getPacknr() {
+        return packnr;
+    }
 
-        
+    @Override
+    public void die(World world){
+        WolvesInPacks.remove(this);
+        world.delete(this);
     }
 
     public DisplayInformation getInformation() {
