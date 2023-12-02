@@ -6,10 +6,10 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        scan Scanner = new scan("data\\t2-6a.txt");
+        scan Scanner = new scan("data\\t2-8a.txt");
         int size = Scanner.getSize();
-        int delay = 500; // forsinkelsen mellem hver skridt af simulationen (i ms)
-        int display_size = 800; // sk�rm opl�sningen (i px)
+        int delay = 1000; // forsinkelsen mellem hver skridt af simulationen (i ms)
+        int display_size = 1000; // sk�rm opl�sningen (i px)
         Utils.newProgram(size, display_size, delay);
 
         //Making hashmap for entities and amount
