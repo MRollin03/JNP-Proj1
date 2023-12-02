@@ -1,17 +1,10 @@
 package Animals;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Set;
 
-import itumulator.executable.*;
 import itumulator.world.*;
-import itumulator.simulator.*;
-import itumulator.display.*;
-import java.awt.*;
-import java.util.*;
 
 
-public class Animal {
+
+public class Animal{
     private int age;
     protected int foodmax;
     protected int energy;
@@ -30,28 +23,23 @@ public class Animal {
         Person
     }
 
-        
     public void act(World world){
         if (!world.isNight()){
             energy--;              //whenever they move, spend 1 energy, except at night
+            
         }
-               
         if (world.getCurrentTime() == 0) {      //animals grow older each day
             age++;
         }
-       
         if(this.getEnergy() < 1 || this.age == 12){     //animals die if they have no energy or get too old
             die(world);
-            System.out.println("Rabbit Died");
+            System.out.println(this.getClass() + " Died");
         }
         if (energy > foodmax) {     //makes sure animals cannot overeat
             energy = foodmax;
         }
 
     }
-
-    
-
 
     // Main die method
     public void die(World world){
@@ -63,7 +51,6 @@ public class Animal {
 
 
     // get methods
-
     public int getAge(){
         return age;
     }

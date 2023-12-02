@@ -1,3 +1,4 @@
-15
+5
 burrow 1
 rabbit 5
+bear 1

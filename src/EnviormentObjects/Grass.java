@@ -46,19 +46,4 @@ public class Grass extends EnvObject implements Actor{
         }
     }
 
-    //**Takes inputs of type World and Location to determine if location is of type grass. Return type is Boolean */
-    public static boolean isTileGrass (World world, Location location){
-        try{
-        if (world.getNonBlocking(location) instanceof Grass){
-            return true;
-        }
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-        return false;
-    }
-        
-
-    
-    //---------------------- get methods----------------------//
 }

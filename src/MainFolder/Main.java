@@ -3,6 +3,10 @@ import itumulator.executable.*;
 import itumulator.world.*;
 import java.util.*;
 
+
+
+import Animals.Wolf;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -16,27 +20,30 @@ public class Main {
         HashMap<String, Integer> entSpawnMap = new HashMap<String, Integer>();
         
         //spawn Values for each 
-        entSpawnMap.put("Rabbit", Scanner.getRabbit());
-        entSpawnMap.put("Grass", Scanner.getGrass());
-        entSpawnMap.put("RabbitHole", Scanner.getBurrow());
+
         System.out.println("Grass: " + Scanner.getGrass());
         System.out.println("Rabbit: " + Scanner.getRabbit());
         System.out.println("Burrow: " + Scanner.getBurrow());
-        System.out.println("Bear locations:");
-        for (scan.BearEntry bear : Scanner.getBears()) {
+        System.out.println("berry: " + Scanner.getBerryBush());
+        entSpawnMap.put("Rabbit", Scanner.getRabbit());
+        /*for (scan.BearEntry bear : Scanner.getBears()) {
             System.out.println(bear.getLocationString());
         }
-        System.out.println("Wolf Packs: " + Scanner.getHash());
+        System.out.println("Wolf Packs: " + Scanner.getHash());*/
         System.out.println("NO more entities");
+        //entSpawnMap.put("Wolf", Scanner.getWolf());
+        entSpawnMap.put("Bear" , 4);
+        entSpawnMap.put("berry-bush" , 20);
+
+        
 
         // Spawns every entitie on map.
         for (String entType : entSpawnMap.keySet()) {
             for(int i = 0; i < entSpawnMap.get(entType); i++){
-                Location l = Utils.getRandomLocation(size);     //Find a random location
+                Location l = Utils.getWorldRandomLocation(size);     //Find a random location
                 Utils.spawnIn(entType, l);
             }
         }
-        System.out.println("NO more entities");
 
         Utils.p.show(); // Shows the simulation
         for (int i = 0; i < 200; i++) {
