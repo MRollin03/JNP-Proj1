@@ -3,14 +3,10 @@ import itumulator.executable.*;
 import itumulator.world.*;
 import java.util.*;
 
-
-
-import Animals.Wolf;
-
 public class Main {
 
     public static void main(String[] args) {
-        scan Scanner = new scan("data/t2-2a.txt");
+        scan Scanner = new scan("data/t2-8a.txt");
         int size = Scanner.getSize();
         int delay = 800; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 600; // sk�rm opl�sningen (i px)
@@ -27,10 +23,10 @@ public class Main {
         System.out.println("Bear locations:");
         /*for (scan.BearEntry bear : Scanner.getBears()) {
             System.out.println(bear.getLocationString());
-        }
-        System.out.println("Wolf Packs: " + Scanner.getHash());*/
+        }*/
+        System.out.println("Wolf Packs: " + Scanner.getHash());
         System.out.println("NO more entities");
-        entSpawnMap.put("Wolf", 3);
+        //entSpawnMap.put("Wolf", 3);
         //entSpawnMap.put("Bear" , 1);
 
         
