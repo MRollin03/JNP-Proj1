@@ -12,6 +12,15 @@ public class Wolfden extends Homes{
         //this.packnr = packnr;
     }
     
+    
+    public boolean exists(Wolf wolf){
+        for (Wolf wolf_chk : WolvesInHole){
+            if (wolf == wolf_chk){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public ObjectType getObjectType() {

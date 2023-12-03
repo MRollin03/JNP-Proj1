@@ -54,8 +54,8 @@ public class Utils {
                 p.setDisplayInformation(Person.class, di);
                 break;
 
-            case "Wolf":
-                Wolf currentWolf = new Wolf(world,1,1);
+            case "Wolf":    //unused, consider deleting
+                Wolf currentWolf = new Wolf(world,1,l);
                 world.setTile(l, currentWolf);
                 //WolvesInPacks.add(currentWolf);
                 di = new DisplayInformation(Color.red,"wolf"); // Color Settings

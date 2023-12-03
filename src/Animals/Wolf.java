@@ -1,6 +1,7 @@
 package Animals;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import EnviormentObjects.*;
@@ -12,18 +13,18 @@ import itumulator.executable.*;
 
 public class Wolf extends Wolfpack implements DynamicDisplayInformationProvider{
     private Homes currentWolfden = null;
+    Random rand = new Random();
     int packnr;
-    int wolves;
+    int mate_CD = 18 + rand.nextInt(8);
     
     private Location home;
 
-    public Wolf(World world, int packnr, int wolves){
-        super(world, packnr, wolves);
+    public Wolf(World world, int packnr, Location packCenter){
+        super(world, packnr, packCenter);
         WolvesInPacks.add(this);
-        //this.packnr = packnr;
-        //this.packCenter = new Location(x, y);
+        this.packnr = packnr;
+        this.packCenter = packCenter;
 
-        //location = random location = packCenter -> spawn in territories
     }
 
     @Override
@@ -42,30 +43,36 @@ public class Wolf extends Wolfpack implements DynamicDisplayInformationProvider{
             return;
         }
 
-
-        
         home = packCenter;      //change home to packCenter
-
         Location currentLocation = world.getCurrentLocation();
-        //Location holeLocation = Utils.isNonBlocktNear(currentLocation, RabbitHole.class);
-            List<Location> emptyTiles = new ArrayList<>(world.getEmptySurroundingTiles());
+        List<Location> emptyTiles = new ArrayList<>(world.getEmptySurroundingTiles());
 
-            if (!emptyTiles.isEmpty()) {
-
-                Location newLocation = Utils.diff(home, currentLocation);
-
-                if(world.isTileEmpty(newLocation)){
-                    world.move(this, newLocation);
-                }
+        if (!emptyTiles.isEmpty()) {    //move towards home
+            Location newLocation = Utils.diff(home, currentLocation);
+            if(world.isTileEmpty(newLocation)){
+                world.move(this, newLocation);
             }
+        }
 
         //Location currentLocation = world.getCurrentLocation();      //change to fit wolves (old rabbit code for now)
+        Wolfden hole = null;
         if (Utils.checkNonBlocking(currentLocation, Wolfden.class)) {
-            Homes hole = (Homes) world.getNonBlocking(currentLocation);
-            currentWolfden = hole;
+            hole = (Wolfden) world.getNonBlocking(home);
+            //currentWolfden = hole;
             hole.addToHole(this,hole);
             return;
         }
+        if (hole != null) {
+        if (this.getmate_CD() == 0 && hole.exists(this)){
+            for (Wolf wolf : WolvesInPacks){
+                if (wolf.getmate_CD() == 0){
+                    hole.addToHole(new Wolf(world, packnr, home),home);
+                    System.out.println("A wolf is born!");
+                }
+            }
+        }
+        }
+
     }
 
 
@@ -150,8 +157,12 @@ public class Wolf extends Wolfpack implements DynamicDisplayInformationProvider{
         accumulatorX = accumulatorX/counter;                //third, compute average of ALL locations, and set it to packCenter
         accumulatorY = accumulatorY/counter;
         Location tempLocation = new Location(accumulatorX, accumulatorY);
-        packCenter = tempLocation;
+        updatePackCenter(tempLocation);
         
+    }
+
+    private int getmate_CD(){
+        return this.mate_CD;
     }
 
     /**
