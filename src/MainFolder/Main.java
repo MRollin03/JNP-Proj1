@@ -3,17 +3,16 @@ import itumulator.executable.*;
 import itumulator.world.*;
 import java.util.*;
 
-
-
-import Animals.Wolf;
+import Animals.Wolfpack;
 
 public class Main {
 
     public static void main(String[] args) {
-        scan Scanner = new scan("data\\t2-8a.txt");
+
+        scan Scanner = new scan("data/tf2-1.txt");
         int size = Scanner.getSize();
-        int delay = 1000; // forsinkelsen mellem hver skridt af simulationen (i ms)
-        int display_size = 1000; // sk�rm opl�sningen (i px)
+        int delay = 800; // forsinkelsen mellem hver skridt af simulationen (i ms)
+        int display_size = 600; // sk�rm opl�sningen (i px)
         Utils.newProgram(size, display_size, delay);
 
         //Making hashmap for entities and amount
@@ -28,12 +27,25 @@ public class Main {
         entSpawnMap.put("Rabbit", Scanner.getRabbit());
         /*for (scan.BearEntry bear : Scanner.getBears()) {
             System.out.println(bear.getLocationString());
-        }
-        System.out.println("Wolf Packs: " + Scanner.getHash());*/
+        }*/
+        System.out.println("Wolf Packs: " + Scanner.getHash());
         System.out.println("NO more entities");
-        //entSpawnMap.put("Wolf", Scanner.getWolf());
-        entSpawnMap.put("Bear" , 4);
-        entSpawnMap.put("berry-bush" , 20);
+
+        //WolfSpawner
+        HashMap<Integer, Integer> Wolves = new HashMap<>(Scanner.getHash());
+        int PackNumbers = Wolves.size();
+        for (int x = 1; x <= PackNumbers; x++) {
+            int wolves = Wolves.get(x);
+            Location l = Utils.getWorldRandomLocation(size);
+            Wolfpack wolfpack = new Wolfpack(Utils.world, x, l);
+            wolfpack.spawnWolf(wolves);
+        }
+
+        entSpawnMap.put("Grass", Scanner.getGrass());
+        entSpawnMap.put("Rabbit", Scanner.getRabbit());
+        entSpawnMap.put("burrow", Scanner.getBurrow());
+        
+        //entSpawnMap.put("Bear" , 1);
 
         
 

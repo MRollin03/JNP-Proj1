@@ -12,6 +12,7 @@ public class Utils {
     public static Program p;
     public static World world;
 
+
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
     
     public static void  newProgram(int size, int display_size, int delay) {
@@ -54,9 +55,10 @@ public class Utils {
                 p.setDisplayInformation(Person.class, di);
                 break;
 
-            case "Wolf":
-                Wolf currentWolf = new Wolf(world,1);
+            case "Wolf":    //unused, consider deleting
+                Wolf currentWolf = new Wolf(world,1,l);
                 world.setTile(l, currentWolf);
+                //WolvesInPacks.add(currentWolf);
                 di = new DisplayInformation(Color.red,"wolf"); // Color Settings
                 p.setDisplayInformation(Wolf.class, di);
                 break;
@@ -162,7 +164,7 @@ public class Utils {
     /**
      * moves obj to a random location around the current location.
      * @param currentLocation Location to find a random location around.
-     * @param obj              the Object you trying to move.
+     * @param obj             the Object you are trying to move.
      */
     public static Location randomMove(Location currentLocation,World wor) {
         Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
