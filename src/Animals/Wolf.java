@@ -19,14 +19,15 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
     Location packCenter;
     int mate_CD = 18 + rand.nextInt(8);
     
-    
-    private Location home;
+    private Wolfpack wolfPack;
+    private Location home = packCenter;
 
-    public Wolf(World world, int packnr, Location packCenter){
+    public Wolf(World world, int packnr, Location packCenter, Wolfpack wolfPack){
         super(world);
         this.packnr = packnr;
         this.packCenter = packCenter;
-        
+        this.wolfPack = wolfPack;
+        this.wolfPack.WolvesInPacks.add(this);
     }
 
     @Override
@@ -44,11 +45,22 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         if (world.getCurrentLocation() == null) {
             return;
         }
+
+        if (Wolfpack.getHasHome(packnr) == false){
+            if (world.containsNonBlocking(packCenter)){
+                world.delete(world.getNonBlocking(packCenter));
+            }
+            home = packCenter;
+            Utils.spawnIn("Wolfden", packCenter);
+            Wolfpack.changeHasHome(packnr,true);
+        }
   
         //home = packCenter;      //change home to packCenter
         Location currentLocation = world.getCurrentLocation();
         List<Location> emptyTiles = new ArrayList<>(world.getEmptySurroundingTiles());
-
+        //System.out.println(home);
+   
+        home = packCenter;
         if (!emptyTiles.isEmpty()) {    //move towards home
             Location newLocation = Utils.diff(home, currentLocation);
             if(world.isTileEmpty(newLocation)){
@@ -57,16 +69,16 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         }
 
         //Location currentLocation = world.getCurrentLocation();      //change to fit wolves (old rabbit code for now)
-        Wolfden hole = null;
-        if (world.containsNonBlocking(currentLocation)){
-            if (world.getNonBlocking(currentLocation) instanceof Wolfden) {
-                hole = (Wolfden) world.getNonBlocking(home);
+
+        if (Utils.checkNonBlocking(currentLocation) && Utils.checkNonBlockingType(currentLocation, Wolfden.class )){
+            if (world.getNonBlocking(home) instanceof Wolfden) {
+                Wolfden hole = (Wolfden) world.getNonBlocking(home);
                 currentWolfden = hole;
                 hole.addToHole(this,hole);
                 if (this.getmate_CD() == 0 && hole.exists(this)){
                     for (Wolf wolf : Wolfpack.WolvesInPacks){
                         if (wolf.getmate_CD() == 0){
-                            hole.addToHole(new Wolf(world, packnr, home),home);
+                            hole.addToHole(new Wolf(world, packnr, home, this.wolfPack),home);
                             System.out.println("A wolf is born!");
                         }
                     }
@@ -86,19 +98,12 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         }
         }*/
 
-        if (world.isNight() && Wolfpack.getHasHome(packnr) == false){
-            if (world.containsNonBlocking(packCenter)){
-                world.delete(world.getNonBlocking(packCenter));
-                home = packCenter;
-            }
-            Utils.spawnIn("Wolfden", packCenter);
-            Wolfpack.changeHasHome(packnr,true);
-        }
+        
 
     }
 
 
-    private void handleDayBehavior(World world) {               //handle day behaviour
+    private void handleDayBehavior(World world) {       // handle day behaviour
         if (world.getCurrentLocation() == null) {       // Proceed only if world.getCurrentLocation() is not null
             if (currentWolfden != null) {
                 currentWolfden.removeFromHole();
@@ -145,8 +150,8 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         Set<Location> nearby = world.getSurroundingTiles();
         for (Location spot : nearby){
             if (world.getTile(spot) instanceof Rabbit){
-                world.delete(world.getTile(spot));
-                world.move(this, spot);
+                Rabbit rabbit = (Rabbit) world.getTile(spot);
+                rabbit.die(world);
                 //remember insert energy increase here
                 return true;
             }
@@ -167,7 +172,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         return false;
     }
 
-    /**
+     /**
      * updates the center of a pack based on the current locations of all wolves in that pack
      * @param world of type World, used to manipulate the world
      * @param packnr indicates which pack is being updated
@@ -217,10 +222,14 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         this.packCenter = l;
     }
 
+    public void setWolfPack(Wolfpack wolfPack){
+        this.wolfPack = wolfPack;
+    }
+
+    
     @Override
     public void die(World world){
-        Wolfpack.WolvesInPacks.remove(this);
-        super.spawnCarcass(1, world.getCurrentLocation());
+        wolfPack.remove(this);
         world.delete(this);
     }
 

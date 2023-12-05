@@ -16,6 +16,7 @@ public class Scan {
     private int burrow;
     private int grass;
     private int berryBush;
+    private int carcass;
     private int packCounter = 1;
 
     public Scan(String filePath) {
@@ -74,6 +75,7 @@ public class Scan {
         burrow = dataMap.getOrDefault("burrow", 0);
         grass = dataMap.getOrDefault("grass", 0);
         berryBush = dataMap.getOrDefault("berry-bush", 0);
+        carcass = dataMap.getOrDefault("carcass", 0);
 
     } catch (FileNotFoundException e) {
         System.err.println("File not found: " + e.getMessage());
@@ -85,10 +87,19 @@ public class Scan {
         if (scanner.hasNext("\\(\\d+,\\d+\\)")) {
             String locationStr = scanner.findInLine("\\(\\d+,\\d+\\)");
             location = parseLocation(locationStr);
+
+            for (int i = 0; i < bearCount; i++) {
+                bears.add(new Bear(location, Utils.world));
+            }
         }
-        for (int i = 0; i < bearCount; i++) {
-            bears.add(new Bear(location, Utils.world));
+        else{
+            for (int i = 0; i < bearCount; i++) {
+                if(Utils.world == null){return;}
+                location = Utils.getWorldRandomLocation(Utils.world.getSize());
+                bears.add(new Bear(location, Utils.world));
+            }
         }
+        
     }
 
     private Location parseLocation(String locationStr) {
@@ -115,6 +126,10 @@ public class Scan {
 
     public int getBerryBush() {
         return berryBush;
+    }
+
+    public int getCarcass1(){
+        return carcass;
     }
 
     public HashMap<Integer, Integer> getHash() {

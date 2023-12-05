@@ -64,8 +64,8 @@ public class Utils {
                 break;
 
             case "Wolf":    //unused, consider deleting
-                Wolf currentWolf = new Wolf(world,1,l);
-                world.setTile(l, currentWolf);
+                //Wolf currentWolf = new Wolf(world,1,l, wolfpack);
+                //world.setTile(l, currentWolf);
                 //WolvesInPacks.add(currentWolf);
                 di = new DisplayInformation(Color.red,"wolf"); // Color Settings
                 p.setDisplayInformation(Wolf.class, di);
@@ -94,6 +94,9 @@ public class Utils {
 
             case "carcass-small":
                 Carcass carcass1 = new Carcass(world);
+                if(checkNonBlocking(l) == true){
+                    world.delete(world.getNonBlocking(l));
+                }
                 world.setTile(l, carcass1);
                 di = new DisplayInformation(Color.red, "carcass"); // Color Settings
                 p.setDisplayInformation(Carcass.class, di);
@@ -101,6 +104,9 @@ public class Utils {
 
             case "carcass":
                 Carcass carcass2 = new Carcass(world);
+                if(checkNonBlocking(l) == true){
+                    world.delete(world.getNonBlocking(l));
+                }
                 world.setTile(l, carcass2);
                 di = new DisplayInformation(Color.red, "carcass-small"); // Color Settings
                 p.setDisplayInformation(Carcass.class, di);
@@ -109,7 +115,7 @@ public class Utils {
         }
         for (Bear bear : Scanner.getBears()) {
             
-            Bear currentBear = new Bear(world);
+            Bear currentBear = new Bear(bear.getCentrum(), world);
             world.setTile(bear.getCentrum(), currentBear);
             di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
             p.setDisplayInformation(Bear.class, di);
@@ -277,7 +283,7 @@ public class Utils {
      * @param objClass  objClass the class to check for.
      * @return returns either false or true,
      */
-    public static boolean checkNonBlocking(Location location, Class objClass) {
+    public static boolean checkNonBlocking(Location location) {
         try {
             Object obj = world.getNonBlocking(location);
             return true;
@@ -286,5 +292,4 @@ public class Utils {
             return false;
         }
     }
-
 }

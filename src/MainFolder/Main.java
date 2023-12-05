@@ -8,7 +8,6 @@ import Animals.Wolfpack;
 public class Main {
     public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
 
-
     public static void main(String[] args) {
         Scan Scanner = new Scan("data/tf2-1.txt");
         int size = Scanner.getSize();
@@ -24,6 +23,7 @@ public class Main {
         System.out.println("Rabbit: " + Scanner.getRabbit());
         System.out.println("Burrow: " + Scanner.getBurrow());
         System.out.println("Wolf Packs: " + Scanner.getHash());
+        System.out.println("Carcass's :"+ Scanner.getCarcass1());
 
         //WolfSpawner
         HashMap<Integer, Integer> Wolves = new HashMap<>(Scanner.getHash());
@@ -38,6 +38,7 @@ public class Main {
         entSpawnMap.put("Grass", Scanner.getGrass());
         entSpawnMap.put("Rabbit", Scanner.getRabbit());
         entSpawnMap.put("burrow", Scanner.getBurrow());
+        entSpawnMap.put("carcass", Scanner.getCarcass1());
 
         // Spawns every entitie on map.
         for (String entType : entSpawnMap.keySet()) {

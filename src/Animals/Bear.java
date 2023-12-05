@@ -51,10 +51,6 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         if(currentLocation == null){
             return;
         }
-
-        if(energy <= 0){
-            die();
-        }
     }
 
     private void handleDayBehavior(World world) {

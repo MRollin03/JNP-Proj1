@@ -60,28 +60,37 @@ public class Wolfpack implements Actor{
         return null;
     }
 
-
-
     /**
      * Only used during initialization of the world, spawns wolves depending on input with corresponding packnumber
      * @param wolves int value indicating how many wolves need to be spawned.
      */
     public void spawnWolf(int wolves){      //lav packcenter i midten
-        Set<Location> neighbours = world.getSurroundingTiles(packCenter,2);
+        Set<Location> neighbours = world.getSurroundingTiles(packCenter,1);
         ArrayList<Location> list = new ArrayList<>(neighbours);
         
-        System.err.println("spawner wolfs");
+        //System.err.println("spawner wolfs");
         for (int i = 0; i <= wolves-1;i++){
-            Wolf wolf = new Wolf(world, packnr, packCenter);
+            Wolf wolf = new Wolf(world, packnr, packCenter, this);
             if (world.isTileEmpty(list.get(i))){
+                //System.out.println((list.get(i)));
                 world.setTile(list.get(i), wolf);
             }
             WolvesInPacks.add(wolf);
+            
         }
         
     }
+    /* 
+    public void remove(Wolf wolf){
+        this.remove(wolf);
+    }*/
 
-
+    public void addToPack(Wolf wolf){
+        WolvesInPacks.add(wolf);
+    }
+    public void remove(Wolf wolf){
+        WolvesInPacks.remove(wolf);
+    }
 
 
 }

@@ -164,7 +164,6 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
     public void die(World world) {
         super.die(world);
         super.spawnCarcass(2, world.getCurrentLocation());
-        world.delete(this);
     }
 
     public DisplayInformation getInformation() {

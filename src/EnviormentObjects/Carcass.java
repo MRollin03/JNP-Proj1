@@ -10,6 +10,7 @@ import java.awt.*;
 public class Carcass extends EnvObject implements NonBlocking, DynamicDisplayInformationProvider{
 
     private boolean big = false;
+    
 
     public Carcass(World world){
         super(ObjectType.carcass, world);
