@@ -55,8 +55,8 @@ public class Utils {
                 break;
 
             case "Wolf":    //unused, consider deleting
-                Wolf currentWolf = new Wolf(world,1,l);
-                world.setTile(l, currentWolf);
+                //Wolf currentWolf = new Wolf(world,1,l);
+                //world.setTile(l, currentWolf);
                 //WolvesInPacks.add(currentWolf);
                 di = new DisplayInformation(Color.red,"wolf"); // Color Settings
                 p.setDisplayInformation(Wolf.class, di);
@@ -236,7 +236,7 @@ public class Utils {
      * @param objClass  objClass the class to check for.
      * @return returns either false or true,
      */
-    public static boolean checkNonBlocking(Location location, Class objClass) {
+    public static boolean checkNonBlocking(Location location) {         //wut is dis????
         try {
             Object obj = world.getNonBlocking(location);
             return true;
@@ -245,5 +245,6 @@ public class Utils {
             return false;
         }
     }
+
 
 }

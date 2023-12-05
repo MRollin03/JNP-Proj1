@@ -81,7 +81,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
         Location currentLocation = world.getCurrentLocation();
         
         // Gets a random move location and checks if theres grass on the tiles.
-                Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
+        Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
     
         if (mate_CD > 0){
             mate_CD--;
@@ -94,13 +94,11 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
                 if(getothermate_CD(l) == 0){
                     Random rand = new Random();
                     Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));      //brug en anden funktion her?
-                    //try {
+                    if ( emptyTiles.size() != 0){
                         Utils.spawnIn("Rabbit",newLocation);
                         mate_CD = 15;               //resets Mate cooldown for 1 rabbit
                         resetmateCD(l);             //resets Mate cooldown for the other rabbit
-                    //} catch (Exception e ){
-
-                    //}
+                    }
                 }
             }
         }

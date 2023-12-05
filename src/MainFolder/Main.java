@@ -6,6 +6,8 @@ import java.util.*;
 import Animals.Wolfpack;
 
 public class Main {
+    public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
+
 
     public static void main(String[] args) {
         scan Scanner = new scan("data/tf2-1.txt");
@@ -17,15 +19,11 @@ public class Main {
         //Making hashmap for entities and amount
         HashMap<String, Integer> entSpawnMap = new HashMap<String, Integer>();
         
-        //spawn Values for each 
-
+        //Print statemant for spawn Values of each 
         System.out.println("Grass: " + Scanner.getGrass());
         System.out.println("Rabbit: " + Scanner.getRabbit());
         System.out.println("Burrow: " + Scanner.getBurrow());
         System.out.println("Bear locations:");
-        /*for (scan.BearEntry bear : Scanner.getBears()) {
-            System.out.println(bear.getLocationString());
-        }*/
         System.out.println("Wolf Packs: " + Scanner.getHash());
         System.out.println("NO more entities");
 
@@ -34,7 +32,9 @@ public class Main {
         int PackNumbers = Wolves.size();
         for (int x = 1; x <= PackNumbers; x++) {
             int wolves = Wolves.get(x);
-            Location l = Utils.getWorldRandomLocation(size);
+            //System.out.println(Wolves.get(x));
+            Location l = new Location((size/(1+PackNumbers))*x, size/(1+PackNumbers)*x);
+            
             Wolfpack wolfpack = new Wolfpack(Utils.world, x, l);
             wolfpack.spawnWolf(wolves);
         }
@@ -42,10 +42,6 @@ public class Main {
         entSpawnMap.put("Grass", Scanner.getGrass());
         entSpawnMap.put("Rabbit", Scanner.getRabbit());
         entSpawnMap.put("burrow", Scanner.getBurrow());
-        
-        //entSpawnMap.put("Bear" , 1);
-
-        
 
         // Spawns every entitie on map.
         for (String entType : entSpawnMap.keySet()) {
