@@ -2,32 +2,21 @@ package MainFolder;
 
 import itumulator.world.Location;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
+
+import Animals.Bear;
 
 public class Scan {
     private Map<String, Integer> dataMap = new HashMap<>();
     private HashMap<Integer, Integer> wolfPacks = new HashMap<>();
-    private List<BearEntry> bears = new ArrayList<>();
+    private List<Bear> bears = new ArrayList<Bear>();
     private int size;
     private int rabbit;
     private int burrow;
     private int grass;
     private int berryBush;
     private int packCounter = 1;
-
-    public static class BearEntry {
-        private Location location;
-
-        public BearEntry(Location location) {
-            this.location = location;
-        }
-
-        public String getLocationString() {
-            return (location != null) ? location.getX() + "," + location.getY() : "No location";
-        }
-    }
 
     public Scan(String filePath) {
         scanner(filePath);
@@ -40,8 +29,8 @@ public class Scan {
             boolean isFirstInteger = true;
             String lastString = "";
 
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
                 Scanner lineScanner = new Scanner(line);
 
                 while (lineScanner.hasNext()) {
@@ -84,6 +73,7 @@ public class Scan {
         rabbit = dataMap.getOrDefault("rabbit", 0);
         burrow = dataMap.getOrDefault("burrow", 0);
         grass = dataMap.getOrDefault("grass", 0);
+        berryBush = dataMap.getOrDefault("berry-bush", 0);
 
     } catch (FileNotFoundException e) {
         System.err.println("File not found: " + e.getMessage());
@@ -97,7 +87,7 @@ public class Scan {
             location = parseLocation(locationStr);
         }
         for (int i = 0; i < bearCount; i++) {
-            bears.add(new BearEntry(location));
+            bears.add(new Bear(location, Utils.world));
         }
     }
 
@@ -131,13 +121,13 @@ public class Scan {
         return wolfPacks;
     }
 
-    public List<BearEntry> getBears() {
+    public List<Bear> getBears() {
         return bears;
     }
 
     public void printBears() {
-        for (BearEntry bear : getBears()) {
-            System.out.println(bear.getLocationString());
+        for (Bear bear : getBears()) {
+            System.out.println(bear.getCentrum());
         }
     }
 }

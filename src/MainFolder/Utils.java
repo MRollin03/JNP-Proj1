@@ -7,10 +7,10 @@ import java.util.List;
 
 import Animals.*;
 import EnviormentObjects.*;
-import MainFolder.scan.BearEntry;
+import MainFolder.*;
 
 public class Utils {
-    public static scan Scanner = new scan("data/t2-5b.txt");
+    public static Scan Scanner = new Scan("data/t2-5b.txt");
     public static Program p;
     public static World world;
 
@@ -93,10 +93,10 @@ public class Utils {
                 break;
 
         }
-        for (scan.BearEntry bear : Scanner.getBears()) {
+        for (Bear bear : Scanner.getBears()) {
             
             Bear currentBear = new Bear(world);
-            world.setTile(bear.getBearLocation(), currentBear);
+            world.setTile(bear.getCentrum(), currentBear);
             di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
             p.setDisplayInformation(Bear.class, di);
             break;

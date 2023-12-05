@@ -174,6 +174,4 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
         }
     }
 
-
-    
 }

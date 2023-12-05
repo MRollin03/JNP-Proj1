@@ -9,51 +9,79 @@ import itumulator.simulator.Actor;
 import itumulator.world.*;
 
 
-public class Wolfpack extends Animal implements Actor{
+public class Wolfpack implements Actor{
+    World world = Utils.world;
     protected int packnr;
-    protected int wolves;
-    protected static ArrayList<Wolf> WolvesInPacks = new ArrayList<>();
-    protected ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
-    /*static*/ protected Location packCenter;
+    protected Location packCenter;
     protected boolean hasHome;
 
-
-
-    public Wolfpack (World world, int packnr, Location packCenter){
-        super(world);
+    protected static ArrayList<Wolf> WolvesInPacks = new ArrayList<>();
+    
+    public Wolfpack (World world, int packnr, Location packCenter){     //I hate wolves....
         this.packnr = packnr;
         this.packCenter = packCenter;
-        Wolfpacks.add(this);
+        this.hasHome = false;
+        Main.Wolfpacks.add(this);
     }
 
     @Override
     public void act(World world){
-        if (world.isNight() && hasHome == false){
-            if (world.containsNonBlocking(packCenter)){
-                world.delete(world.getNonBlocking(packCenter));
+        packCenter = Wolf.getPackCenter(packnr);
+        System.out.println(packCenter);
+    }
+
+    public static boolean getHasHome(int packnr){
+        for (Wolfpack wolfpack : Main.Wolfpacks){
+            if (wolfpack.getPacknr() == packnr){
+                return wolfpack.hasHome;
             }
-            Utils.spawnIn("Wolfden", packCenter);
-            hasHome = true;
+        }
+        return false;
+    }
+
+    public static void changeHasHome(int packnr, boolean value){
+        for (Wolfpack wolfpack : Main.Wolfpacks){
+            if (wolfpack.getPacknr() == packnr){
+                wolfpack.hasHome = value;
+            }
         }
     }
+
+    private int getPacknr(){
+        return packnr;
+    }
+
+    public static Location getPackCenter(int packnr){
+        for (Wolf wolf : Wolfpack.WolvesInPacks){
+            if (wolf.getPacknr() == packnr){
+                return wolf.packCenter;
+            }
+        }
+        return null;
+    }
+
+
 
     /**
      * Only used during initialization of the world, spawns wolves depending on input with corresponding packnumber
      * @param wolves int value indicating how many wolves need to be spawned.
      */
-    public void spawnWolf(int wolves){
-        Set<Location> neighbours = world.getEmptySurroundingTiles(packCenter);
+    public void spawnWolf(int wolves){      //lav packcenter i midten
+        Set<Location> neighbours = world.getSurroundingTiles(packCenter,2);
         ArrayList<Location> list = new ArrayList<>(neighbours);
-
-        for (int i = 0; i <= wolves;i++){
+        
+        System.err.println("spawner wolfs");
+        for (int i = 0; i <= wolves-1;i++){
             Wolf wolf = new Wolf(world, packnr, packCenter);
-            world.setTile(list.get(i), wolf);
+            if (world.isTileEmpty(list.get(i))){
+                world.setTile(list.get(i), wolf);
+            }
+            WolvesInPacks.add(wolf);
         }
+        
     }
 
-    protected void updatePackCenter(Location l){
-        this.packCenter = l;
-    }
+
 
 
 }

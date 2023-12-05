@@ -46,7 +46,6 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
 
         super.act(world);
     }
-
    
     
     private void handleNightBehavior(World world) {
@@ -93,10 +92,14 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
                 super.energy =+ 5;
             }
             
-            //Rabbitchecker
-            if (world.getTile(newLocation).getClass() == Rabbit.class) {
-                Rabbit rabbit = (Rabbit) world.getTile(newLocation);
-                rabbit.die(world);
+            if (canAttack()){
+                System.out.println("Attack Successful!");
+            } else {
+                try {
+                    world.move(this, Utils.randomMove(currentLocation, Utils.world));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }   
 
@@ -107,6 +110,25 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
 
     public Location getCentrum(){
         return centrum;
+    }
+
+    private boolean canAttack(){
+        Set<Location> nearby = world.getSurroundingTiles();
+        for (Location spot : nearby){
+            if (world.getTile(spot) instanceof Rabbit){
+                world.delete(world.getTile(spot));
+                world.move(this, spot);
+                //remember insert energy increase here
+                return true;
+            }
+            if (world.getTile(spot) instanceof Wolf){
+                Wolf wolf = (Wolf) world.getTile(spot);
+                wolf.damage(8); // Bear gives wolf 8 in damages.
+                return true;
+            }
+        }
+
+        return false;
     }
     
 
