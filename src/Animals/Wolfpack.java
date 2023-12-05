@@ -60,20 +60,6 @@ public class Wolfpack implements Actor{
         return null;
     }
 
-    private int getPacknr(){
-        return packnr;
-    }
-
-    public static Location getPackCenter(int packnr){
-        for (Wolf wolf : Wolfpack.WolvesInPacks){
-            if (wolf.getPacknr() == packnr){
-                return wolf.packCenter;
-            }
-        }
-        return null;
-    }
-
-
 
     /**
      * Only used during initialization of the world, spawns wolves depending on input with corresponding packnumber
