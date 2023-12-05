@@ -74,7 +74,6 @@ public class Wolfpack implements Actor{
     }
 
 
-
     /**
      * Only used during initialization of the world, spawns wolves depending on input with corresponding packnumber
      * @param wolves int value indicating how many wolves need to be spawned.

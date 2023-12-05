@@ -9,9 +9,9 @@ public class Main {
     public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
 
     public static void main(String[] args) {
-        Scan Scanner = new Scan("data/tf2-1.txt");
+        Scan Scanner = new Scan("data\\t3-2ab.txt");
         int size = Scanner.getSize();
-        int delay = 800; // forsinkelsen mellem hver skridt af simulationen (i ms)
+        int delay = 800; // forsi   nkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 600; // sk�rm opl�sningen (i px)
         Utils.newProgram(size, display_size, delay);
 
@@ -22,6 +22,12 @@ public class Main {
         System.out.println("Grass: " + Scanner.getGrass());
         System.out.println("Rabbit: " + Scanner.getRabbit());
         System.out.println("Burrow: " + Scanner.getBurrow());
+        System.out.println("berry: " + Scanner.getBerryBush());
+        System.out.println("Carcass: " + Scanner.getCarcass());
+        System.out.println("Fungi: " + Scanner.getFungi());
+        /*for (scan.BearEntry bear : Scanner.getBears()) {
+            System.out.println(bear.getLocationString());
+        }*/
         System.out.println("Wolf Packs: " + Scanner.getHash());
         System.out.println("Carcass's :"+ Scanner.getCarcass1());
 
