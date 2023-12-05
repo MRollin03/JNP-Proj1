@@ -220,6 +220,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
     @Override
     public void die(World world){
         Wolfpack.WolvesInPacks.remove(this);
+        super.spawnCarcass(1, world.getCurrentLocation());
         world.delete(this);
     }
 

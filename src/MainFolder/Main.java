@@ -30,7 +30,6 @@ public class Main {
             System.out.println(bear.getLocationString());
         }*/
         System.out.println("Wolf Packs: " + Scanner.getHash());
-        System.out.println("NO more entities");
 
         //WolfSpawner
         HashMap<Integer, Integer> Wolves = new HashMap<>(Scanner.getHash());

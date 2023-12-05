@@ -58,6 +58,7 @@ public class Animal{
         if(size == 0){
             Utils.spawnIn("carcass", l);
         }
+        
     }
 
 

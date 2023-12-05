@@ -1,7 +1,8 @@
 package EnviormentObjects;
 
 public enum ObjectType {
- hole,
- grass,
- berryBush
+    hole,
+    grass,
+    berryBush,
+    carcass,
 }
