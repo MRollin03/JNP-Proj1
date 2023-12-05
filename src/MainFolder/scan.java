@@ -2,7 +2,8 @@ package MainFolder;
 
 import itumulator.world.Location;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 import Animals.Bear;
@@ -16,8 +17,9 @@ public class Scan {
     private int burrow;
     private int grass;
     private int berryBush;
-    private int carcass;
     private int packCounter = 1;
+    private int carcass;
+    private int fungi;
 
     public Scan(String filePath) {
         scanner(filePath);
@@ -25,13 +27,13 @@ public class Scan {
 
     private void scanner(String filePath) {
         File inputFile = new File(filePath);
-        try (Scanner scanner = new Scanner(inputFile)) {
+        try (Scanner Filescanner = new Scanner(inputFile)) {
             Random random = new Random();
             boolean isFirstInteger = true;
             String lastString = "";
 
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
+            while (Filescanner.hasNextLine()) {
+                String line = Filescanner.nextLine();
                 Scanner lineScanner = new Scanner(line);
 
                 while (lineScanner.hasNext()) {
@@ -74,8 +76,9 @@ public class Scan {
         rabbit = dataMap.getOrDefault("rabbit", 0);
         burrow = dataMap.getOrDefault("burrow", 0);
         grass = dataMap.getOrDefault("grass", 0);
-        berryBush = dataMap.getOrDefault("berry-bush", 0);
+        berryBush = dataMap.getOrDefault("berry", 0);
         carcass = dataMap.getOrDefault("carcass", 0);
+        fungi = dataMap.getOrDefault("fungi", 0);
 
     } catch (FileNotFoundException e) {
         System.err.println("File not found: " + e.getMessage());
@@ -99,8 +102,8 @@ public class Scan {
                 bears.add(new Bear(location, Utils.world));
             }
         }
-        
     }
+
 
     private Location parseLocation(String locationStr) {
         locationStr = locationStr.replaceAll("[()]", "");
@@ -126,6 +129,14 @@ public class Scan {
 
     public int getBerryBush() {
         return berryBush;
+    }
+
+    public int getCarcass() {
+        return carcass;
+    }
+
+    public int getFungi() {
+        return fungi;
     }
 
     public int getCarcass1(){
