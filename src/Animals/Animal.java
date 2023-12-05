@@ -1,5 +1,6 @@
 package Animals;
 
+import MainFolder.Utils;
 import itumulator.world.*;
 
 
@@ -46,8 +47,18 @@ public class Animal{
         world.delete(this);
     }
 
+    public void damage(int damageValue){
+        energy = energy - damageValue;
+    }
 
-
+    public void  spawnCarcass(int size, Location l){
+        if(size == 0){
+            Utils.spawnIn("carcass-small", l);
+        }
+        if(size == 0){
+            Utils.spawnIn("carcass", l);
+        }
+    }
 
 
     // get methods

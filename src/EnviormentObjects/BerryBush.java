@@ -18,7 +18,6 @@ public class BerryBush extends EnvObject implements Actor, DynamicDisplayInforma
     public void act(World world) {
         super.act(world);
         grow();
-        
     }
 
     //-------Code that Spreads grass around ----//

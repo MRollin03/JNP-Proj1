@@ -7,7 +7,7 @@ import java.util.List;
 
 import Animals.*;
 import EnviormentObjects.*;
-import MainFolder.Scan.BearEntry;
+import MainFolder.*;
 
 public class Utils {
     public static Scan Scanner = new Scan("data/t2-5b.txt");
@@ -93,10 +93,10 @@ public class Utils {
                 break;
 
         }
-        for (Scan.BearEntry bear : Scanner.getBears()) {
+        for (Bear bear : Scanner.getBears()) {
             
             Bear currentBear = new Bear(world);
-            world.setTile(bear.getBears(), currentBear);
+            world.setTile(bear.getCentrum(), currentBear);
             di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
             p.setDisplayInformation(Bear.class, di);
             break;
