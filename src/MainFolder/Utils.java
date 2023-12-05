@@ -3,18 +3,26 @@ import itumulator.executable.*;
 import itumulator.world.*;
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 import Animals.*;
 import EnviormentObjects.*;
+import MainFolder.*;
 
 public class Utils {
-    
+    public static Scan Scanner = new Scan("data/t2-5b.txt");
     public static Program p;
     public static World world;
 
 
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
     
+    /**
+     * Instansiates a new program and world based on the parameter given in the arguments
+     * @param size  the size of the desired world
+     * @param display_size the display window size
+     * @param delay  the delay in between every frame
+     */
     public static void  newProgram(int size, int display_size, int delay) {
         p = new Program(size, display_size, delay); // opret et nyt program
         world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilf�je ting!
@@ -40,6 +48,7 @@ public class Utils {
                 di = new DisplayInformation(Color.yellow,"grass"); // Color Settings
                 p.setDisplayInformation(Grass.class, di);
                 break;
+                
             case "RabbitHole":
                 EnvObject currentRabbitHole = new RabbitHole(world);
                 world.setTile(l, currentRabbitHole);
@@ -55,7 +64,7 @@ public class Utils {
                 break;
 
             case "Wolf":    //unused, consider deleting
-                //Wolf currentWolf = new Wolf(world,1,l);
+                //Wolf currentWolf = new Wolf(world,1,l, wolfpack);
                 //world.setTile(l, currentWolf);
                 //WolvesInPacks.add(currentWolf);
                 di = new DisplayInformation(Color.red,"wolf"); // Color Settings
@@ -71,10 +80,46 @@ public class Utils {
         
             case "Bear":
                 Bear currentBear = new Bear(getWorldRandomLocation(5), world);
-                world.setTile(l, currentBear);
+                world.setTile(currentBear.getCentrum(), currentBear);
                 di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
                 p.setDisplayInformation(Bear.class, di);
                 break;
+
+            case "berry-bush":
+                BerryBush currentBush = new BerryBush(world);
+                world.setTile(l, currentBush);
+                di = new DisplayInformation(Color.green, "bush"); // Color Settings
+                p.setDisplayInformation(BerryBush.class, di);
+                break;
+
+            case "carcass-small":
+                Carcass carcass1 = new Carcass(world);
+                if(checkNonBlocking(l) == true){
+                    world.delete(world.getNonBlocking(l));
+                }
+                world.setTile(l, carcass1);
+                di = new DisplayInformation(Color.red, "carcass"); // Color Settings
+                p.setDisplayInformation(Carcass.class, di);
+                break;
+
+            case "carcass":
+                Carcass carcass2 = new Carcass(world);
+                if(checkNonBlocking(l) == true){
+                    world.delete(world.getNonBlocking(l));
+                }
+                world.setTile(l, carcass2);
+                di = new DisplayInformation(Color.red, "carcass-small"); // Color Settings
+                p.setDisplayInformation(Carcass.class, di);
+                break;
+
+        }
+        for (Bear bear : Scanner.getBears()) {
+            
+            Bear currentBear = new Bear(bear.getCentrum(), world);
+            world.setTile(bear.getCentrum(), currentBear);
+            di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
+            p.setDisplayInformation(Bear.class, di);
+            break;
         }
     }
 
@@ -157,15 +202,17 @@ public class Utils {
      * @param currentLocation Location to find a random location around.
      * @param obj             the Object you are trying to move.
      */
-    public static Location randomMove(Location currentLocation, Object obj){
+    public static Location randomMove(Location currentLocation,World wor) {
         Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
-    if (!emptyTiles.isEmpty()) {
-        Random rand = new Random();
-        Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));
-        return newLocation;
+        if (!emptyTiles.isEmpty()) {
+            Random rand = new Random();
+            Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));
+            return newLocation;
+        }
+        return null;
     }
-    return null;
-}
+    
+
 
     /**
      * This Function returns a random Location based on the size of the world.
@@ -236,7 +283,7 @@ public class Utils {
      * @param objClass  objClass the class to check for.
      * @return returns either false or true,
      */
-    public static boolean checkNonBlocking(Location location) {         //wut is dis????
+    public static boolean checkNonBlocking(Location location) {
         try {
             Object obj = world.getNonBlocking(location);
             return true;
@@ -245,6 +292,4 @@ public class Utils {
             return false;
         }
     }
-
-
 }

@@ -7,31 +7,36 @@ import EnviormentObjects.*;
 import MainFolder.*;
 import java.util.*;
 import java.awt.*;
-import java.util.ArrayList.*;;
+import java.util.ArrayList.*;
 
 public class Bear extends Animal implements Actor, DynamicDisplayInformationProvider{
 
     private Location centrum;
-    private Set terrortories;
+    private Set<Location> terrortories;
     ArrayList<Class<?>> foods = new ArrayList<>();
 
+    //-----------Constructors for two different cases
 
-    //Constructors for two different cases
-    public Bear(World world){
+    // random location
+    public Bear(World world) {
         super(world);
         this.centrum = Utils.getWorldRandomLocation(world.getSize());
         world.setCurrentLocation(centrum);
         terrortories = world.getSurroundingTiles(1);
     }
-    public Bear(Location centrum, World world){
+
+    // dedicated location
+    public Bear(Location centrum, World world) {
         super(world);
         this.centrum = centrum;
         world.setCurrentLocation(centrum);
         terrortories = world.getSurroundingTiles(1);
     }
 
+    //act function
     @Override
     public void act(World world){
+
         if (world.isNight()) {
             handleNightBehavior(world);
         } else{
@@ -40,9 +45,10 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
 
         super.act(world);
     }
-
+    
     private void handleNightBehavior(World world) {
-        if(world.getCurrentLocation() == null){
+        Location currentLocation = world.getCurrentLocation();
+        if(currentLocation == null){
             return;
         }
     }
@@ -97,7 +103,13 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
 
         world.move(this, newLocation);
 
+    } 
+
+
+    public Location getCentrum(){
+        return centrum;
     }
+
     private boolean canAttack(){
         Set<Location> nearby = world.getSurroundingTiles();
         for (Location spot : nearby){
@@ -115,6 +127,12 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         }
 
         return false;
+    }
+    
+    private void die(){
+        super.spawnCarcass(1, world.getCurrentLocation());
+        super.die(world);
+        world.delete(this);
     }
 
     @Override

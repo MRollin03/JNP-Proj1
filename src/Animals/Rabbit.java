@@ -18,6 +18,10 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
 
     @Override
     public void act(World world) {
+
+        if(world == null){
+            return;
+        }
         
         if (world.isNight()) {
             handleNightBehavior(world);
@@ -70,15 +74,15 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
 
     private void handleDayBehavior(World world) {
 
+        Location currentLocation = world.getCurrentLocation();
+
         // if Rabbit currently has no location by day call its current holes removefromhole() function.
-        if (world.getCurrentLocation() == null) {
+        if (currentLocation == null) {
             if (currentRabbitHole != null) {
                 currentRabbitHole.removeFromHole();
             }
             return;
         }
-
-        Location currentLocation = world.getCurrentLocation();
         
         // Gets a random move location and checks if theres grass on the tiles.
         Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
@@ -87,34 +91,57 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
             mate_CD--;
         }
         Set<Location> surroundingTiles = world.getSurroundingTiles(1);
+        Location newLocation = currentLocation;
+        
+        try {
+            world.move(this, Utils.randomMove(currentLocation,world));
+
+            // checks if there is grass on the next steps if the eat. give 5 engey points.
+            if (Utils.checkNonBlockingType(newLocation, Grass.class)) {
+                EnvObject.deleteObj(world, world.getNonBlocking(newLocation));
+                energy += 5;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         for (Location l : surroundingTiles) {
+            if (!world.isTileEmpty(l)) {
+                if(world.getTile(l).getClass() == Bear.class || world.getTile(l).getClass() == Wolf.class){
+                    newLocation = Utils.diff(new Location(-l.getX(), -l.getY()), currentLocation);
+                }
+            }
+            
+
+
             if (world.getTile(l) instanceof Rabbit && mate_CD == 0){
                 //System.out.println("main:" + getmate_CD());
                 //System.out.println("other:" + getothermate_CD(l));
                 if(getothermate_CD(l) == 0){
-                    Random rand = new Random();
-                    Location newLocation = new ArrayList<>(emptyTiles).get(rand.nextInt(emptyTiles.size()));      //brug en anden funktion her?
-                    if ( emptyTiles.size() != 0){
-                        Utils.spawnIn("Rabbit",newLocation);
-                        mate_CD = 15;               //resets Mate cooldown for 1 rabbit
-                        resetmateCD(l);             //resets Mate cooldown for the other rabbit
-                    }
+                    newLocation = Utils.randomMove(currentLocation, world);      //brug en anden funktion her?
+
+                    Utils.spawnIn("Rabbit",newLocation);
+                    mate_CD = 15;               //resets Mate cooldown for 1 rabbit
+                    resetmateCD(l);             //resets Mate cooldown for the other rabbit
                 }
             }
+            
         }
-        try {
-            world.move(this, Utils.randomMove(currentLocation, this));
-            Location newLocation = world.getLocation(this);
 
+        newLocation = world.getLocation(this);
 
+        try{
             if (Utils.checkNonBlockingType(newLocation, Grass.class)) {
                 EnvObject.deleteObj(world, world.getNonBlocking(newLocation));
                 energy += 5;
                 //System.err.println("Grass eaten");
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
         
     }
 
@@ -128,8 +155,9 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
     }
 
 /**
- * Resets mate cooldown timer for rabbit at location l
- */
+ * Resets the mateing CoolDown
+ * @param l location of the rabbit
+*/
     private void resetmateCD(Location l){
         Rabbit temp = (Rabbit) world.getTile(l);
         temp.mate_CD = 15;
@@ -137,6 +165,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
 
     public void die(World world) {
         super.die(world);
+        super.spawnCarcass(2, world.getCurrentLocation());
     }
 
     public DisplayInformation getInformation() {
@@ -148,6 +177,4 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
         }
     }
 
-
-    
 }

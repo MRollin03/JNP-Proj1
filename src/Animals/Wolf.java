@@ -103,7 +103,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
     }
 
 
-    private void handleDayBehavior(World world) {               //handle day behaviour
+    private void handleDayBehavior(World world) {       // handle day behaviour
         if (world.getCurrentLocation() == null) {       // Proceed only if world.getCurrentLocation() is not null
             if (currentWolfden != null) {
                 currentWolfden.removeFromHole();
@@ -138,16 +138,14 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
             System.out.println("Attack Successful!");
         } else {
             try {
-                world.move(this, Utils.randomMove(currentLocation, this));
+                world.move(this, Utils.randomMove(currentLocation, Utils.world));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    /**
-     * 
-     */
+    
     private boolean canAttack(){
         Set<Location> nearby = world.getSurroundingTiles();
         for (Location spot : nearby){
@@ -175,7 +173,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         return false;
     }
 
-    /**
+     /**
      * updates the center of a pack based on the current locations of all wolves in that pack
      * @param world of type World, used to manipulate the world
      * @param packnr indicates which pack is being updated

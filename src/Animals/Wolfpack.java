@@ -14,6 +14,7 @@ public class Wolfpack implements Actor{
     protected int packnr;
     protected Location packCenter;
     protected boolean hasHome;
+
     protected static ArrayList<Wolf> WolvesInPacks = new ArrayList<>();
     
     public Wolfpack (World world, int packnr, Location packCenter){     //I hate wolves....
@@ -44,6 +45,19 @@ public class Wolfpack implements Actor{
                 wolfpack.hasHome = value;
             }
         }
+    }
+
+    private int getPacknr(){
+        return packnr;
+    }
+
+    public static Location getPackCenter(int packnr){
+        for (Wolf wolf : Wolfpack.WolvesInPacks){
+            if (wolf.getPacknr() == packnr){
+                return wolf.packCenter;
+            }
+        }
+        return null;
     }
 
     private int getPacknr(){
@@ -92,8 +106,4 @@ public class Wolfpack implements Actor{
     public void remove(Wolf wolf){
         WolvesInPacks.remove(wolf);
     }
-
-
-
-
 }
