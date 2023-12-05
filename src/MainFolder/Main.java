@@ -3,9 +3,7 @@ import itumulator.executable.*;
 import itumulator.world.*;
 import java.util.*;
 
-
-
-import Animals.Wolf;
+import Animals.Wolfpack;
 
 public class Main {
 
@@ -24,15 +22,29 @@ public class Main {
         System.out.println("Grass: " + Scanner.getGrass());
         System.out.println("Rabbit: " + Scanner.getRabbit());
         System.out.println("Burrow: " + Scanner.getBurrow());
-        System.out.println("Bear locations:");
-        for (scan.BearEntry bear : Scanner.getBears()) {
-            System.out.println(bear.getBearLocation());
-        }
-
+        System.out.println("berry: " + Scanner.getBerryBush());
+        entSpawnMap.put("Rabbit", Scanner.getRabbit());
+        /*for (scan.BearEntry bear : Scanner.getBears()) {
+            System.out.println(bear.getLocationString());
+        }*/
         System.out.println("Wolf Packs: " + Scanner.getHash());
         System.out.println("NO more entities");
-        //entSpawnMap.put("Wolf", Scanner.getWolf());
-        entSpawnMap.put("Bear" , 1);
+
+        //WolfSpawner
+        HashMap<Integer, Integer> Wolves = new HashMap<>(Scanner.getHash());
+        int PackNumbers = Wolves.size();
+        for (int x = 1; x <= PackNumbers; x++) {
+            int wolves = Wolves.get(x);
+            Location l = Utils.getWorldRandomLocation(size);
+            Wolfpack wolfpack = new Wolfpack(Utils.world, x, l);
+            wolfpack.spawnWolf(wolves);
+        }
+
+        entSpawnMap.put("Grass", Scanner.getGrass());
+        entSpawnMap.put("Rabbit", Scanner.getRabbit());
+        entSpawnMap.put("burrow", Scanner.getBurrow());
+        
+        //entSpawnMap.put("Bear" , 1);
 
         
 
