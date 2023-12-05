@@ -14,8 +14,10 @@ public class Scan {
     private int rabbit;
     private int burrow;
     private int grass;
-    private int berryBush;
+    private int berry;
     private int packCounter = 1;
+    private int carcass;
+    private int fungi;
 
     public static class BearEntry {
         private Location location;
@@ -35,13 +37,13 @@ public class Scan {
 
     private void scanner(String filePath) {
         File inputFile = new File(filePath);
-        try (Scanner scanner = new Scanner(inputFile)) {
+        try (Scanner Filescanner = new Scanner(inputFile)) {
             Random random = new Random();
             boolean isFirstInteger = true;
             String lastString = "";
 
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
+            while (Filescanner.hasNextLine()) {
+                String line = Filescanner.nextLine();
                 Scanner lineScanner = new Scanner(line);
 
                 while (lineScanner.hasNext()) {
@@ -84,6 +86,9 @@ public class Scan {
         rabbit = dataMap.getOrDefault("rabbit", 0);
         burrow = dataMap.getOrDefault("burrow", 0);
         grass = dataMap.getOrDefault("grass", 0);
+        berry = dataMap.getOrDefault("berry", 0);
+        carcass = dataMap.getOrDefault("carcass", 0);
+        fungi = dataMap.getOrDefault("fungi", 0);
 
     } catch (FileNotFoundException e) {
         System.err.println("File not found: " + e.getMessage());
@@ -124,7 +129,15 @@ public class Scan {
     }
 
     public int getBerryBush() {
-        return berryBush;
+        return berry;
+    }
+
+    public int getCarcass() {
+        return carcass;
+    }
+
+    public int getFungi() {
+        return fungi;
     }
 
     public HashMap<Integer, Integer> getHash() {

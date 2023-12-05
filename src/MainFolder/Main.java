@@ -8,7 +8,7 @@ import Animals.Wolfpack;
 public class Main {
 
     public static void main(String[] args) {
-        scan Scanner = new scan("data/t2-5b.txt");
+        Scan Scanner = new Scan("data\\t3-2ab.txt");
         int size = Scanner.getSize();
         int delay = 1000; // delay for every frame in the simulation (i ms)
         int display_size = 1000; // screen resulution (i px)
@@ -23,7 +23,8 @@ public class Main {
         System.out.println("Rabbit: " + Scanner.getRabbit());
         System.out.println("Burrow: " + Scanner.getBurrow());
         System.out.println("berry: " + Scanner.getBerryBush());
-        entSpawnMap.put("Rabbit", Scanner.getRabbit());
+        System.out.println("Carcass: " + Scanner.getCarcass());
+        System.out.println("Fungi: " + Scanner.getFungi());
         /*for (scan.BearEntry bear : Scanner.getBears()) {
             System.out.println(bear.getLocationString());
         }*/
