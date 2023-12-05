@@ -23,9 +23,7 @@ public class Main {
         System.out.println("Grass: " + Scanner.getGrass());
         System.out.println("Rabbit: " + Scanner.getRabbit());
         System.out.println("Burrow: " + Scanner.getBurrow());
-        System.out.println("Bear locations:");
         System.out.println("Wolf Packs: " + Scanner.getHash());
-        System.out.println("NO more entities");
 
         //WolfSpawner
         HashMap<Integer, Integer> Wolves = new HashMap<>(Scanner.getHash());

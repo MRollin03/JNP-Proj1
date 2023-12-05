@@ -92,6 +92,20 @@ public class Utils {
                 p.setDisplayInformation(BerryBush.class, di);
                 break;
 
+            case "carcass-small":
+                Carcass carcass1 = new Carcass(world);
+                world.setTile(l, carcass1);
+                di = new DisplayInformation(Color.red, "carcass"); // Color Settings
+                p.setDisplayInformation(Carcass.class, di);
+                break;
+
+            case "carcass":
+                Carcass carcass2 = new Carcass(world);
+                world.setTile(l, carcass2);
+                di = new DisplayInformation(Color.red, "carcass-small"); // Color Settings
+                p.setDisplayInformation(Carcass.class, di);
+                break;
+
         }
         for (Bear bear : Scanner.getBears()) {
             

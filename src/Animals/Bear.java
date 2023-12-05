@@ -7,14 +7,13 @@ import EnviormentObjects.*;
 import MainFolder.*;
 import java.util.*;
 import java.awt.*;
-import java.util.ArrayList.*;;
+import java.util.ArrayList.*;
 
 public class Bear extends Animal implements Actor, DynamicDisplayInformationProvider{
 
     private Location centrum;
     private Set<Location> terrortories;
     ArrayList<Class<?>> foods = new ArrayList<>();
-
 
     //-----------Constructors for two different cases
 
@@ -34,10 +33,10 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         terrortories = world.getSurroundingTiles(1);
     }
 
-
     //act function
     @Override
     public void act(World world){
+
         if (world.isNight()) {
             handleNightBehavior(world);
         } else{
@@ -46,12 +45,15 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
 
         super.act(world);
     }
-   
     
     private void handleNightBehavior(World world) {
         Location currentLocation = world.getCurrentLocation();
         if(currentLocation == null){
             return;
+        }
+
+        if(energy <= 0){
+            die();
         }
     }
 
@@ -131,6 +133,11 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         return false;
     }
     
+    private void die(){
+        super.spawnCarcass(1, world.getCurrentLocation());
+        super.die(world);
+        world.delete(this);
+    }
 
     @Override
     public DisplayInformation getInformation() {
