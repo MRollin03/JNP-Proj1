@@ -12,7 +12,7 @@ import itumulator.world.*;
 public class Homes extends EnvObject {
     protected ArrayList<Rabbit> animalsInHome = new ArrayList<>();
     protected ArrayList<Wolf> Wolfden = new ArrayList<>();
-    protected ArrayList<ArrayList<Wolf>> homes = new ArrayList<>();
+    //protected ArrayList<ArrayList<Wolf>> homes = new ArrayList<>();
     ObjectType objType;
 
     Homes(){

@@ -30,7 +30,9 @@ public class Main {
         int PackNumbers = Wolves.size();
         for (int x = 1; x <= PackNumbers; x++) {
             int wolves = Wolves.get(x);
-            Location l = Utils.getWorldRandomLocation(size);
+            //System.out.println(Wolves.get(x));
+            Location l = new Location((size/(1+PackNumbers))*x, size/(1+PackNumbers)*x);
+            
             Wolfpack wolfpack = new Wolfpack(Utils.world, x, l);
             wolfpack.spawnWolf(wolves);
         }

@@ -70,8 +70,8 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
 
         //Location currentLocation = world.getCurrentLocation();      //change to fit wolves (old rabbit code for now)
 
-        if (Utils.checkNonBlocking(currentLocation) && Utils.checkNonBlockingType(currentLocation, Wolfden.class )){
-            if (world.getNonBlocking(home) instanceof Wolfden) {
+        if (Utils.checkNonBlocking(currentLocation)){
+            if (world.getNonBlocking(currentLocation) instanceof Wolfden) {
                 Wolfden hole = (Wolfden) world.getNonBlocking(home);
                 currentWolfden = hole;
                 hole.addToHole(this,hole);
@@ -152,7 +152,8 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
             if (world.getTile(spot) instanceof Rabbit){
                 Rabbit rabbit = (Rabbit) world.getTile(spot);
                 rabbit.die(world);
-                //remember insert energy increase here
+                world.move(this, spot);
+                this.energy = this.energy + 10;
                 return true;
             }
             if (world.getTile(spot) instanceof Bear){
@@ -198,6 +199,9 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         
     }
 
+    /**
+     * return the mating cooldown period of a wolf.
+     */
     private int getmate_CD(){
         return this.mate_CD;
     }
@@ -209,6 +213,11 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         return packnr;
     }
 
+    /**
+     * returns the location of  the packCenter of the pack correlating with the packnr input.
+     * @param packnr of type int
+     * returns null if the specified wolfpack doesn't exist
+     */
     public static Location getPackCenter(int packnr){
         for (Wolf wolf : Wolfpack.WolvesInPacks){
             if (wolf.getPacknr() == packnr){
@@ -217,7 +226,10 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         }
         return null;
     }
-
+    /**
+     * updates the wolfs current packCenter based on the input
+     * @param l of type Location changes the packCenter.
+     */
     protected void updatePackCenter(Location l){
         this.packCenter = l;
     }
@@ -230,7 +242,11 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
     @Override
     public void die(World world){
         wolfPack.remove(this);
+        try {                               //wierd code
         world.delete(this);
+        } catch (Exception e){
+            System.out.println("fejlslet");
+        }
     }
 
     public DisplayInformation getInformation() {

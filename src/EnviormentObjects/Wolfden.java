@@ -8,11 +8,8 @@ public class Wolfden extends Homes{
     protected ArrayList<Wolf> WolvesInHole = new ArrayList<>();
 
     public Wolfden(World world) {
-        //super(ObjectType.hole, world);
-        //this.packnr = packnr;
     }
-    
-    
+
     public boolean exists(Wolf wolf){
         for (Wolf wolf_chk : WolvesInHole){
             if (wolf == wolf_chk){
@@ -21,6 +18,7 @@ public class Wolfden extends Homes{
         }
         return false;
     }
+
 
     @Override
     public ObjectType getObjectType() {

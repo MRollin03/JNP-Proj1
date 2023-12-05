@@ -1,6 +1,8 @@
 package Animals;
 
 import MainFolder.Utils;
+import java.util.ArrayList;
+
 import itumulator.world.*;
 
 
@@ -10,12 +12,14 @@ public class Animal{
     protected int foodmax;
     protected int energy;
     protected World world;
+    protected ArrayList<Wolf> Wolves = new ArrayList<>();
+
 
 
     Animal(World world){
         this.age = 0;
-        this.foodmax = 30+age*2;
-        this.energy = 30;
+        this.foodmax = 40+age*4;
+        this.energy = 40;
         this.world = world;
     }
 
@@ -34,11 +38,16 @@ public class Animal{
         if (energy > foodmax) {     //makes sure animals cannot overeat
             energy = foodmax;
         }
+        if (energy <= 0) {
+            System.out.println(this);
+            this.die(world);
+        }
 
     }
 
     // Main die method
-    public void die(World world){
+    protected void die(World world){
+        System.out.println("test");
         world.delete(this);
     }
 
