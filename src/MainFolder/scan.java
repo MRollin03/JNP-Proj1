@@ -6,10 +6,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import Animals.Bear;
+
 public class Scan {
     private Map<String, Integer> dataMap = new HashMap<>();
     private HashMap<Integer, Integer> wolfPacks = new HashMap<>();
-    private List<BearEntry> bears = new ArrayList<>();
+    private List<Bear> bears = new ArrayList<Bear>();
     private int size;
     private int rabbit;
     private int burrow;
@@ -18,18 +20,6 @@ public class Scan {
     private int packCounter = 1;
     private int carcass;
     private int fungi;
-
-    public static class BearEntry {
-        private Location location;
-
-        public BearEntry(Location location) {
-            this.location = location;
-        }
-
-        public String getLocationString() {
-            return (location != null) ? location.getX() + "," + location.getY() : "No location";
-        }
-    }
 
     public Scan(String filePath) {
         scanner(filePath);
@@ -95,16 +85,25 @@ public class Scan {
     }
 }
 
-    private void handleBearEntry(Scanner scanner, int bearCount) {
-        Location location = null;
-        if (scanner.hasNext("\\(\\d+,\\d+\\)")) {
-            String locationStr = scanner.findInLine("\\(\\d+,\\d+\\)");
-            location = parseLocation(locationStr);
-        }
+private void handleBearEntry(Scanner scanner, int bearCount) {
+    Location location = null;
+    if (scanner.hasNext("\\(\\d+,\\d+\\)")) {
+        String locationStr = scanner.findInLine("\\(\\d+,\\d+\\)");
+        location = parseLocation(locationStr);
+
         for (int i = 0; i < bearCount; i++) {
-            bears.add(new BearEntry(location));
+            bears.add(new Bear(location, Utils.world));
         }
     }
+    else{
+        for (int i = 0; i < bearCount; i++) {
+            if(Utils.world == null){return;}
+            location = Utils.getWorldRandomLocation(Utils.world.getSize());
+            bears.add(new Bear(location, Utils.world));
+        }
+    }
+
+}
 
     private Location parseLocation(String locationStr) {
         locationStr = locationStr.replaceAll("[()]", "");
@@ -144,13 +143,13 @@ public class Scan {
         return wolfPacks;
     }
 
-    public List<BearEntry> getBears() {
+    public List<Bear> getBears() {
         return bears;
     }
 
     public void printBears() {
-        for (BearEntry bear : getBears()) {
-            System.out.println(bear.getLocationString());
+        for (Bear bear : getBears()) {
+            System.out.println(bear.getCentrum());
         }
     }
 }
