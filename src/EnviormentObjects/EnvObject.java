@@ -1,3 +1,4 @@
+package EnviormentObjects;
 import itumulator.executable.*;
 import itumulator.world.*;
 import itumulator.simulator.*;
@@ -5,32 +6,32 @@ import itumulator.display.*;
 import java.awt.*;
 import java.util.*;
 
+import Animals.Rabbit;
+import Animals.Wolf;
+
 public class EnvObject implements NonBlocking {
     Set<Location> neighbours;
     ArrayList<Location> list;
     ObjectType objType;
+    protected World world;
 
-    enum ObjectType{
-        grass,
-        hole
+    EnvObject(ObjectType objType, World world){
+        this.objType = objType;
+        this.world = world;
     }
 
     public void act(World world){
-        
         neighbours = world.getEmptySurroundingTiles();
         list = new ArrayList<>(neighbours);
-
-    }
-    
-    public static void deleteObj(World world, Object grass){      //used to remove grass
-        world.delete(grass);
     }
 
-
+    public static void deleteObj(World world, Object obj){      //used to remove grass
+        world.delete(obj);
+    }
 
 
     //---------------------- set methods----------------------//
-    public void setObjecType(ObjectType type ){
+    public void setObjecType(ObjectType type){
         this.objType = type;
     }
 
@@ -40,6 +41,11 @@ public class EnvObject implements NonBlocking {
     public ArrayList getLocation(){
         return list;
     }
+
+    public ObjectType getObjectType(){
+        return objType;
+    }
+    
 
 
 }

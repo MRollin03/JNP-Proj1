@@ -1,18 +1,23 @@
+package EnviormentObjects;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
-import itumulator.executable.*;
+import itumulator.world.World;
+
+
 import itumulator.world.*;
 import itumulator.simulator.*;
-import itumulator.display.*;
-import java.awt.*;
-import java.util.*;
+
 
 public class Grass extends EnvObject implements Actor{
     private Set<Location> neighbours;
-    private int spreadChance = 15-1; //15% chance to spread
+    private int spreadChance = 10-1; //15% chance to spread
     private Random rand = new Random();
+
+    public Grass(World world){
+        super(ObjectType.grass, world);
+    }
 
     
     public void act(World world) {
@@ -20,6 +25,8 @@ public class Grass extends EnvObject implements Actor{
         spread(world);
         
     }
+
+
     //-------Code that Spreads grass around ----//
     public void spread(World world){
         int rand_int = 0;
@@ -30,8 +37,8 @@ public class Grass extends EnvObject implements Actor{
         for (Location neighbor:list){
             rand_int = rand.nextInt(100);
             if (rand_int < spreadChance){               
-                try{                                        //
-                    world.setTile(neighbor,new Grass());    //insert new grass at location
+                try{                                        //try to insert grass, do nothing if it fails
+                    world.setTile(neighbor, new Grass(world));    //insert new grass at location
                 } catch (IllegalArgumentException e){
                     //System.out.println("test");
                 }
@@ -39,18 +46,4 @@ public class Grass extends EnvObject implements Actor{
         }
     }
 
-    public static boolean isTileGrass (World world, Location location){
-        try{
-        if (world.getNonBlocking(location) instanceof Grass){
-            return true;
-        }
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-        return false;
-    }
-        
-
-    
-    //---------------------- get methods----------------------//
 }
