@@ -116,8 +116,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
 
 
             if (world.getTile(l) instanceof Rabbit && mate_CD == 0){
-                //System.out.println("main:" + getmate_CD());
-                //System.out.println("other:" + getothermate_CD(l));
+
                 if(getothermate_CD(l) == 0){
                     newLocation = Utils.randomMove(currentLocation, world);      //brug en anden funktion her?
 
@@ -135,7 +134,6 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
             if (Utils.checkNonBlockingType(newLocation, Grass.class)) {
                 EnvObject.deleteObj(world, world.getNonBlocking(newLocation));
                 energy += 5;
-                //System.err.println("Grass eaten");
             }
         }
         catch (Exception e) {
