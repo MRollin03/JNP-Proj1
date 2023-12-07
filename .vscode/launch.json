@@ -9,6 +9,13 @@
             "name": "Main",
             "request": "launch",
             "mainClass": "MainFolder.Main",
+            "projectName": "JNP-Proj1_ac90d5c8"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "MainFolder.Main",
             "projectName": "JNP-Proj1_cea063c3"
         },
         {
