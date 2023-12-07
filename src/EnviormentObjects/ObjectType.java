@@ -5,4 +5,5 @@ public enum ObjectType {
     grass,
     berryBush,
     carcass,
+    fungi
 }

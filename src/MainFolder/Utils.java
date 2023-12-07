@@ -93,8 +93,22 @@ public class Utils {
                 p.setDisplayInformation(BerryBush.class, di);
                 break;
 
+            case "fungi":
+                Fungi currentFungi = new Fungi(true);
+                world.setTile(l, currentFungi);
+                di = new DisplayInformation(Color.green, "fungi"); // Color Settings
+                p.setDisplayInformation(Fungi.class, di);
+                break;
+
+            case "fungi-small":
+                Fungi currentFungiSmall = new Fungi(false);
+                world.setTile(l, currentFungiSmall);
+                di = new DisplayInformation(Color.green, "fungi-small"); // Color Settings
+                p.setDisplayInformation(Fungi.class, di);
+                break;
+
             case "carcass-small":
-                Carcass carcass1 = new Carcass(world);
+                Carcass carcass1 = new Carcass(world, false);
                 if(checkNonBlocking(l) == true){
                     world.delete(world.getNonBlocking(l));
                 }
@@ -104,7 +118,7 @@ public class Utils {
                 break;
 
             case "carcass":
-                Carcass carcass2 = new Carcass(world);
+                Carcass carcass2 = new Carcass(world, true);
                 if(checkNonBlocking(l) == true){
                     world.delete(world.getNonBlocking(l));
                 }
@@ -178,14 +192,15 @@ public class Utils {
      * @return          returns the location of the object found
      * @throws Exception    exception if no object of that class is found.
      */
-    public static Location isBlockNear(Location l, Class objClass, int radius) throws Exception {
+    public static Location isBlockNear(Location l, Class objClass, int radius) {
         Set<Location> neighbours = world.getSurroundingTiles(l, radius);
         Set<Object> blockingObjects = new HashSet<>();
 
         for (Location currentLocation : neighbours) {
             try {
                 blockingObjects.add(world.getTile(currentLocation));
-            } catch (IllegalArgumentException ignored) {
+            }
+            catch (IllegalArgumentException ignored) {
             }
         }
 
@@ -195,7 +210,7 @@ public class Utils {
             }
         }
         
-        throw new IllegalArgumentException("No "+ objClass.getClass() + "nearby");
+        return null;
     }
     
     /**

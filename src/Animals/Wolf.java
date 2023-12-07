@@ -43,8 +43,8 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         super.act(world);
     }
 
-
-    private void handleNightBehavior(World world) {             //handle night behaviour
+    
+    private void handleNightBehavior(World world) {
 
         Location currentLocation = world.getCurrentLocation();
 
