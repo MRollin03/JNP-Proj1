@@ -4,4 +4,4 @@ wolf 2
 bear 2
 grass 10
 fungi 5-10
-carcass 4
+carcass 25

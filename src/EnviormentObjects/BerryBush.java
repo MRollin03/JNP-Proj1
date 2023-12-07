@@ -24,6 +24,7 @@ public class BerryBush extends EnvObject implements Actor, DynamicDisplayInforma
     public void grow(){
         Random rand = new Random();
         int num = rand.nextInt(11);
+        
         if(num == 10){
             berries = true;
         }
