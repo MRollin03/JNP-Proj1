@@ -2,10 +2,10 @@ package Animals;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set; 
+import java.util.Set;
+
 
 import EnviormentObjects.*;
-import MainFolder.Main;
 import MainFolder.Utils;
 import itumulator.simulator.Actor;
 import itumulator.world.*;

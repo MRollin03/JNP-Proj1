@@ -1,17 +1,18 @@
-package MainFolder;
-import itumulator.executable.*;
 import itumulator.world.*;
 import java.util.*;
 
 import Animals.Wolfpack;
+import MainFolder.Scan;
+import MainFolder.Utils;
 
 public class Main {
-    public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
+    
+    public static int size;
 
     public static void main(String[] args) {
         Scan Scanner = new Scan("data\\t3-2ab.txt");
-        int size = Scanner.getSize();
-        int delay = 800; // forsi   nkelsen mellem hver skridt af simulationen (i ms)
+        size = Scanner.getSize();
+        int delay = 1000; // forsi   nkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 600; // sk�rm opl�sningen (i px)
         Utils.newProgram(size, display_size, delay);
 

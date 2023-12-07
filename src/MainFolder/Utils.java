@@ -13,7 +13,8 @@ public class Utils {
     public static Scan Scanner = new Scan("data/t2-5b.txt");
     public static Program p;
     public static World world;
-
+    public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
+    
 
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
     
@@ -277,6 +278,7 @@ public class Utils {
         return !world.containsNonBlocking(l);
     }
 
+    
     /**
      * Checks if there exist a NonBlockingObject Of type objClass.
      * @param location  Location of checking.
@@ -292,4 +294,7 @@ public class Utils {
             return false;
         }
     }
+
+
+
 }
