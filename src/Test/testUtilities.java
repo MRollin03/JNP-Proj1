@@ -43,15 +43,13 @@ public class testUtilities {
         m.newProgram(5,500,500);
         Location l1 = new Location(1,1);
         Location l2 = new Location(2,2);
+
         m.spawnIn("Grass", l1);
         m.spawnIn("Rabbit", l2);
 
-        Grass obj1 = new Grass(world);
-        //Class obj2 = Rabbit;
-
-        //Assert.assertTrue(m.checkNonBlockingType(l1, obj1));
-        //Assert.assertTrue(m.checkNonBlockingType(l1, obj2));
-
+        Assert.assertTrue(m.checkNonBlockingType(l1, Grass.class));
+        Assert.assertFalse(m.checkNonBlockingType(l2, Grass.class));
+        Assert.assertFalse(m.checkNonBlockingType(l2, Rabbit.class));
     }
 
     @Test
