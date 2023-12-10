@@ -119,7 +119,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
             System.out.println("Attack Successful!");
         } else {
             try {
-                world.move(this, Utils.randomMove(currentLocation, Utils.world));
+                world.move(this, Utils.randomMove(currentLocation));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

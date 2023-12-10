@@ -94,7 +94,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
         Location newLocation = currentLocation;
         
         try {
-            world.move(this, Utils.randomMove(currentLocation,world));
+            world.move(this, Utils.randomMove(currentLocation));
 
             // checks if there is grass on the next steps if the eat. give 5 engey points.
             if (Utils.checkNonBlockingType(newLocation, Grass.class)) {
@@ -118,7 +118,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
             if (world.getTile(l) instanceof Rabbit && mate_CD == 0){
 
                 if(getothermate_CD(l) == 0){
-                    newLocation = Utils.randomMove(currentLocation, world);      //brug en anden funktion her?
+                    newLocation = Utils.randomMove(currentLocation);      //brug en anden funktion her?
 
                     Utils.spawnIn("Rabbit",newLocation);
                     mate_CD = 15;               //resets Mate cooldown for 1 rabbit

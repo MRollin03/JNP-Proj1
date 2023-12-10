@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         Scan Scanner = new Scan("data\\t3-2ab.txt");
         size = Scanner.getSize();
-        int delay = 1000; // forsi   nkelsen mellem hver skridt af simulationen (i ms)
+        int delay = 1000; 
         int display_size = 600; // sk�rm opl�sningen (i px)
         Utils.newProgram(size, display_size, delay);
 

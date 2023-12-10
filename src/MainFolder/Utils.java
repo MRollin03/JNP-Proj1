@@ -34,7 +34,11 @@ public class Utils {
      * @param entType   String name, of desired entity type.
      * @param l         location of the desired spawn location.
      */
-    public static void spawnIn(String entType, Location l){
+    public static void spawnIn(String entType, Location l) throws IllegalArgumentException{
+        if (l.getX() >= world.getSize() || l.getY() >= world.getSize()){
+            throw new IllegalArgumentException();
+        }
+
         switch (entType) {
             case "Rabbit":
                 Animal currentRabbit = new Rabbit(world);
@@ -145,7 +149,7 @@ public class Utils {
      * @param currentCoord  the cordinates of current position.
      * @return  returns a number from -1 to 1.
      */
-    private  static int stepFunction(int difference, int currentCoord) {
+    private static int stepFunction(int difference, int currentCoord) {
         if (difference > 0) {
             return currentCoord + 1;
         } else if (difference < 0) {
@@ -218,7 +222,7 @@ public class Utils {
      * @param currentLocation Location to find a random location around.
      * @param obj             the Object you are trying to move.
      */
-    public static Location randomMove(Location currentLocation,World wor) {
+    public static Location randomMove(Location currentLocation) {
         Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
         if (!emptyTiles.isEmpty()) {
             Random rand = new Random();
@@ -305,7 +309,7 @@ public class Utils {
             Object obj = world.getNonBlocking(location);
             return true;
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             return false;
         }
     }
