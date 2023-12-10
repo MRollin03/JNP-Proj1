@@ -13,7 +13,8 @@ public class Utils {
     public static Scan Scanner = new Scan("data/t2-5b.txt");
     public static Program p;
     public static World world;
-
+    public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
+    
 
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
     
@@ -33,7 +34,11 @@ public class Utils {
      * @param entType   String name, of desired entity type.
      * @param l         location of the desired spawn location.
      */
-    public static void spawnIn(String entType, Location l){
+    public static void spawnIn(String entType, Location l) throws IllegalArgumentException{
+        if (l.getX() >= world.getSize() || l.getY() >= world.getSize()){
+            throw new IllegalArgumentException();
+        }
+
         switch (entType) {
             case "Rabbit":
                 Animal currentRabbit = new Rabbit(world);
@@ -92,8 +97,22 @@ public class Utils {
                 p.setDisplayInformation(BerryBush.class, di);
                 break;
 
+            case "fungi":
+                Fungi currentFungi = new Fungi(true);
+                world.setTile(l, currentFungi);
+                di = new DisplayInformation(Color.green, "fungi"); // Color Settings
+                p.setDisplayInformation(Fungi.class, di);
+                break;
+
+            case "fungi-small":
+                Fungi currentFungiSmall = new Fungi(false);
+                world.setTile(l, currentFungiSmall);
+                di = new DisplayInformation(Color.green, "fungi-small"); // Color Settings
+                p.setDisplayInformation(Fungi.class, di);
+                break;
+
             case "carcass-small":
-                Carcass carcass1 = new Carcass(world);
+                Carcass carcass1 = new Carcass(world, false);
                 if(checkNonBlocking(l) == true){
                     world.delete(world.getNonBlocking(l));
                 }
@@ -103,7 +122,7 @@ public class Utils {
                 break;
 
             case "carcass":
-                Carcass carcass2 = new Carcass(world);
+                Carcass carcass2 = new Carcass(world, true);
                 if(checkNonBlocking(l) == true){
                     world.delete(world.getNonBlocking(l));
                 }
@@ -130,7 +149,7 @@ public class Utils {
      * @param currentCoord  the cordinates of current position.
      * @return  returns a number from -1 to 1.
      */
-    private  static int stepFunction(int difference, int currentCoord) {
+    private static int stepFunction(int difference, int currentCoord) {
         if (difference > 0) {
             return currentCoord + 1;
         } else if (difference < 0) {
@@ -177,14 +196,15 @@ public class Utils {
      * @return          returns the location of the object found
      * @throws Exception    exception if no object of that class is found.
      */
-    public static Location isBlockNear(Location l, Class objClass, int radius) throws Exception {
+    public static Location isBlockNear(Location l, Class objClass, int radius) {
         Set<Location> neighbours = world.getSurroundingTiles(l, radius);
         Set<Object> blockingObjects = new HashSet<>();
 
         for (Location currentLocation : neighbours) {
             try {
                 blockingObjects.add(world.getTile(currentLocation));
-            } catch (IllegalArgumentException ignored) {
+            }
+            catch (IllegalArgumentException ignored) {
             }
         }
 
@@ -194,7 +214,7 @@ public class Utils {
             }
         }
         
-        throw new IllegalArgumentException("No "+ objClass.getClass() + "nearby");
+        return null;
     }
     
     /**
@@ -202,7 +222,7 @@ public class Utils {
      * @param currentLocation Location to find a random location around.
      * @param obj             the Object you are trying to move.
      */
-    public static Location randomMove(Location currentLocation,World wor) {
+    public static Location randomMove(Location currentLocation) {
         Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
         if (!emptyTiles.isEmpty()) {
             Random rand = new Random();
@@ -277,6 +297,7 @@ public class Utils {
         return !world.containsNonBlocking(l);
     }
 
+    
     /**
      * Checks if there exist a NonBlockingObject Of type objClass.
      * @param location  Location of checking.
@@ -288,8 +309,11 @@ public class Utils {
             Object obj = world.getNonBlocking(location);
             return true;
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             return false;
         }
     }
+
+
+
 }
