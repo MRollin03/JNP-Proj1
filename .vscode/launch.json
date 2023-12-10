@@ -8,6 +8,23 @@
             "type": "java",
             "name": "Main",
             "request": "launch",
+<<<<<<< Updated upstream
+=======
+            "mainClass": "Main",
+            "projectName": "JNP-Proj1_ac90d5c8"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "JNP-Proj1_cea063c3"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+>>>>>>> Stashed changes
             "mainClass": "MainFolder.Main",
             "projectName": "JNP-Proj1_ac90d5c8"
         },
