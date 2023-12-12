@@ -23,7 +23,13 @@ public class BearTest {
         world = new World(10);
         m.world = world;
     }
+    
 
-    public void 
+
+    public void testSpawning(){
+        Bear bear = new Bear();
+        world.contains(bear);
+        
+    }
 }
     

@@ -135,10 +135,9 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         return false;
     }
     
-    private void die(){
+    public void die(){
+        super.die();
         super.spawnCarcass(1, world.getCurrentLocation());
-        super.die(world);
-        world.delete(this);
     }
 
     @Override

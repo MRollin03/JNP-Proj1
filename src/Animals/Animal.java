@@ -32,22 +32,21 @@ public class Animal{
             age++;
         }
         if(this.getEnergy() < 1 || this.age == 12){     //animals die if they have no energy or get too old
-            die(world);
+            die();
             System.out.println(this.getClass() + " Died");
         }
         if (energy > foodmax) {     //makes sure animals cannot overeat
             energy = foodmax;
         }
         if (energy <= 0) {
-            System.out.println(this);
-            this.die(world);
+            if(world.contains(this)){this.die();}
         }
 
     }
 
     // Main die method
-    protected void die(World world){
-        System.out.println("test");
+    protected void die(){
+        if(!world.contains(this)){return;}
         world.delete(this);
     }
 
