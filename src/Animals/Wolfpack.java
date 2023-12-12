@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
-
 import MainFolder.Utils;
 import itumulator.simulator.Actor;
 import itumulator.world.*;
@@ -42,6 +41,7 @@ public class Wolfpack {
         int accumulatorX = 0, accumulatorY = 0, counter = 0;
 
         for (Wolf wolf : this.WolvesInPacks){                    //first, collect all locations for wolves in pack number: packnr
+            if(!world.contains(wolf)){return;}
             accumulator.add(world.getLocation(wolf));
         }
 

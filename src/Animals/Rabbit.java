@@ -13,7 +13,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
     private int mate_CD = 15;
 
     public Rabbit(World world){
-        super(world);
+        super();
     }
 
     @Override
@@ -161,8 +161,8 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
         temp.mate_CD = 15;
     }
 
-    public void die(World world) {
-        super.die(world);
+    public void die() {
+        super.die();
         super.spawnCarcass(2, world.getCurrentLocation());
     }
 

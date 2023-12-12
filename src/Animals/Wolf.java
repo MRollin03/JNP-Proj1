@@ -2,6 +2,11 @@ package Animals;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import java.util.Set; 
+
+import EnviormentObjects.*;
+import MainFolder.*;
 import java.util.Set;
 
 
@@ -20,7 +25,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
 
 
     public Wolf(int packnr, Location packCenter, Wolfpack wolfPack){
-        super(Utils.world);
+        super();
         this.wolfPack = wolfPack;
         this.wolfPack.WolvesInPacks.add(this);
     }
@@ -131,7 +136,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         for (Location spot : nearby){
             if (world.getTile(spot) instanceof Rabbit){
                 Rabbit rabbit = (Rabbit) world.getTile(spot);
-                rabbit.die(world);
+                rabbit.die();
                 world.move(this, spot);
                 this.energy = this.energy + 10;
                 return true;
@@ -139,6 +144,11 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
             if (world.getTile(spot) instanceof Bear){
                 Bear bear = (Bear) world.getTile(spot);
                 bear.damage(5); // Gives bear 5 in energy damage.
+                return true;
+            }
+            if (world.getTile(spot) instanceof Carcass){
+                Carcass carcass = (Carcass) world.getTile(spot);
+                world.delete(carcass);
                 return true;
             }
             if (world.getTile(spot) instanceof Wolf){
@@ -186,7 +196,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
 
     
     @Override
-    public void die(World world){
+    public void die(){
         wolfPack.remove(this);
         try {                               //wierd code
         world.delete(this);

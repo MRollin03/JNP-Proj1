@@ -12,30 +12,31 @@ import java.util.ArrayList.*;
 public class Bear extends Animal implements Actor, DynamicDisplayInformationProvider{
 
     private Location centrum;
-    private Set<Location> terrortories;
+    private Set<Location> terrortories = null;
     ArrayList<Class<?>> foods = new ArrayList<>();
 
     //-----------Constructors for two different cases
 
     // random location
-    public Bear(World world) {
-        super(world);
+    public Bear() {
+        super();
         this.centrum = Utils.getWorldRandomLocation(world.getSize());
         world.setCurrentLocation(centrum);
-        terrortories = world.getSurroundingTiles(1);
     }
 
     // dedicated location
-    public Bear(Location centrum, World world) {
-        super(world);
+    public Bear(Location centrum) {
+        super();
         this.centrum = centrum;
         world.setCurrentLocation(centrum);
-        terrortories = world.getSurroundingTiles(1);
     }
 
     //act function
     @Override
     public void act(World world){
+        if(terrortories == null){
+            terrortories = world.getSurroundingTiles(1);
+        }
 
         if (world.isNight()) {
             handleNightBehavior(world);
@@ -119,6 +120,11 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
                 //remember insert energy increase here
                 return true;
             }
+            if (world.getTile(spot) instanceof Carcass){
+                Carcass carcass = (Carcass) world.getTile(spot);
+                world.delete(carcass);
+                return true;
+            }
             if (world.getTile(spot) instanceof Wolf){
                 Wolf wolf = (Wolf) world.getTile(spot);
                 wolf.damage(8); // Bear gives wolf 8 in damages.
@@ -129,10 +135,9 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         return false;
     }
     
-    private void die(){
+    public void die(){
+        super.die();
         super.spawnCarcass(1, world.getCurrentLocation());
-        super.die(world);
-        world.delete(this);
     }
 
     @Override
