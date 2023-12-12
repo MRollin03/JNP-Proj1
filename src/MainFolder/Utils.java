@@ -10,7 +10,7 @@ import EnviormentObjects.*;
 import MainFolder.*;
 
 public class Utils {
-    public static Scan Scanner = new Scan("data/t2-5b.txt");
+    public static Scan Scanner = new Scan("data/t3-2ab.txt");
     public static Program p;
     public static World world;
     public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
@@ -27,6 +27,7 @@ public class Utils {
     public static void  newProgram(int size, int display_size, int delay) {
         p = new Program(size, display_size, delay); // opret et nyt program
         world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilf�je ting!
+
     }
     
     /**
@@ -83,11 +84,7 @@ public class Utils {
                 p.setDisplayInformation(Wolfden.class, di);
                 break;
         
-            case "Bear":
-                Bear currentBear = new Bear(getWorldRandomLocation(5), world);
-                world.setTile(currentBear.getCentrum(), currentBear);
-                di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
-                p.setDisplayInformation(Bear.class, di);
+            case "bear":
                 break;
 
             case "berry-bush":
@@ -130,15 +127,31 @@ public class Utils {
                 di = new DisplayInformation(Color.red, "carcass-small"); // Color Settings
                 p.setDisplayInformation(Carcass.class, di);
                 break;
-
         }
-        for (Bear bear : Scanner.getBears()) {
+        
+    }
+
+    public static void spawnBears(){
+        List<Location> bearList = Scanner.getBears();
+        System.out.println(bearList);
+
+        
+
+        for (Location bear : bearList) {
+            if(bear == null){
+                Bear currentBear = new Bear();
+                world.setTile(currentBear.getCentrum(), currentBear);
+                di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
+                p.setDisplayInformation(Bear.class, di);
+                
+            }else{
+                Bear currentBear = new Bear(bear);
+                world.setTile(currentBear.getCentrum(), currentBear);
+                di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
+                p.setDisplayInformation(Bear.class, di);
+            }
             
-            Bear currentBear = new Bear(bear.getCentrum(), world);
-            world.setTile(bear.getCentrum(), currentBear);
-            di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
-            p.setDisplayInformation(Bear.class, di);
-            break;
+            
         }
     }
 

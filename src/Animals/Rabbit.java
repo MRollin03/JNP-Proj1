@@ -13,7 +13,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
     private int mate_CD = 15;
 
     public Rabbit(World world){
-        super(world);
+        super();
     }
 
     @Override

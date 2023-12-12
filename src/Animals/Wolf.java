@@ -26,7 +26,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
 
 
     public Wolf(int packnr, Location packCenter, Wolfpack wolfPack){
-        super(Utils.world);
+        super();
         this.wolfPack = wolfPack;
         this.wolfPack.WolvesInPacks.add(this);
     }
@@ -145,6 +145,11 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
             if (world.getTile(spot) instanceof Bear){
                 Bear bear = (Bear) world.getTile(spot);
                 bear.damage(5); // Gives bear 5 in energy damage.
+                return true;
+            }
+            if (world.getTile(spot) instanceof Carcass){
+                Carcass carcass = (Carcass) world.getTile(spot);
+                world.delete(carcass);
                 return true;
             }
             if (world.getTile(spot) instanceof Wolf){

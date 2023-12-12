@@ -26,11 +26,9 @@ public class Main {
         System.out.println("berry: " + Scanner.getBerryBush());
         System.out.println("Carcass: " + Scanner.getCarcass());
         System.out.println("Fungi: " + Scanner.getFungi());
-        /*for (scan.BearEntry bear : Scanner.getBears()) {
-            System.out.println(bear.getLocationString());
-        }*/
         System.out.println("Wolf Packs: " + Scanner.getHash());
         System.out.println("Carcass's :"+ Scanner.getCarcass1());
+
 
         //WolfSpawner
         HashMap<Integer, Integer> Wolves = new HashMap<>(Scanner.getHash());
@@ -48,6 +46,8 @@ public class Main {
         entSpawnMap.put("Rabbit", Scanner.getRabbit());
         entSpawnMap.put("burrow", Scanner.getBurrow());
         entSpawnMap.put("carcass", Scanner.getCarcass1());
+        Utils.spawnBears();
+        
 
         // Spawns every entitie on map.
         for (String entType : entSpawnMap.keySet()) {
