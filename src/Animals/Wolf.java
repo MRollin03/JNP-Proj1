@@ -137,7 +137,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         for (Location spot : nearby){
             if (world.getTile(spot) instanceof Rabbit){
                 Rabbit rabbit = (Rabbit) world.getTile(spot);
-                rabbit.die(world);
+                rabbit.die();
                 world.move(this, spot);
                 this.energy = this.energy + 10;
                 return true;
@@ -197,7 +197,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
 
     
     @Override
-    public void die(World world){
+    public void die(){
         wolfPack.remove(this);
         try {                               //wierd code
         world.delete(this);
