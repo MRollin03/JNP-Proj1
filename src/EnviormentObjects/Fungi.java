@@ -5,8 +5,6 @@ import itumulator.simulator.Actor;
 import itumulator.world.*;
 import java.util.*;
 
-import javax.rmi.CORBA.Util;
-
 import MainFolder.Utils;
 
 import java.awt.*;
