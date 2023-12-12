@@ -44,6 +44,18 @@ public class Homes extends EnvObject {
         }
         world.remove(animal);
     }
+    
+    /**
+    * adds a wolfcub to their respective Wolfden/burrow
+    * @param animal input of type Object but only works if is of type animal.
+    * @param hole input of type Object but only works if is of type hole. (homes?)
+    **/
+    public void addCubToHole(Object animal, Object hole){
+        if (hole instanceof Wolfden) {
+            Wolf tempWolf = (Wolf) animal;
+            Wolfden.add(tempWolf);
+        }
+    }
 
     /**
      * removes all animals from their respective homes.
