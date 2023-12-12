@@ -10,10 +10,11 @@ import EnviormentObjects.*;
 import MainFolder.*;
 
 public class Utils {
-    public static Scan Scanner = new Scan("data/t2-5b.txt");
+    public static Scan Scanner = new Scan("data/t3-2ab.txt");
     public static Program p;
     public static World world;
-
+    public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
+    
 
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
     
@@ -26,6 +27,7 @@ public class Utils {
     public static void  newProgram(int size, int display_size, int delay) {
         p = new Program(size, display_size, delay); // opret et nyt program
         world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilf�je ting!
+
     }
     
     /**
@@ -33,7 +35,11 @@ public class Utils {
      * @param entType   String name, of desired entity type.
      * @param l         location of the desired spawn location.
      */
-    public static void spawnIn(String entType, Location l){
+    public static void spawnIn(String entType, Location l) throws IllegalArgumentException{
+        if (l.getX() >= world.getSize() || l.getY() >= world.getSize()){
+            throw new IllegalArgumentException();
+        }
+
         switch (entType) {
             case "Rabbit":
                 Animal currentRabbit = new Rabbit(world);
@@ -78,11 +84,7 @@ public class Utils {
                 p.setDisplayInformation(Wolfden.class, di);
                 break;
         
-            case "Bear":
-                Bear currentBear = new Bear(getWorldRandomLocation(5), world);
-                world.setTile(currentBear.getCentrum(), currentBear);
-                di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
-                p.setDisplayInformation(Bear.class, di);
+            case "bear":
                 break;
 
             case "berry-bush":
@@ -125,15 +127,31 @@ public class Utils {
                 di = new DisplayInformation(Color.red, "carcass-small"); // Color Settings
                 p.setDisplayInformation(Carcass.class, di);
                 break;
-
         }
-        for (Bear bear : Scanner.getBears()) {
+        
+    }
+
+    public static void spawnBears(){
+        List<Location> bearList = Scanner.getBears();
+        System.out.println(bearList);
+
+        
+
+        for (Location bear : bearList) {
+            if(bear == null){
+                Bear currentBear = new Bear();
+                world.setTile(currentBear.getCentrum(), currentBear);
+                di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
+                p.setDisplayInformation(Bear.class, di);
+                
+            }else{
+                Bear currentBear = new Bear(bear);
+                world.setTile(currentBear.getCentrum(), currentBear);
+                di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
+                p.setDisplayInformation(Bear.class, di);
+            }
             
-            Bear currentBear = new Bear(bear.getCentrum(), world);
-            world.setTile(bear.getCentrum(), currentBear);
-            di = new DisplayInformation(Color.red, "bear-small"); // Color Settings
-            p.setDisplayInformation(Bear.class, di);
-            break;
+            
         }
     }
 
@@ -217,7 +235,7 @@ public class Utils {
      * @param currentLocation Location to find a random location around.
      * @param obj             the Object you are trying to move.
      */
-    public static Location randomMove(Location currentLocation,World wor) {
+    public static Location randomMove(Location currentLocation) {
         Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
         if (!emptyTiles.isEmpty()) {
             Random rand = new Random();
@@ -292,6 +310,7 @@ public class Utils {
         return !world.containsNonBlocking(l);
     }
 
+    
     /**
      * Checks if there exist a NonBlockingObject Of type objClass.
      * @param location  Location of checking.

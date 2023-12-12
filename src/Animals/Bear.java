@@ -12,30 +12,31 @@ import java.util.ArrayList.*;
 public class Bear extends Animal implements Actor, DynamicDisplayInformationProvider{
 
     private Location centrum;
-    private Set<Location> terrortories;
+    private Set<Location> terrortories = null;
     ArrayList<Class<?>> foods = new ArrayList<>();
 
     //-----------Constructors for two different cases
 
     // random location
-    public Bear(World world) {
-        super(world);
+    public Bear() {
+        super();
         this.centrum = Utils.getWorldRandomLocation(world.getSize());
         world.setCurrentLocation(centrum);
-        terrortories = world.getSurroundingTiles(1);
     }
 
     // dedicated location
-    public Bear(Location centrum, World world) {
-        super(world);
+    public Bear(Location centrum) {
+        super();
         this.centrum = centrum;
         world.setCurrentLocation(centrum);
-        terrortories = world.getSurroundingTiles(1);
     }
 
     //act function
     @Override
     public void act(World world){
+        if(terrortories == null){
+            terrortories = world.getSurroundingTiles(1);
+        }
 
         if (world.isNight()) {
             handleNightBehavior(world);
@@ -63,10 +64,10 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         }
 
         //get a random location around the bear and sees if the location is inside of  the terrortorie
-        Location newLocation = Utils.randomMove(currentLocation, world);
+        Location newLocation = Utils.randomMove(currentLocation);
         while (!terrortories.contains(newLocation)) {
             currentLocation = world.getCurrentLocation();
-            newLocation = Utils.randomMove(currentLocation, world);
+            newLocation = Utils.randomMove(currentLocation);
             System.out.println(newLocation);
         }
 
@@ -94,7 +95,7 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
                 System.out.println("Attack Successful!");
             } else {
                 try {
-                    world.move(this, Utils.randomMove(currentLocation, Utils.world));
+                    world.move(this, Utils.randomMove(currentLocation));
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -117,6 +118,11 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
                 world.delete(world.getTile(spot));
                 world.move(this, spot);
                 //remember insert energy increase here
+                return true;
+            }
+            if (world.getTile(spot) instanceof Carcass){
+                Carcass carcass = (Carcass) world.getTile(spot);
+                world.delete(carcass);
                 return true;
             }
             if (world.getTile(spot) instanceof Wolf){

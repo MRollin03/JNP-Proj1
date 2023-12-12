@@ -11,7 +11,7 @@ import Animals.Bear;
 public class Scan {
     private Map<String, Integer> dataMap = new HashMap<>();
     private HashMap<Integer, Integer> wolfPacks = new HashMap<>();
-    private List<Bear> bears = new ArrayList<Bear>();
+    private List<Location> bears = new ArrayList<Location>();
     private int size;
     private int rabbit;
     private int burrow;
@@ -21,6 +21,10 @@ public class Scan {
     private int carcass;
     private int fungi;
 
+    /**
+     * This is the scanner logic thats splits and sorts the values for a given file.
+     * @param filePath Filepath is  the path for the input list, that are wished to read.
+     */
     public Scan(String filePath) {
         scanner(filePath);
     }
@@ -47,6 +51,7 @@ public class Scan {
                                     wolfPacks.put(packCounter++, value);
                                 
                             } else if (lastString.equals("bear")) {
+                                System.out.println("Runs bear");
                             handleBearEntry(lineScanner, value);
                         } else {
                             dataMap.put(lastString, value);
@@ -84,31 +89,41 @@ public class Scan {
         System.err.println("File not found: " + e.getMessage());
     }
 }
-
+    /**
+     * function that makes a list of the bears that is needed to be inserted.
+     * the bears can difrrentiate between bear with cordinates and bears without cordinates.
+     * @param scanner
+     * @param bearCount
+     */
     private void handleBearEntry(Scanner scanner, int bearCount) {
         Location location = null;
+        System.out.println("100");
         if (scanner.hasNext("\\(\\d+,\\d+\\)")) {
             String locationStr = scanner.findInLine("\\(\\d+,\\d+\\)");
             location = parseLocation(locationStr);
-
             for (int i = 0; i < bearCount; i++) {
-                bears.add(new Bear(location, Utils.world));
+                System.out.println("1 : location added" + location);
+                bears.add(location);
             }
         }
         else{
             for (int i = 0; i < bearCount; i++) {
-                if(Utils.world == null){return;}
-                location = Utils.getWorldRandomLocation(Utils.world.getSize());
-                bears.add(new Bear(location, Utils.world));
+                location = null;
+                bears.add(location);
             }
         }
     }
 
-
+    /**
+     * Splits the cordinates string and converts it into a Location Type.
+     * @param locationStr the location on stringform that is wish to be converted.  
+     * @return returns it as a location.
+     */
     private Location parseLocation(String locationStr) {
         locationStr = locationStr.replaceAll("[()]", "");
         String[] parts = locationStr.split(",");
         return new Location(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+        
     }
 
     public int getSize() {
@@ -147,13 +162,8 @@ public class Scan {
         return wolfPacks;
     }
 
-    public List<Bear> getBears() {
+    public List<Location> getBears() {
+        System.out.println(bears +"this bitch empty?");
         return bears;
-    }
-
-    public void printBears() {
-        for (Bear bear : getBears()) {
-            System.out.println(bear.getCentrum());
-        }
     }
 }

@@ -2,10 +2,15 @@ package Animals;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import java.util.Set; 
 
 import EnviormentObjects.*;
-import MainFolder.Main;
+import MainFolder.*;
+import java.util.Set;
+
+
+import EnviormentObjects.*;
 import MainFolder.Utils;
 import itumulator.simulator.Actor;
 import itumulator.world.*;
@@ -21,7 +26,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
 
 
     public Wolf(int packnr, Location packCenter, Wolfpack wolfPack){
-        super(Utils.world);
+        super();
         this.wolfPack = wolfPack;
         this.wolfPack.WolvesInPacks.add(this);
     }
@@ -119,7 +124,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
             System.out.println("Attack Successful!");
         } else {
             try {
-                world.move(this, Utils.randomMove(currentLocation, Utils.world));
+                world.move(this, Utils.randomMove(currentLocation));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -140,6 +145,11 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
             if (world.getTile(spot) instanceof Bear){
                 Bear bear = (Bear) world.getTile(spot);
                 bear.damage(5); // Gives bear 5 in energy damage.
+                return true;
+            }
+            if (world.getTile(spot) instanceof Carcass){
+                Carcass carcass = (Carcass) world.getTile(spot);
+                world.delete(carcass);
                 return true;
             }
             if (world.getTile(spot) instanceof Wolf){

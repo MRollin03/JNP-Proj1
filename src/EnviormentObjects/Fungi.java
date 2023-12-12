@@ -31,7 +31,7 @@ public class Fungi extends EnvObject implements Actor, NonBlocking, DynamicDispl
             world.delete(this);
         }
     }
-
+    
     public void spread(){
         Location currentLocation = world.getCurrentLocation();
         Location carcassLocation;
@@ -49,15 +49,13 @@ public class Fungi extends EnvObject implements Actor, NonBlocking, DynamicDispl
         } catch (Exception e) {
             
         }
-        
-        
-
     }
-
+    /**
+     * @return returns true if fungus is big.
+     */
     public boolean isBig(){
         return big;
     }
-
     public DisplayInformation getInformation() {
         if(big){
             return new DisplayInformation(Color.BLUE, "fungi");

@@ -22,7 +22,6 @@ public class Carcass extends EnvObject implements Actor, NonBlocking, DynamicDis
         this.state = 24;
         this.big = isbig;
     }
-
     public void act(World world) {
         super.act(world);
 
@@ -45,7 +44,6 @@ public class Carcass extends EnvObject implements Actor, NonBlocking, DynamicDis
     public void setInfested(boolean value){
         this.infested = value;
     }
-
     public boolean isBig(){
         return big;
     }

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
-import MainFolder.Main;
 import MainFolder.Utils;
 import itumulator.simulator.Actor;
 import itumulator.world.*;
@@ -21,7 +20,7 @@ public class Wolfpack {
         this.packnr = packnr;
         this.packCenter = packCenter;
         this.homeSet = false;
-        Main.Wolfpacks.add(this);
+        Utils.Wolfpacks.add(this);
     }
 
     public void newHome(Wolf wolf){

@@ -16,11 +16,11 @@ public class Animal{
 
 
 
-    Animal(World world){
+    Animal(){
         this.age = 0;
         this.foodmax = 40+age*4;
         this.energy = 40;
-        this.world = world;
+        this.world = Utils.world;
     }
 
     public void act(World world){

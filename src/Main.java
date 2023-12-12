@@ -1,18 +1,18 @@
-package MainFolder;
-import itumulator.executable.*;
 import itumulator.world.*;
 import java.util.*;
 
 import Animals.Wolfpack;
+import MainFolder.Scan;
+import MainFolder.Utils;
 
 public class Main {
-    public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
-
+    
+    public static int size;
 
     public static void main(String[] args) {
         Scan Scanner = new Scan("data\\t3-2ab.txt");
-        int size = Scanner.getSize();
-        int delay = 800; // forsi   nkelsen mellem hver skridt af simulationen (i ms)
+        size = Scanner.getSize();
+        int delay = 1000; 
         int display_size = 600; // sk�rm opl�sningen (i px)
         Utils.newProgram(size, display_size, delay);
 
@@ -26,18 +26,18 @@ public class Main {
         System.out.println("berry: " + Scanner.getBerryBush());
         System.out.println("Carcass: " + Scanner.getCarcass());
         System.out.println("Fungi: " + Scanner.getFungi());
-        System.out.println("Fungi: " + Scanner.getBears());
-        /*for (scan.BearEntry bear : Scanner.getBears()) {
-        System.out.println(bear.getLocationString());
-        }*/
         System.out.println("Wolf Packs: " + Scanner.getHash());
+        System.out.println("Carcass's :"+ Scanner.getCarcass1());
+
 
         //WolfSpawner
         HashMap<Integer, Integer> Wolves = new HashMap<>(Scanner.getHash());
         int PackNumbers = Wolves.size();
         for (int x = 1; x <= PackNumbers; x++) {
             int wolves = Wolves.get(x);
-            Location l = Utils.getWorldRandomLocation(size);
+            //System.out.println(Wolves.get(x));
+            Location l = new Location((size/(1+PackNumbers))*x, size/(1+PackNumbers)*x);
+            
             Wolfpack wolfpack = new Wolfpack(Utils.world, x, l);
             wolfpack.spawnWolf(wolves);
         }
@@ -45,6 +45,9 @@ public class Main {
         entSpawnMap.put("Grass", Scanner.getGrass());
         entSpawnMap.put("Rabbit", Scanner.getRabbit());
         entSpawnMap.put("burrow", Scanner.getBurrow());
+        entSpawnMap.put("carcass", Scanner.getCarcass1());
+        Utils.spawnBears();
+        
 
         // Spawns every entitie on map.
         for (String entType : entSpawnMap.keySet()) {
