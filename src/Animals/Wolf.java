@@ -21,7 +21,6 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
     private Homes currentWolfden = null;
     private Random rand = new Random();
     private int mate_CD = 18 + rand.nextInt(8);
-    
     private Wolfpack wolfPack;
 
 
