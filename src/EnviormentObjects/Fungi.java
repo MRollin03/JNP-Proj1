@@ -9,7 +9,7 @@ import MainFolder.Utils;
 
 import java.awt.*;
 
-public class Fungi extends EnvObject implements Actor, DynamicDisplayInformationProvider{
+public class Fungi extends EnvObject implements Actor, NonBlocking, DynamicDisplayInformationProvider{
 
     private boolean big;
     private Random rand;
@@ -31,8 +31,7 @@ public class Fungi extends EnvObject implements Actor, DynamicDisplayInformation
             world.delete(this);
         }
     }
-
-     
+    
     public void spread(){
         Location currentLocation = world.getCurrentLocation();
         Location carcassLocation;

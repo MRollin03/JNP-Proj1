@@ -1,9 +1,6 @@
 package EnviormentObjects;
 import itumulator.executable.*;
 import itumulator.world.*;
-import itumulator.simulator.*;
-import itumulator.display.*;
-import java.awt.*;
 import java.util.*;
 
 import Animals.Rabbit;
@@ -12,6 +9,7 @@ import Animals.Wolf;
 public class EnvObject implements NonBlocking {
     Set<Location> neighbours;
     ArrayList<Location> list;
+    
     ObjectType objType;
     protected World world;
 
@@ -25,10 +23,9 @@ public class EnvObject implements NonBlocking {
         list = new ArrayList<>(neighbours);
     }
 
-    public static void deleteObj(World world, Object obj){      //used to remove grass
+    public static void deleteObj(World world, Object obj){      //used to remove envoirment objects
         world.delete(obj);
     }
-
 
     //---------------------- set methods----------------------//
     public void setObjecType(ObjectType type){

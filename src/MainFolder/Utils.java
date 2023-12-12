@@ -9,13 +9,12 @@ import Animals.*;
 import EnviormentObjects.*;
 import MainFolder.*;
 
-import org.junit.Test;
-
-
 public class Utils {
     public static Scan Scanner = new Scan("data/t2-5b.txt");
     public static Program p;
     public static World world;
+    public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
+    
 
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
     
@@ -25,7 +24,6 @@ public class Utils {
      * @param display_size the display window size
      * @param delay  the delay in between every frame
      */
-
     public static void  newProgram(int size, int display_size, int delay) {
         p = new Program(size, display_size, delay); // opret et nyt program
         world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilf�je ting!
@@ -36,8 +34,11 @@ public class Utils {
      * @param entType   String name, of desired entity type.
      * @param l         location of the desired spawn location.
      */
-    
-    public static void spawnIn(String entType, Location l){
+    public static void spawnIn(String entType, Location l) throws IllegalArgumentException{
+        if (l.getX() >= world.getSize() || l.getY() >= world.getSize()){
+            throw new IllegalArgumentException();
+        }
+
         switch (entType) {
             case "Rabbit":
                 Animal currentRabbit = new Rabbit(world);
@@ -221,7 +222,7 @@ public class Utils {
      * @param currentLocation Location to find a random location around.
      * @param obj             the Object you are trying to move.
      */
-    public static Location randomMove(Location currentLocation,World wor) {
+    public static Location randomMove(Location currentLocation) {
         Set<Location> emptyTiles = world.getEmptySurroundingTiles(currentLocation);
         if (!emptyTiles.isEmpty()) {
             Random rand = new Random();
@@ -296,6 +297,7 @@ public class Utils {
         return !world.containsNonBlocking(l);
     }
 
+    
     /**
      * Checks if there exist a NonBlockingObject Of type objClass.
      * @param location  Location of checking.

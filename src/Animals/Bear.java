@@ -63,10 +63,10 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         }
 
         //get a random location around the bear and sees if the location is inside of  the terrortorie
-        Location newLocation = Utils.randomMove(currentLocation, world);
+        Location newLocation = Utils.randomMove(currentLocation);
         while (!terrortories.contains(newLocation)) {
             currentLocation = world.getCurrentLocation();
-            newLocation = Utils.randomMove(currentLocation, world);
+            newLocation = Utils.randomMove(currentLocation);
             System.out.println(newLocation);
         }
 
@@ -94,7 +94,7 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
                 System.out.println("Attack Successful!");
             } else {
                 try {
-                    world.move(this, Utils.randomMove(currentLocation, Utils.world));
+                    world.move(this, Utils.randomMove(currentLocation));
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }

@@ -2,14 +2,15 @@ package Animals;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import java.util.Set; 
 
 import EnviormentObjects.*;
-<<<<<<< Updated upstream
-import MainFolder.Main;
-=======
 import MainFolder.*;
->>>>>>> Stashed changes
+import java.util.Set;
+
+
+import EnviormentObjects.*;
 import MainFolder.Utils;
 import itumulator.simulator.Actor;
 import itumulator.world.*;
@@ -47,8 +48,8 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         super.act(world);
     }
 
-
-    private void handleNightBehavior(World world) {             //handle night behaviour
+    
+    private void handleNightBehavior(World world) {
 
         Location currentLocation = world.getCurrentLocation();
 
@@ -123,7 +124,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
             System.out.println("Attack Successful!");
         } else {
             try {
-                world.move(this, Utils.randomMove(currentLocation, Utils.world));
+                world.move(this, Utils.randomMove(currentLocation));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -138,7 +139,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
                 Rabbit rabbit = (Rabbit) world.getTile(spot);
                 rabbit.die(world);
                 world.move(this, spot);
-                this.energy = this.energy + 10; 
+                this.energy = this.energy + 10;
                 return true;
             }
             if (world.getTile(spot) instanceof Bear){
