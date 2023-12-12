@@ -166,6 +166,7 @@ public class Utils {
      * Checks if theres a nonblocking object near.
      * @param l         location to check around
      * @param objClass  the Class of the object you are trying to find.
+     * @param radius    the radius in which to search
      * @return          Location of the object
      * @throws Exception    /IF NO LOCATION FOUND IT THROWS EXCEPTION.
      */
@@ -193,8 +194,7 @@ public class Utils {
      * @param l the center location for the search
      * @param objClass  The type of class to search after
      * @param radius    the radius in which to search
-     * @return          returns the location of the object found
-     * @throws Exception    exception if no object of that class is found.
+     * @return          returns the location of the object found or null if no objects within radius
      */
     public static Location isBlockNear(Location l, Class objClass, int radius) {
         Set<Location> neighbours = world.getSurroundingTiles(l, radius);
@@ -202,7 +202,9 @@ public class Utils {
 
         for (Location currentLocation : neighbours) {
             try {
-                blockingObjects.add(world.getTile(currentLocation));
+                if (!(world.getTile(currentLocation) == null)){
+                    blockingObjects.add(world.getTile(currentLocation));
+                }
             }
             catch (IllegalArgumentException ignored) {
             }
