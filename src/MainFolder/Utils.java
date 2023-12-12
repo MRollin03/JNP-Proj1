@@ -9,11 +9,13 @@ import Animals.*;
 import EnviormentObjects.*;
 import MainFolder.*;
 
+import org.junit.Test;
+
+
 public class Utils {
     public static Scan Scanner = new Scan("data/t2-5b.txt");
     public static Program p;
     public static World world;
-
 
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255,0,255));
     
@@ -23,6 +25,7 @@ public class Utils {
      * @param display_size the display window size
      * @param delay  the delay in between every frame
      */
+
     public static void  newProgram(int size, int display_size, int delay) {
         p = new Program(size, display_size, delay); // opret et nyt program
         world = p.getWorld(); // hiv verdenen ud, som er der hvor vi skal tilf�je ting!
@@ -33,6 +36,7 @@ public class Utils {
      * @param entType   String name, of desired entity type.
      * @param l         location of the desired spawn location.
      */
+    
     public static void spawnIn(String entType, Location l){
         switch (entType) {
             case "Rabbit":

@@ -21,6 +21,10 @@ public class Scan {
     private int carcass;
     private int fungi;
 
+    /**
+     * This is the scanner logic thats splits and sorts the values for a given file.
+     * @param filePath Filepath is  the path for the input list, that are wished to read.
+     */
     public Scan(String filePath) {
         scanner(filePath);
     }
@@ -84,7 +88,12 @@ public class Scan {
         System.err.println("File not found: " + e.getMessage());
     }
 }
-
+    /**
+     * function that makes a list of the bears that is needed to be inserted.
+     * the bears can difrrentiate between bear with cordinates and bears without cordinates.
+     * @param scanner
+     * @param bearCount
+     */
     private void handleBearEntry(Scanner scanner, int bearCount) {
         Location location = null;
         if (scanner.hasNext("\\(\\d+,\\d+\\)")) {
@@ -104,7 +113,11 @@ public class Scan {
         }
     }
 
-
+    /**
+     * Splits the cordinates string and converts it into a Location Type.
+     * @param locationStr the location on stringform that is wish to be converted.  
+     * @return returns it as a location.
+     */
     private Location parseLocation(String locationStr) {
         locationStr = locationStr.replaceAll("[()]", "");
         String[] parts = locationStr.split(",");

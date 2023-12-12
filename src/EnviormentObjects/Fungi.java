@@ -5,13 +5,11 @@ import itumulator.simulator.Actor;
 import itumulator.world.*;
 import java.util.*;
 
-import javax.rmi.CORBA.Util;
-
 import MainFolder.Utils;
 
 import java.awt.*;
 
-public class Fungi extends EnvObject implements Actor, NonBlocking, DynamicDisplayInformationProvider{
+public class Fungi extends EnvObject implements Actor, DynamicDisplayInformationProvider{
 
     private boolean big;
     private Random rand;
@@ -34,6 +32,7 @@ public class Fungi extends EnvObject implements Actor, NonBlocking, DynamicDispl
         }
     }
 
+     
     public void spread(){
         Location currentLocation = world.getCurrentLocation();
         Location carcassLocation;
@@ -51,15 +50,13 @@ public class Fungi extends EnvObject implements Actor, NonBlocking, DynamicDispl
         } catch (Exception e) {
             
         }
-        
-        
-
     }
-
+    /**
+     * @return returns true if fungus is big.
+     */
     public boolean isBig(){
         return big;
     }
-
     public DisplayInformation getInformation() {
         if(big){
             return new DisplayInformation(Color.BLUE, "fungi");

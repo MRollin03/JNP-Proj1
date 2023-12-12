@@ -28,6 +28,11 @@ public class Grass extends EnvObject implements Actor{
 
 
     //-------Code that Spreads grass around ----//
+    /**
+     * Spread is a function that get sourrounding locations that does not contain nonblocking objects at 
+     * uses spreadchance to possible instansiate a grass object on the empty tile.
+     * @param world
+     */
     public void spread(World world){
         int rand_int = 0;
 

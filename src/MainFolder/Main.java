@@ -3,15 +3,18 @@ import itumulator.executable.*;
 import itumulator.world.*;
 import java.util.*;
 
+import org.junit.Test;
+
 import Animals.Wolfpack;
 
 public class Main {
     public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
-
-    public static void main(String[] args) {
-        Scan Scanner = new Scan("data\\t3-2ab.txt");
+    public static Scan Scanner = new Scan("data\\t3-2ab.txt");
+    
+    public static void main() {
+        
         int size = Scanner.getSize();
-        int delay = 800; // forsi   nkelsen mellem hver skridt af simulationen (i ms)
+        int delay = 800; // forsinkelsen mellem hver skridt af simulationen (i ms)
         int display_size = 600; // sk�rm opl�sningen (i px)
         Utils.newProgram(size, display_size, delay);
 
@@ -55,9 +58,9 @@ public class Main {
                 Utils.spawnIn(entType, l);
             }
         }
-
+        
         Utils.p.show(); // Shows the simulation
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 1; i++) {
             Utils.p.simulate();
         } // k�rer 200 runder, alts� kaldes 'act' 200 gange for alle placerede akt�rer
 
