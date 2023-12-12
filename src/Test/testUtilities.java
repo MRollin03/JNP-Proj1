@@ -44,7 +44,7 @@ public class testUtilities {
         Location l2 = new Location(2,2);
 
         world.setTile(l1, new Grass(world));
-        world.setTile(l2, new Rabbit(world));
+        world.setTile(l2, new Rabbit());
 
         Assert.assertTrue(m.checkNonBlockingType(l1, Grass.class));
         Assert.assertFalse(m.checkNonBlockingType(l2, Grass.class));
@@ -67,14 +67,14 @@ public class testUtilities {
     public void test_getWorldRandomLocation(){
          for (int i = 0; i <= 99; i++){
             Location l = m.getWorldRandomLocation(10);
-            world.setTile(l, new Rabbit(world));
+            world.setTile(l, new Rabbit());
             world.setTile(l, new Grass(world));
         }
         //stack overflow test
         assertThrows(StackOverflowError.class, () -> {
             for (int i = 0; i <= 100; i++){
                 Location l = m.getWorldRandomLocation(10);
-                world.setTile(l, new Rabbit(world));
+                world.setTile(l, new Rabbit());
                 world.setTile(l, new Grass(world));
             }
         });
@@ -117,14 +117,14 @@ public class testUtilities {
     public void test_isBlockNear(){
         Location center = new Location(5, 5);
         Location test1 = new Location(2, 2);
-        world.setTile(test1, new Rabbit(world));
+        world.setTile(test1, new Rabbit());
 
         Assert.assertEquals(test1,m.isBlockNear(center, Rabbit.class, 100));  //Positive test
 
         Assert.assertEquals(null,m.isBlockNear(center, Rabbit.class, 1));  //negative test
 
         //testing if method finds objects at center
-        world.setTile(center, new Rabbit(world));                           //negative test
+        world.setTile(center, new Rabbit());                           //negative test
         Assert.assertNotEquals(center,m.isBlockNear(center, Rabbit.class, 1));  //negative test
 
     }

@@ -85,6 +85,7 @@ public class Homes extends EnvObject {
         if (Wolfden.isEmpty()) {
             return;
         }
+        if(!world.contains(this)){return;}
         Location l = world.getLocation(this);
     
         Set<Location> neighbours = world.getEmptySurroundingTiles(l);
@@ -93,7 +94,6 @@ public class Homes extends EnvObject {
         Collections.shuffle(list);
     
         int animalsReleased = 0;
-    
         for (int i = 0; i < list.size(); i++) {
             try {
                 if (i >= Wolfden.size()) {
@@ -109,7 +109,6 @@ public class Homes extends EnvObject {
         for (int index = 0; index < animalsReleased; index++) {
             Wolfden.remove(0);
         }
-       
         
     }
 

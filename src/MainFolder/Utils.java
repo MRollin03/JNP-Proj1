@@ -42,7 +42,7 @@ public class Utils {
 
         switch (entType) {
             case "Rabbit":
-                Animal currentRabbit = new Rabbit(world);
+                Animal currentRabbit = new Rabbit();
                 world.setTile(l, currentRabbit);
                 di = new DisplayInformation(Color.blue,"rabbit-small"); // Color Settings
                 p.setDisplayInformation(Rabbit.class, di);

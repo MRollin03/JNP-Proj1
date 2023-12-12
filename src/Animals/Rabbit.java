@@ -12,7 +12,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
     private Homes currentRabbitHole = null;
     private int mate_CD = 15;
 
-    public Rabbit(World world){
+    public Rabbit(){
         super();
     }
 
@@ -119,7 +119,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
 
                 if(getothermate_CD(l) == 0){
                     newLocation = Utils.randomMove(currentLocation);      //brug en anden funktion her?
-
+                    if(newLocation == null){return;}                      //hvis random lokation omkring kaninen ikke findes, fejles fødtslen.
                     Utils.spawnIn("Rabbit",newLocation);
                     mate_CD = 15;               //resets Mate cooldown for 1 rabbit
                     resetmateCD(l);             //resets Mate cooldown for the other rabbit

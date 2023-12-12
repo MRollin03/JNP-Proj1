@@ -39,7 +39,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
             }
         } else{
             handleDayBehavior(world);
-            if(world.getCurrentTime() == 3 && currentWolfden != null){
+            if(world.getCurrentTime() == 8 && currentWolfden != null){
                 if(!world.contains(currentWolfden)){return;}
                 world.delete(currentWolfden);
             }

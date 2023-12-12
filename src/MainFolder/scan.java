@@ -163,7 +163,6 @@ public class Scan {
     }
 
     public List<Location> getBears() {
-        System.out.println(bears +"this bitch empty?");
         return bears;
     }
 }
