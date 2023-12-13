@@ -119,12 +119,15 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         Set<Location> surroundings;
         surroundings = world.getSurroundingTiles(currentLocation);
 
-        for (Location tile : surroundings) {        //delete wolfdens - could be moved to a seperate function
-            wolfPack.homeSet = true;
-            if (world.getTile(tile) instanceof Wolfden){
-                EnvObject.deleteObj(world, world.getNonBlocking(tile));
+        if (wolfPack.gethome()) {
+            for (Location tile : surroundings) {        //delete wolfdens - could be moved to a seperate function
+                wolfPack.homeSet = true;
+                if (world.getTile(tile) instanceof Wolfden){
+                    EnvObject.deleteObj(world, world.getNonBlocking(tile));
+                }
             }
         }
+        
 
         try {
             if (!world.getSurroundingTiles(wolfPack.packCenter,2).contains(currentLocation)){
@@ -155,6 +158,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
      * if Rabbit, delete the rabbit, move to its location and gain 10 energy
      * if Bear, deal 5 damage to the bear through 'bear.damage(5)'
      * if Carcass, delete the Carcass and gain 4 energy
+     * if Wolf (of other packnr) deal 5 damage to it.
      */
     private boolean canAttack(){
         Set<Location> nearby = world.getSurroundingTiles();

@@ -81,7 +81,6 @@ public class Wolfpack {
     public boolean isHomeSet(){
         return homeSet;
     }
-
     public Location getPackCenter(int packnr){
         return packCenter;
     }
@@ -90,5 +89,8 @@ public class Wolfpack {
     }
     public void remove(Wolf wolf){
         WolvesInPacks.remove(wolf);
+    }
+    public boolean gethome(){
+        return this.homeSet;
     }
 }
