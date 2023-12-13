@@ -11,10 +11,8 @@ import static org.junit.Assert.*;
 
 import java.util.*;
 import Animals.*;
-import MainFolder.*;   
+import MainFolder.*;
 
-
-    
 public class BearTest {
 
     public static World world;
@@ -22,41 +20,39 @@ public class BearTest {
     public static Program p;
 
     @Before
-    public void setup(){    //useless? :/
+    public void setup() { // useless? :/
         m = new Utils();
         world = new World(10);
         m.world = world;
     }
-    
 
     // Test if bear gets spawned and world contains it
     @Test
-    public void testSpawning(){
+    public void testSpawning() {
         Bear bear = new Bear();
         world.setTile(new Location(1, 1), bear);
         assertTrue(world.contains(bear));
     }
 
-    //checks i bear eats the rabbit if its beside the bear.
+    // checks i bear eats the rabbit if its beside the bear.
     @Test
-    public void eat(){
+    public void eat() {
         Bear bear = new Bear();
         Rabbit rabbit = new Rabbit();
         world.setTile(new Location(1, 1), bear);
         world.setTile(new Location(2, 1), rabbit);
         bear.act(world);
         assertTrue(world.contains(rabbit));
-        
+
     }
 
-    //checks i the bear exists in the world.
+    // checks i the bear exists in the world.
     @Test
-    
-    public void die(){
+
+    public void die() {
         Bear bear = new Bear();
         world.setTile(new Location(1, 1), bear);
         bear.die();
         assertFalse(world.contains(bear));
     }
 }
-    

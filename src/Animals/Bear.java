@@ -1,4 +1,5 @@
 package Animals;
+
 import itumulator.executable.DisplayInformation;
 import itumulator.executable.DynamicDisplayInformationProvider;
 import itumulator.simulator.Actor;
@@ -9,13 +10,13 @@ import java.util.*;
 import java.awt.*;
 import java.util.ArrayList.*;
 
-public class Bear extends Animal implements Actor, DynamicDisplayInformationProvider{
+public class Bear extends Animal implements Actor, DynamicDisplayInformationProvider {
 
     private Location centrum;
     private Set<Location> terrortories = null;
     ArrayList<Class<?>> foods = new ArrayList<>();
 
-    //-----------Constructors for two different cases
+    // -----------Constructors for two different cases
 
     // random location
     public Bear() {
@@ -31,25 +32,25 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         world.setCurrentLocation(centrum);
     }
 
-    //act function
+    // act function
     @Override
-    public void act(World world){
-        if(terrortories == null){
+    public void act(World world) {
+        if (terrortories == null) {
             terrortories = world.getSurroundingTiles(1);
         }
 
         if (world.isNight()) {
             handleNightBehavior(world);
-        } else{
+        } else {
             handleDayBehavior(world);
         }
 
         super.act(world);
     }
-    
+
     private void handleNightBehavior(World world) {
         Location currentLocation = world.getCurrentLocation();
-        if(currentLocation == null){
+        if (currentLocation == null) {
             return;
         }
     }
@@ -63,7 +64,8 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
             return;
         }
 
-        //get a random location around the bear and sees if the location is inside of  the terrortorie
+        // get a random location around the bear and sees if the location is inside of
+        // the terrortorie
         Location newLocation = Utils.randomMove(currentLocation);
         while (!terrortories.contains(newLocation)) {
             currentLocation = world.getCurrentLocation();
@@ -71,13 +73,13 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
             System.out.println(newLocation);
         }
 
-        //Tries to find a food source on the next step
-        if(world.containsNonBlocking(newLocation)){
+        // Tries to find a food source on the next step
+        if (world.containsNonBlocking(newLocation)) {
 
-            //Berry checker
-            if(world.getNonBlocking(newLocation).getClass() == BerryBush.class){
+            // Berry checker
+            if (world.getNonBlocking(newLocation).getClass() == BerryBush.class) {
                 BerryBush bush = (BerryBush) world.getNonBlocking(newLocation);
-                if(bush.hasBerries()){
+                if (bush.hasBerries()) {
                     bush.berriesToggle();
                     super.energy = super.getEnergy() + 5;
                     System.err.println(this.getEnergy());
@@ -85,13 +87,13 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
             }
 
             // Grass checker
-            if(world.getNonBlocking(newLocation).getClass() == Grass.class){
+            if (world.getNonBlocking(newLocation).getClass() == Grass.class) {
                 Grass grass = (Grass) world.getNonBlocking(newLocation);
                 world.delete(grass);
-                super.energy =+ 5;
+                super.energy = +5;
             }
-            
-            if (canAttack()){
+
+            if (canAttack()) {
                 System.out.println("Attack Successful!");
             } else {
                 try {
@@ -100,39 +102,42 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
                     System.out.println(e.getMessage());
                 }
             }
-        }   
+        }
 
         world.move(this, newLocation);
 
-    } 
+    }
 
     /**
      * Gets the centrum of the bears terratorium
+     * 
      * @return returns Centrum Location
      */
-    public Location getCentrum(){
+    public Location getCentrum() {
         return centrum;
     }
 
     /**
-     * Used for checking if the bear are able to attack an animal in its surrounding tiles.
+     * Used for checking if the bear are able to attack an animal in its surrounding
+     * tiles.
+     * 
      * @return returns true is target exist, and false if not.
      */
-    private boolean canAttack(){
+    private boolean canAttack() {
         Set<Location> nearby = world.getSurroundingTiles();
-        for (Location spot : nearby){
-            if (world.getTile(spot) instanceof Rabbit){
+        for (Location spot : nearby) {
+            if (world.getTile(spot) instanceof Rabbit) {
                 world.delete(world.getTile(spot));
                 world.move(this, spot);
-                //remember insert energy increase here
+                // remember insert energy increase here
                 return true;
             }
-            if (world.getTile(spot) instanceof Carcass){
+            if (world.getTile(spot) instanceof Carcass) {
                 Carcass carcass = (Carcass) world.getTile(spot);
                 world.delete(carcass);
                 return true;
             }
-            if (world.getTile(spot) instanceof Wolf){
+            if (world.getTile(spot) instanceof Wolf) {
                 Wolf wolf = (Wolf) world.getTile(spot);
                 wolf.damage(8); // Bear gives wolf 8 in damages.
                 return true;
@@ -142,32 +147,28 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         return false;
     }
 
-    public void die(){
+    public void die() {
         super.die();
         Location currentLocation = world.getCurrentLocation();
         if (currentLocation != null) {
             super.spawnCarcass(1, currentLocation);
         }
     }
-    
-    
 
     @Override
     public DisplayInformation getInformation() {
 
-        if (world.isNight()){
-            if(super.getAge() > 1){
+        if (world.isNight()) {
+            if (super.getAge() > 1) {
                 return new DisplayInformation(Color.BLUE, "bear-sleeping");
-            }
-            else{
+            } else {
                 return new DisplayInformation(Color.BLUE, "bear-small-sleeping");
             }
-            
+
         } else {
-            if(super.getAge() > 1){
+            if (super.getAge() > 1) {
                 return new DisplayInformation(Color.BLUE, "bear");
-            }
-            else{
+            } else {
                 return new DisplayInformation(Color.BLUE, "bear-small");
             }
         }

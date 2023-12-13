@@ -18,17 +18,16 @@ public class HomesTest {
     public static Utils m;
     public static Program p;
 
-    
     @Before
-    public void setup(){    //useless? :/
+    public void setup() { // useless? :/
         m = new Utils();
         world = new World(10);
         m.world = world;
     }
-    
+
     @Test
     public void TestAddToDen() {
-        Wolfpack pack = new Wolfpack(world , 1 , new Location(5, 5));
+        Wolfpack pack = new Wolfpack(world, 1, new Location(5, 5));
         world.step();
         pack.spawnWolf(1);
         world.step();
@@ -42,14 +41,14 @@ public class HomesTest {
         wolfDen.addToHole(pack.getWolfsInPack().get(0), new Wolfden(world));
 
         assertTrue(wolfDen.getAnimalsInHole().contains(currentWolf));
-        
+
         // Test that getting the location of the rabbit fails
         try {
             world.getLocation(currentWolf);
             fail("Expected an exception but didn't get one");
         } catch (Exception e) {
         }
-        
+
     }
 
     @Test

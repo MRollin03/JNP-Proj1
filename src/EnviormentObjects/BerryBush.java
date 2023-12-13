@@ -1,4 +1,5 @@
 package EnviormentObjects;
+
 import itumulator.executable.DisplayInformation;
 import itumulator.executable.DynamicDisplayInformationProvider;
 import itumulator.simulator.Actor;
@@ -6,12 +7,11 @@ import itumulator.world.*;
 import java.util.*;
 import java.awt.*;
 
-
-public class BerryBush extends EnvObject implements Actor, DynamicDisplayInformationProvider{
+public class BerryBush extends EnvObject implements Actor, DynamicDisplayInformationProvider {
 
     private boolean berries = false;
 
-    public BerryBush(World world){
+    public BerryBush(World world) {
         super(ObjectType.berryBush, world);
     }
 
@@ -20,29 +20,30 @@ public class BerryBush extends EnvObject implements Actor, DynamicDisplayInforma
         grow();
     }
 
-    //-------Code that Spreads grass around ----//
-    public void grow(){
+    /**
+     * A function that gets called and has the popebility to grow berries
+     */
+    public void grow() {
         Random rand = new Random();
         int num = rand.nextInt(11);
-        
-        if(num == 10){
+
+        if (num == 10) {
             berries = true;
         }
     }
 
-    public boolean hasBerries(){
+    public boolean hasBerries() {
         return berries;
     }
 
-    public void berriesToggle(){
-        berries = !berries;
+    public void berriesToggle() {
+        berries = berries;
     }
 
     public DisplayInformation getInformation() {
-        if(berries){
+        if (berries) {
             return new DisplayInformation(Color.BLUE, "bush-berries");
-        }
-        else{
+        } else {
             return new DisplayInformation(Color.BLUE, "bush");
         }
     }

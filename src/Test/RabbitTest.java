@@ -11,10 +11,8 @@ import static org.junit.Assert.*;
 
 import java.util.*;
 import Animals.*;
-import MainFolder.*;   
+import MainFolder.*;
 
-
-    
 public class RabbitTest {
 
     public static World world;
@@ -22,59 +20,55 @@ public class RabbitTest {
     public static Program p;
 
     @Before
-    public void setup(){    //useless? :/
+    public void setup() { // useless? :/
         m = new Utils();
         world = new World(10);
         m.world = world;
     }
-    
 
     // Test if bear gets spawned and world contains it
     @Test
-    public void testSpawning(){
+    public void testSpawning() {
         Rabbit rabbit = new Rabbit();
         world.setTile(new Location(1, 1), rabbit);
         world.contains(rabbit);
         assertTrue(world.contains(rabbit));
     }
 
-    //checks i bear eats the rabbit if its beside the bear.
+    // checks i bear eats the rabbit if its beside the bear.
     @Test
-    public void eat(){
+    public void eat() {
         Rabbit rabbit = new Rabbit();
         Grass grass = new Grass(world);
         world.setTile(new Location(1, 1), rabbit);
         world.setTile(new Location(2, 1), grass);
         rabbit.act(world);
         assertTrue(world.contains(grass));
-        
+
     }
 
-    //checks if rabbit dies when called.
+    // checks if rabbit dies when called.
     @Test
-    public void die(){
+    public void die() {
         Rabbit rabbit = new Rabbit();
-        world.setTile(new Location (1, 1), rabbit);
+        world.setTile(new Location(1, 1), rabbit);
         assertTrue(world.contains(rabbit));
         rabbit.die();
         assertFalse(world.contains(rabbit));
     }
 
-    //checks if the rabbits default  is 15 when reset.
+    // checks if the rabbits default is 15 when reset.
     @Test
-    public void resetmateCD(){
+    public void resetmateCD() {
         Rabbit rabbit = new Rabbit();
         world.setTile(new Location(1, 1), rabbit);
         world.step();
         rabbit.act(world);
         rabbit.setMate_CD(10);
-        rabbit.resetmateCD(world.getLocation(rabbit)); 
+        rabbit.resetmateCD(world.getLocation(rabbit));
         world.step();
-        rabbit.act(world);  
+        rabbit.act(world);
         Assert.assertEquals(rabbit.getmate_CD(), 15);
     }
-    
-
 
 }
-    

@@ -7,3 +7,4 @@ bear 1 (11,11)
 grass 10
 fungi 5-10
 carcass 25
+crow 5
