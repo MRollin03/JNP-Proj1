@@ -193,6 +193,13 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         wolfPack.packCenter = l;
     }
 
+    public Homes getCurrentWolfden(){
+        return currentWolfden;
+    }
+    public void setCurrentWolfden(Homes wolfden){
+        this.currentWolfden = wolfden;
+    }
+
     
     @Override
     public void die(){

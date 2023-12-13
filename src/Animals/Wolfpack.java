@@ -9,7 +9,7 @@ import itumulator.world.*;
 
 
 public class Wolfpack {
-    World world = Utils.world;
+    private World world;
     protected int packnr;
     protected Location packCenter;
     protected boolean homeSet = false;
@@ -20,6 +20,7 @@ public class Wolfpack {
         this.packnr = packnr;
         this.packCenter = packCenter;
         this.homeSet = false;
+        this.world = world;
         Utils.Wolfpacks.add(this);
     }
 
@@ -62,22 +63,19 @@ public class Wolfpack {
      * Only used during initialization of the world, spawns wolves depending on input with corresponding packnumber
      * @param wolves int value indicating how many wolves need to be spawned.
      */
-    public void spawnWolf(int wolves){      //lav packcenter i midten
-        Set<Location> neighbours = world.getSurroundingTiles(packCenter,1);
+    public void spawnWolf(int wolves) {
+        Set<Location> neighbours = world.getSurroundingTiles(packCenter, 1);
         ArrayList<Location> list = new ArrayList<>(neighbours);
         
-        //System.err.println("spawner wolfs");
-        for (int i = 0; i <= wolves-1;i++){
+        for (int i = 0; i < wolves && i < list.size(); i++) {
             Wolf wolf = new Wolf(packnr, packCenter, this);
-            if (world.isTileEmpty(list.get(i))){
-                //System.out.println((list.get(i)));
+            if (world.isTileEmpty(list.get(i))) {
                 world.setTile(list.get(i), wolf);
             }
             WolvesInPacks.add(wolf);
-            
         }
-        
     }
+    
     
     public boolean isHomeSet(){
         return homeSet;
@@ -91,5 +89,8 @@ public class Wolfpack {
     }
     public void remove(Wolf wolf){
         WolvesInPacks.remove(wolf);
+    }
+    public ArrayList<Wolf> getWolfsInPack(){
+        return WolvesInPacks;
     }
 }

@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 import MainFolder.*;
+import Animals.Animal;
 import Animals.Rabbit;
 import Animals.Wolf;
 import itumulator.world.*;
 
 
 public class Homes extends EnvObject {
-    protected ArrayList<Rabbit> animalsInHome = new ArrayList<>();
-    protected ArrayList<Wolf> Wolfden = new ArrayList<>();
+    protected ArrayList<Animal> animalsInHome = new ArrayList<>();
     //protected ArrayList<ArrayList<Wolf>> homes = new ArrayList<>();
     ObjectType objType;
 
-    Homes(){
+    public Homes(){
         super(ObjectType.hole, Utils.world);
     }
     
@@ -33,23 +33,23 @@ public class Homes extends EnvObject {
     * @param animal input of type Object but only works if is of type animal.
     * @param hole input of type Object but only works if is of type hole. (homes?)
     **/
-    public void addToHole(Object animal, Object hole) {
-        //System.out.println("1 : Rabbits in hole size " + animalsInHome.size() );
-        if (hole instanceof Wolfden) {
-            Wolf tempWolf = (Wolf) animal;
-            Wolfden.add(tempWolf);
-        } else if (hole instanceof RabbitHole) {
-            Rabbit tempRabbit = (Rabbit) animal;
-            animalsInHome.add(tempRabbit);
-        }
+    public void addToHole(Animal animal, Object hole) {
+        Animal tempAnimal = (Animal) animal;
+        animalsInHome.add(tempAnimal);
         world.remove(animal);
+    
+        // Make sure the animal is removed from the world
+        if (world.contains(animal)) {
+            System.out.println("Animal added to the hole successfully.");
+        } else {
+            System.out.println("Error: Animal could not be removed from the world.");
+        }
     }
 
     /**
      * removes all animals from their respective homes.
      */
     public void removeFromHole() {
-        removeFromDen();
         if (animalsInHome.isEmpty()) {
             return;
         }
@@ -79,39 +79,8 @@ public class Homes extends EnvObject {
         }
         
     }
-    /**
-     * Removes The Animals in the home.
-     */
-    public void removeFromDen(){
 
-        if (Wolfden.isEmpty()) {
-            return;
-        }
-        if(!world.contains(this)){return;}
-        Location l = world.getLocation(this);
-    
-        Set<Location> neighbours = world.getEmptySurroundingTiles(l);
-        ArrayList<Location> list = new ArrayList<>(neighbours);
-    
-        Collections.shuffle(list);
-    
-        int animalsReleased = 0;
-        for (int i = 0; i < list.size(); i++) {
-            try {
-                if (i >= Wolfden.size()) {
-                    break;
-                }
-                world.setTile(list.get(i), Wolfden.get(i));
-                animalsReleased++;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    
-        for (int index = 0; index < animalsReleased; index++) {
-            Wolfden.remove(0);
-        }
-        
+    public ArrayList<Animal> getAnimalsInHole(){
+        return animalsInHome;
     }
-
 }

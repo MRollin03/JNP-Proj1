@@ -3,8 +3,8 @@ import itumulator.world.*;
 
 public class RabbitHole extends Homes {
 
-    public RabbitHole(World world) {
-        //super(world);
+    public RabbitHole() {
+        super();
     }
 
 

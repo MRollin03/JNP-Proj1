@@ -52,7 +52,7 @@ public class Animal{
       * Die function deletes the entetie from the world.
       */
     protected void die(){
-        if(!world.contains(this)){return;}
+        if(world.contains(this)){System.err.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");}
         world.delete(this);
     }
 

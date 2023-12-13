@@ -25,7 +25,7 @@ public class RabbitTest {
     public void setup(){    //useless? :/
         m = new Utils();
         world = new World(10);
-        m.world = Utils.world;
+        m.world = world;
     }
     
 

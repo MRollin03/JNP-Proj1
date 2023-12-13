@@ -5,8 +5,9 @@ import itumulator.simulator.Actor;
 import itumulator.world.*;
 import EnviormentObjects.*;
 import MainFolder.*;
-import java.awt.*;
 import java.util.*;
+import java.awt.*;
+import java.util.ArrayList.*;
 
 public class Rabbit extends Animal implements Actor, DynamicDisplayInformationProvider {
     private Homes currentRabbitHole = null;
@@ -14,6 +15,8 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
 
     public Rabbit(){
         super();
+        mate_CD = 15;
+        currentRabbitHole = null;
     }
 
     @Override
@@ -179,10 +182,15 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
         temp.mate_CD = 15;
     }
 
-    public void die() {
+    public void die(){
         super.die();
-        super.spawnCarcass(2, world.getCurrentLocation());
+        Location currentLocation = world.getCurrentLocation();
+        if (currentLocation != null) {
+            super.spawnCarcass(1, currentLocation);
+        }
     }
+    
+    
     
     public DisplayInformation getInformation() {
         if(super.getAge() > 1){

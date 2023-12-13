@@ -56,7 +56,7 @@ public class Utils {
                 break;
                 
             case "RabbitHole":
-                EnvObject currentRabbitHole = new RabbitHole(world);
+                EnvObject currentRabbitHole = new RabbitHole();
                 world.setTile(l, currentRabbitHole);
                 di = new DisplayInformation(Color.GRAY, "hole-small"); // Color Settings
                 p.setDisplayInformation(RabbitHole.class, di);

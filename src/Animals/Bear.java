@@ -144,8 +144,13 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
 
     public void die(){
         super.die();
-        super.spawnCarcass(1, world.getCurrentLocation());
+        Location currentLocation = world.getCurrentLocation();
+        if (currentLocation != null) {
+            super.spawnCarcass(1, currentLocation);
+        }
     }
+    
+    
 
     @Override
     public DisplayInformation getInformation() {
