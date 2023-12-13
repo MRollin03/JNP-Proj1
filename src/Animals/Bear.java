@@ -106,11 +106,18 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
 
     } 
 
-
+    /**
+     * Gets the centrum of the bears terratorium
+     * @return returns Centrum Location
+     */
     public Location getCentrum(){
         return centrum;
     }
 
+    /**
+     * Used for checking if the bear are able to attack an animal in its surrounding tiles.
+     * @return returns true is target exist, and false if not.
+     */
     private boolean canAttack(){
         Set<Location> nearby = world.getSurroundingTiles();
         for (Location spot : nearby){
@@ -134,7 +141,7 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
 
         return false;
     }
-    
+
     public void die(){
         super.die();
         super.spawnCarcass(1, world.getCurrentLocation());

@@ -79,7 +79,9 @@ public class Homes extends EnvObject {
         }
         
     }
-
+    /**
+     * Removes The Animals in the home.
+     */
     public void removeFromDen(){
 
         if (Wolfden.isEmpty()) {
@@ -112,7 +114,4 @@ public class Homes extends EnvObject {
         
     }
 
-
-
-    
 }

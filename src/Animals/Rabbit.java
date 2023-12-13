@@ -143,12 +143,30 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
         
     }
 
+    /**
+     * Used to get the other Rabbits mating_CD value.
+     * @param l l is the location of the target rabbit.
+     * @return  Returns the Mating_CD value as Integer.
+     */
     private int getothermate_CD(Location l){ 
         Rabbit mate = (Rabbit) world.getTile(l);                 //returns mate cooldown for rabbit at location l
         return mate.getmate_CD();
     }
 
-    private int getmate_CD(){
+    
+    /**
+     * Used to set the mating-cooldown value to a given value
+     * @param value desired mating_CD value.
+     */
+    public void setMate_CD(int value){
+        mate_CD = value;
+    }
+
+    /**
+     * used to transfere the Mating cooldown between Rabbits
+     * @return returns the mate_CD value.
+     */
+    public int getmate_CD(){
         return this.mate_CD;
     }
 
@@ -156,7 +174,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
  * Resets the mateing CoolDown
  * @param l location of the rabbit
 */
-    private void resetmateCD(Location l){
+    public void resetmateCD(Location l){
         Rabbit temp = (Rabbit) world.getTile(l);
         temp.mate_CD = 15;
     }
@@ -165,7 +183,7 @@ public class Rabbit extends Animal implements Actor, DynamicDisplayInformationPr
         super.die();
         super.spawnCarcass(2, world.getCurrentLocation());
     }
-
+    
     public DisplayInformation getInformation() {
         if(super.getAge() > 1){
             return new DisplayInformation(Color.BLUE, "rabbit-large");

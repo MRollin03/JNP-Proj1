@@ -31,6 +31,7 @@ public class Fungi extends EnvObject implements Actor, NonBlocking, DynamicDispl
             world.delete(this);
         }
     }
+
     
     public void spread(){
         Location currentLocation = world.getCurrentLocation();
@@ -50,7 +51,8 @@ public class Fungi extends EnvObject implements Actor, NonBlocking, DynamicDispl
             
         }
     }
-    /**
+
+    /** used to check the size state of the fungus.
      * @return returns true if fungus is big.
      */
     public boolean isBig(){

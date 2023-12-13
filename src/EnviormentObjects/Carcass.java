@@ -22,6 +22,8 @@ public class Carcass extends EnvObject implements Actor, NonBlocking, DynamicDis
         this.state = 24;
         this.big = isbig;
     }
+
+    
     public void act(World world) {
         super.act(world);
 
@@ -41,9 +43,17 @@ public class Carcass extends EnvObject implements Actor, NonBlocking, DynamicDis
         state--;
     }
 
+    /**
+     * Used to check if Carcass is infested with a fungus.
+     * @param value
+     */
     public void setInfested(boolean value){
         this.infested = value;
     }
+    /**
+     * Used for checking is its big Carcass
+     * @return returns true if big, false if small
+     */
     public boolean isBig(){
         return big;
     }
