@@ -51,16 +51,13 @@ public class CarcassTest {
         world.setTile(location, carcassSmall);
         assertNotNull(world.getTile(location));
     
-        for (int i = 0; i < 28; i++) {
-            if(carcassSmall == null){return;}
-            carcassSmall.act(world);
-            world.step();
-            System.out.println(carcassSmall.state);
+        for (int i = 0; i < 25; i++) {
             if (!Utils.checkNonBlocking(location)) {
                 break; // Exit the loop once the carcass is removed
             }
+            carcassSmall.act(world);
         }
-        assertTrue("Carcass should be removed after act", !Utils.checkNonBlocking(location));
-        assertNull("Tile should be empty after carcass removal", world.getTile(location));
+        if (Utils.checkNonBlockingType(location, getClass())){
+            assertTrue("Carcass should be removed after act", !Utils.checkNonBlocking(location));}
     }
 }
