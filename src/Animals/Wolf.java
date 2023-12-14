@@ -57,7 +57,6 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
 
         // if no location dont run.
         if (currentLocation == null) {
-            System.out.println("CD = " + this.getmate_CD());
             if (this.getmate_CD() == 0){
                 for (Wolf wolf : Wolfpack.WolvesInPacks){
                     if (wolf.getmate_CD() == 0 && wolf.getPacknr() == this.getPacknr() && !(world.isOnTile(wolf))){
@@ -97,19 +96,21 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
                 Wolfden hole = (Wolfden) world.getNonBlocking(wolfPack.packCenter);
                 currentWolfden = hole;
                 hole.addToHole(this,hole);
-            return;
+                return;
             }
         } 
+    }
 
     private void handleDayBehavior(World world) { // handle day behaviour
+        System.out.println("wolf: " + world.getCurrentLocation());
         if (world.getCurrentLocation() == null) { // Proceed only if world.getCurrentLocation() is not null
             if (currentWolfden != null) {
                 currentWolfden.removeFromHole();
             return;
         }
-        if (world.getLocation(this) == null ){
 
-        }
+
+        System.out.println("test");
 
         wolfPack.updatePackCenter();
 
@@ -117,6 +118,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         Set<Location> surroundings;
         surroundings = world.getSurroundingTiles(currentLocation);
 
+        /* 
         if (wolfPack.gethome()) {
             for (Location tile : surroundings) {        //delete wolfdens - could be moved to a seperate function
                 wolfPack.homeSet = true;
@@ -124,7 +126,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
                     EnvObject.deleteObj(world, world.getNonBlocking(tile));
                 }
             }
-        }
+        }*/
         
 
         try {
@@ -148,6 +150,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
                 System.out.println(e.getMessage());
             }
         }
+    }
     }
 
     /**
