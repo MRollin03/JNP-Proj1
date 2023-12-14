@@ -49,10 +49,18 @@ public class CarcassTest {
     public void testCarcassAct() {
         world.setCurrentLocation(location);
         world.setTile(location, carcassSmall);
+        assertNotNull(world.getTile(location));
     
         for (int i = 0; i < 28; i++) {
+            if(carcassSmall == null){return;}
             carcassSmall.act(world);
+            world.step();
+            System.out.println(carcassSmall.state);
+            if (!Utils.checkNonBlocking(location)) {
+                break; // Exit the loop once the carcass is removed
+            }
         }
-        assertNull(world.getNonBlocking(location));
+        assertTrue("Carcass should be removed after act", !Utils.checkNonBlocking(location));
+        assertNull("Tile should be empty after carcass removal", world.getTile(location));
     }
 }

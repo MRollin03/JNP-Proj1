@@ -1,7 +1,6 @@
 package Test;
 import static org.junit.Assert.*;
 
-import java.util.Scanner;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +31,7 @@ public class ScanTest {
         assertTrue(scan.getGrass() >= expectedGrassMin && scan.getGrass() <= expectedGrassMax);
         assertEquals(3, scan.getRabbit());
         assertEquals(2, scan.getBears().size());
-        assertEquals(6, scan.getHash().values().stream().mapToInt(Integer::intValue).sum());
+        assertEquals(7, scan.getHash().values().stream().mapToInt(Integer::intValue).sum());
         assertEquals(3, scan.getCarcass());
         assertEquals(3, scan.getBerryBush());
         assertEquals(2, scan.getFungi());

@@ -13,7 +13,7 @@ import java.awt.*;
 public class Carcass extends EnvObject implements Actor, NonBlocking, DynamicDisplayInformationProvider {
     private boolean infested;
     private boolean big;
-    private int state;
+    public int state;
 
     public Carcass(World world, boolean isbig) {
         super(ObjectType.carcass, world);
