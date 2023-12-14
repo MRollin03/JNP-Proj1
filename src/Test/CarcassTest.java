@@ -53,11 +53,11 @@ public class CarcassTest {
     
         for (int i = 0; i < 25; i++) {
             if (!Utils.checkNonBlocking(location)) {
-                break; // Exit the loop once the carcass is removed
+                break;
             }
             carcassSmall.act(world);
         }
         if (Utils.checkNonBlockingType(location, getClass())){
-            assertTrue("Carcass should be removed after act", !Utils.checkNonBlocking(location));}
+            assertTrue(!Utils.checkNonBlocking(location));}
     }
 }
