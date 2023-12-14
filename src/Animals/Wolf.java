@@ -195,7 +195,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
      * 
      * @param l of type Location changes the packCenter.
      */
-    protected void updatePackCenter(Location l) {
+    public void updatePackCenter(Location l) {
         wolfPack.packCenter = l;
     }
 

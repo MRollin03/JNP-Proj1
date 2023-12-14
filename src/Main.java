@@ -10,7 +10,8 @@ public class Main {
     public static int size;
 
     public static void main(String[] args) {
-        Scan Scanner = new Scan("data\\t3-2ab.txt");
+        String filepath = "data/empty.txt";
+        Scan Scanner = Utils.scanFile(filepath);
         size = Scanner.getSize();
         int delay = 1000;
         int display_size = 600; // sk�rm opl�sningen (i px)

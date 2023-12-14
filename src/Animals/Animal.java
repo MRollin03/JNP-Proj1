@@ -75,6 +75,7 @@ public class Animal {
      */
     public void spawnCarcass(int size, Location l) {
         if (size == 1) {
+            System.out.println("l " + l);
             Utils.spawnIn("carcass-small", l);
         }
         if (size == 2) {
