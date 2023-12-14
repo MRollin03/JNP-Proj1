@@ -88,6 +88,10 @@ public class Wolfpack {
         return packCenter;
     }
 
+    public void setPackcenter(Location l){
+        packCenter = l;
+    }
+
     public void addToPack(Wolf wolf) {
         WolvesInPacks.add(wolf);
     }

@@ -75,13 +75,20 @@ public class testWolf {
 
     @Test
     public void test_deletehome(){
-        
+        Location l = new Location(5,5);
+        int wolves = 2;
+            
+        Wolfpack wolfpack = new Wolfpack(m.world, wolves, l);
+        wolfpack.spawnWolf(wolves);
+
+        try {
+            m.isNonBlocktNear(new Location(5, 5),Wolfden.class,2);
+            Assert.fail("Got no fails");
+        } catch (Exception e) {
+            
+        }
     }
 
-    @Test
-    public void test_ejectFromHome(){
-        
-    }
 
     //ved ikke hvad der er galt her
     @Test
@@ -89,13 +96,35 @@ public class testWolf {
         Location l = new Location(5,5);
         int wolves = 2;
             
-        Wolfpack wolfpack = new Wolfpack(world, wolves, l);
+        Wolfpack wolfpack = new Wolfpack(world, 1, l);
+
+        wolfpack.setPackcenter(new Location(2, 2));
         wolfpack.spawnWolf(wolves);
+
+        Wolf wolf1 = wolfpack.getWolfsInPack().get(0);
+        Wolf wolf2 = wolfpack.getWolfsInPack().get(1);
+
+        Wolfden wolfden = new Wolfden(world);
+
+        wolf1.setCurrentWolfden(wolfden);
+        wolf2.setCurrentWolfden(wolfden);
+
+        wolf1.updatePackCenter(new Location(2, 2));
+
+        world.move(wolf2, l);
+        world.move(wolf1, new Location(4, 5));
+
+
         while (!(world.isNight())){
             world.step();
+            wolf1.act(world);
+            wolf2.act(world);
         }
+
         world.step();
-        world.step();
+        wolf1.act(world);
+        wolf2.act(world);
+        
         try {
         System.out.println(m.isNonBlocktNear(new Location(5, 5),Wolfden.class,2));
         } catch (Exception e) {

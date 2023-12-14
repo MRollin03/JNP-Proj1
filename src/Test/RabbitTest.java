@@ -26,7 +26,7 @@ public class RabbitTest {
         m.world = world;
     }
 
-    // Test if bear gets spawned and world contains it
+    // Test if Rabbit gets spawned and world contains it
     @Test
     public void testSpawning() {
         Rabbit rabbit = new Rabbit();
@@ -35,7 +35,7 @@ public class RabbitTest {
         assertTrue(world.contains(rabbit));
     }
 
-    // checks i bear eats the rabbit if its beside the bear.
+    // checks i Rabbit eats the rabbit if its beside the Rabbit.
     @Test
     public void eat() {
         Rabbit rabbit = new Rabbit();
@@ -62,10 +62,12 @@ public class RabbitTest {
     public void resetmateCD() {
         Rabbit rabbit = new Rabbit();
         world.setTile(new Location(1, 1), rabbit);
+
         world.step();
         rabbit.act(world);
         rabbit.setMate_CD(10);
         rabbit.resetmateCD(world.getLocation(rabbit));
+        
         world.step();
         rabbit.act(world);
         Assert.assertEquals(rabbit.getmate_CD(), 15);

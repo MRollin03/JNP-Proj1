@@ -32,7 +32,7 @@ public class BerryBushTest {
         BerryBush bush = new BerryBush(world);
         world.setTile(new Location(1, 1), bush);
 
-        assertFalse(null, bush.hasBerries());
+        assertFalse(bush.hasBerries());
 
         bush.berriesToggle();
 
