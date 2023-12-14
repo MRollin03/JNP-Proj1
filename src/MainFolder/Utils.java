@@ -47,8 +47,7 @@ public class Utils {
         if (l.getX() >= world.getSize() || l.getY() >= world.getSize()) {
             throw new IllegalArgumentException();
         }
-
-        switch (entType) {
+        if(p != null){switch (entType) {
             case "Rabbit":
                 Animal currentRabbit = new Rabbit();
                 world.setTile(l, currentRabbit);
@@ -90,9 +89,6 @@ public class Utils {
                 world.setTile(l, currentden);
                 di = new DisplayInformation(Color.red, "hole"); // Color Settings
                 p.setDisplayInformation(Wolfden.class, di);
-                break;
-
-            case "bear":
                 break;
 
             case "berry-bush":
@@ -144,6 +140,76 @@ public class Utils {
                 p.setDisplayInformation(Crow.class, di);
                 break;
         }
+    }
+    else{
+        switch (entType) {
+            case "Rabbit":
+                Animal currentRabbit = new Rabbit();
+                world.setTile(l, currentRabbit);
+                break;
+
+            case "Grass":
+                EnvObject currentObject = new Grass(world);
+                world.setTile(l, currentObject);
+                break;
+
+            case "RabbitHole":
+                EnvObject currentRabbitHole = new RabbitHole();
+                world.setTile(l, currentRabbitHole);
+                break;
+
+            case "Person":
+                Person currentPerson = new Person();
+                world.setTile(l, currentPerson);
+                break;
+
+            case "Wolf": // unused, consider deleting
+                // Wolf currentWolf = new Wolf(world,1,l, wolfpack);
+                // world.setTile(l, currentWolf);
+                // WolvesInPacks.add(currentWolf);
+                 break;
+
+            case "Wolfden":
+                Wolfden currentden = new Wolfden(world);
+                world.setTile(l, currentden);
+                break;
+
+            case "berry-bush":
+                BerryBush currentBush = new BerryBush(world);
+                world.setTile(l, currentBush);
+                break;
+
+            case "fungi":
+                Fungi currentFungi = new Fungi(true);
+                world.setTile(l, currentFungi);
+                break;
+
+            case "fungi-small":
+                Fungi currentFungiSmall = new Fungi(false);
+                world.setTile(l, currentFungiSmall);
+                break;
+
+            case "carcass-small":
+                EnvObject carcass1 = new Carcass(world, false);
+                if (checkNonBlocking(l) == true) {
+                    world.delete(world.getNonBlocking(l));
+                }
+                world.setTile(l, carcass1);
+                break;
+
+            case "carcass":
+                EnvObject carcass2 = new Carcass(world, true);
+                if (checkNonBlocking(l) == true) {
+                    world.delete(world.getNonBlocking(l));
+                }
+                break;
+
+            case "Crow":
+                Animal currentCrow = new Crow();
+                world.setTile(l, currentCrow);
+                break;
+        }
+    }
 
     }
 

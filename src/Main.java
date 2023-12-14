@@ -10,7 +10,7 @@ public class Main {
     public static int size;
 
     public static void main(String[] args) {
-        String filepath = "data/empty.txt";
+        String filepath = "data/t3-2ab.txt";
         Scan Scanner = Utils.scanFile(filepath);
         size = Scanner.getSize();
         int delay = 1000;
