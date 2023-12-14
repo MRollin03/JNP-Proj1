@@ -21,6 +21,11 @@ public class EnvObject implements NonBlocking {
         list = new ArrayList<>(neighbours);
     }
 
+    /**
+     * Used to delete EnvOBjects
+     * @param world the given world
+     * @param obj    the obeject that is desired to delete
+     */
     public static void deleteObj(World world, Object obj){      //used to remove grass
         world.delete(obj);
     }

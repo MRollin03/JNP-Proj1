@@ -20,10 +20,13 @@ public class Scan {
     private int packCounter = 1;
     private int carcass;
     private int fungi;
+    private int crow;
 
     /**
      * This is the scanner logic thats splits and sorts the values for a given file.
-     * @param filePath Filepath is  the path for the input list, that are wished to read.
+     * 
+     * @param filePath Filepath is the path for the input list, that are wished to
+     *                 read.
      */
     public Scan(String filePath) {
         scanner(filePath);
@@ -48,50 +51,55 @@ public class Scan {
                             isFirstInteger = false;
                         } else {
                             if (lastString.equals("wolf")) {
-                                    wolfPacks.put(packCounter++, value);
-                                
+                                wolfPacks.put(packCounter++, value);
+
                             } else if (lastString.equals("bear")) {
                                 System.out.println("Runs bear");
-                            handleBearEntry(lineScanner, value);
+                                handleBearEntry(lineScanner, value);
+                            } else {
+                                dataMap.put(lastString, value);
+                            }
+                        }
+                    } else {
+
+                        String next = lineScanner.next();
+                        if (next.contains("-")) {
+                            // Handling range for lastString
+                            String[] parts = next.split("-");
+                            int lowerBound = Integer.parseInt(parts[0]);
+                            int upperBound = Integer.parseInt(parts[1]);
+                            int randomValue = lowerBound + random.nextInt(upperBound - lowerBound + 1);
+                            if (lastString.equals("wolf")) {
+                                wolfPacks.put(packCounter++, randomValue);
+                            } else {
+                                dataMap.put(lastString, randomValue);
+                            }
                         } else {
-                            dataMap.put(lastString, value);
+                            lastString = next;
                         }
                     }
-                } else {
-                    
-                    String next = lineScanner.next();
-                    if (next.contains("-")) {
-                        // Handling range for lastString
-                        String[] parts = next.split("-");
-                        int lowerBound = Integer.parseInt(parts[0]);
-                        int upperBound = Integer.parseInt(parts[1]);
-                        int randomValue = lowerBound + random.nextInt(upperBound - lowerBound + 1);
-                        if (lastString.equals("wolf")) {
-                            wolfPacks.put(packCounter++, randomValue);
-                        } else {
-                            dataMap.put(lastString, randomValue);
-                    }} else {
-                        lastString = next;
-                    }
                 }
+
             }
 
+            rabbit = dataMap.getOrDefault("rabbit", 0);
+            burrow = dataMap.getOrDefault("burrow", 0);
+            grass = dataMap.getOrDefault("grass", 0);
+            berryBush = dataMap.getOrDefault("berry", 0);
+            carcass = dataMap.getOrDefault("carcass", 0);
+            fungi = dataMap.getOrDefault("fungi", 0);
+            crow = dataMap.getOrDefault("crow", 0);
+
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + e.getMessage());
         }
-
-        rabbit = dataMap.getOrDefault("rabbit", 0);
-        burrow = dataMap.getOrDefault("burrow", 0);
-        grass = dataMap.getOrDefault("grass", 0);
-        berryBush = dataMap.getOrDefault("berry", 0);
-        carcass = dataMap.getOrDefault("carcass", 0);
-        fungi = dataMap.getOrDefault("fungi", 0);
-
-    } catch (FileNotFoundException e) {
-        System.err.println("File not found: " + e.getMessage());
     }
-}
+
     /**
      * function that makes a list of the bears that is needed to be inserted.
-     * the bears can difrrentiate between bear with cordinates and bears without cordinates.
+     * the bears can difrrentiate between bear with cordinates and bears without
+     * cordinates.
+     * 
      * @param scanner
      * @param bearCount
      */
@@ -105,8 +113,7 @@ public class Scan {
                 System.out.println("1 : location added" + location);
                 bears.add(location);
             }
-        }
-        else{
+        } else {
             for (int i = 0; i < bearCount; i++) {
                 location = null;
                 bears.add(location);
@@ -116,14 +123,15 @@ public class Scan {
 
     /**
      * Splits the cordinates string and converts it into a Location Type.
-     * @param locationStr the location on stringform that is wish to be converted.  
+     * 
+     * @param locationStr the location on stringform that is wish to be converted.
      * @return returns it as a location.
      */
     private Location parseLocation(String locationStr) {
         locationStr = locationStr.replaceAll("[()]", "");
         String[] parts = locationStr.split(",");
         return new Location(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-        
+
     }
 
     public int getSize() {
@@ -154,8 +162,12 @@ public class Scan {
         return fungi;
     }
 
-    public int getCarcass1(){
+    public int getCarcass1() {
         return carcass;
+    }
+
+    public int getCrow() {
+        return crow;
     }
 
     public HashMap<Integer, Integer> getHash() {
