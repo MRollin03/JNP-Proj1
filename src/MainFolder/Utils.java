@@ -47,6 +47,8 @@ public class Utils {
         if (l.getX() >= world.getSize() || l.getY() >= world.getSize()) {
             throw new IllegalArgumentException();
         }
+
+        // Spawn fuction if there exist a program (Grapics)
         if(p != null){switch (entType) {
             case "Rabbit":
                 Animal currentRabbit = new Rabbit();
@@ -141,6 +143,8 @@ public class Utils {
                 break;
         }
     }
+    
+    // Spawn fuction if there do NOT! exist a program
     else{
         switch (entType) {
             case "Rabbit":
