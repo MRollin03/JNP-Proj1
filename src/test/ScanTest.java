@@ -1,4 +1,4 @@
-package test;
+package Test;
 import static org.junit.Assert.*;
 
 import java.util.Scanner;

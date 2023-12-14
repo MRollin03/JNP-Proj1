@@ -11,7 +11,7 @@ import EnviormentObjects.*;
 import MainFolder.*;
 
 public class Utils {
-    public static Scan Scanner = new Scan("data/t3-2ab.txt");
+    public static Scan Scanner = new Scan("data/carcassremove.txt");
     public static Program p;
     public static World world;
     public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();

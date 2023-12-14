@@ -37,6 +37,7 @@ public class Carcass extends EnvObject implements Actor, NonBlocking, DynamicDis
         }
         if (state < 1 && !infested) {
             Utils.world.delete(this);
+            System.out.println("gaynigga");
         }
 
         state--;
@@ -49,6 +50,10 @@ public class Carcass extends EnvObject implements Actor, NonBlocking, DynamicDis
      */
     public void setInfested(boolean value) {
         this.infested = value;
+    }
+
+       public Boolean isInfested() {
+        return infested;
     }
 
     /**
