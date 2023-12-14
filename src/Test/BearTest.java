@@ -31,28 +31,30 @@ public class BearTest {
     public void testSpawning() {
         Bear bear = new Bear();
         world.setTile(new Location(1, 1), bear);
+        world.contains(bear);
         assertTrue(world.contains(bear));
     }
 
-    // checks i bear eats the rabbit if its beside the bear.
+    // checks i bear eats the bear if its beside the bear.
     @Test
     public void eat() {
         Bear bear = new Bear();
-        Rabbit rabbit = new Rabbit();
+        Grass grass = new Grass(world);
         world.setTile(new Location(1, 1), bear);
-        world.setTile(new Location(2, 1), rabbit);
+        world.setTile(new Location(2, 1), grass);
         bear.act(world);
-        assertTrue(world.contains(rabbit));
+        assertTrue(world.contains(grass));
 
     }
 
-    // checks i the bear exists in the world.
+    // checks if bear dies when called.
     @Test
-
     public void die() {
         Bear bear = new Bear();
         world.setTile(new Location(1, 1), bear);
+        assertTrue(world.contains(bear));
         bear.die();
         assertFalse(world.contains(bear));
     }
+
 }
