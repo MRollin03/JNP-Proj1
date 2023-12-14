@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import MainFolder.Scan;
 import MainFolder.Utils;
-import itumulator.world.World;
+import itumulator.world.*;
 
 public class ScanTest {
 
@@ -61,5 +61,27 @@ public class ScanTest {
         assertEquals(0, emptyScan.getBerryBush());
         assertEquals(0, emptyScan.getFungi());
     }
-   
+
+
+    @Test
+    public void testwolf() {
+        Scan emptyScan = new Scan("data\\test1.txt");
+
+        assertTrue(emptyScan.getHash().containsKey(1));
+        assertTrue(emptyScan.getHash().containsKey(2));
+        assertTrue(emptyScan.getHash().containsValue(3));
+        assertTrue(emptyScan.getHash().containsValue(4));
+        //test if hashmap contains value
+    }
+
+            @Test
+    public void testbear() {
+        Scan emptyScan = new Scan("data\\test1.txt");
+        assertTrue(emptyScan.getBears().contains(new Location(1, 4)));
+        assertTrue(emptyScan.getBears().contains(null));
+        //test if list contains value
+    }
+    
+    
+    
 }
