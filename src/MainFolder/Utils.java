@@ -11,12 +11,17 @@ import EnviormentObjects.*;
 import MainFolder.*;
 
 public class Utils {
-    public static Scan Scanner = new Scan("data/t3-2ab.txt");
+    public static Scan Scanner = null;
     public static Program p;
     public static World world;
     public static ArrayList<Wolfpack> Wolfpacks = new ArrayList<>();
 
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255, 0, 255));
+
+    static public Scan scanFile(String Filepath){
+        Scanner =  new Scan(Filepath);
+        return Scanner;
+    }
 
     /**
      * Instansiates a new program and world based on the parameter given in the
@@ -112,17 +117,18 @@ public class Utils {
                 break;
 
             case "carcass-small":
-                Carcass carcass1 = new Carcass(world, false);
+                EnvObject carcass1 = new Carcass(world, false);
                 if (checkNonBlocking(l) == true) {
                     world.delete(world.getNonBlocking(l));
                 }
                 world.setTile(l, carcass1);
                 di = new DisplayInformation(Color.red, "carcass"); // Color Settings
+                System.out.println(p +"p");
                 p.setDisplayInformation(Carcass.class, di);
                 break;
 
             case "carcass":
-                Carcass carcass2 = new Carcass(world, true);
+                EnvObject carcass2 = new Carcass(world, true);
                 if (checkNonBlocking(l) == true) {
                     world.delete(world.getNonBlocking(l));
                 }
@@ -134,7 +140,7 @@ public class Utils {
             case "Crow":
                 Animal currentCrow = new Crow();
                 world.setTile(l, currentCrow);
-                di = new DisplayInformation(Color.BLACK); // Color Settings
+                di = new DisplayInformation(Color.BLACK, "Crow.gif"); // Color Settings
                 p.setDisplayInformation(Crow.class, di);
                 break;
         }

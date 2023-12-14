@@ -37,7 +37,7 @@ public class BerryBush extends EnvObject implements Actor, DynamicDisplayInforma
     }
 
     public void berriesToggle() {
-        berries = berries;
+        berries = !berries;
     }
 
     public DisplayInformation getInformation() {
