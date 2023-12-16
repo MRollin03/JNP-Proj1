@@ -20,18 +20,7 @@ public class Main {
         // Making hashmap for entities and amount
         HashMap<String, Integer> entSpawnMap = new HashMap<String, Integer>();
 
-        // Print statemant for spawn Values of each
-        System.out.println("Grass: " + Scanner.getGrass());
-        System.out.println("Rabbit: " + Scanner.getRabbit());
-        System.out.println("Burrow: " + Scanner.getBurrow());
-        System.out.println("berry: " + Scanner.getBerryBush());
-        System.out.println("Carcass: " + Scanner.getCarcass());
-        System.out.println("Fungi: " + Scanner.getFungi());
-        System.out.println("Wolf Packs: " + Scanner.getHash());
-        System.out.println("Carcass's :" + Scanner.getCarcass1());
-        System.out.println("Crows: " + Scanner.getCrow());
-
-        // WolfSpawner
+        // Wolfpack Hash maker
         HashMap<Integer, Integer> Wolves = new HashMap<>(Scanner.getHash());
         int PackNumbers = Wolves.size();
         for (int x = 1; x <= PackNumbers; x++) {
@@ -43,6 +32,7 @@ public class Main {
             wolfpack.spawnWolf(wolves);
         }
 
+        //Inserting spawn values of the entities, into hashmap
         entSpawnMap.put("Grass", Scanner.getGrass());
         entSpawnMap.put("Rabbit", Scanner.getRabbit());
         entSpawnMap.put("burrow", Scanner.getBurrow());
@@ -59,10 +49,11 @@ public class Main {
         }
 
         Utils.p.show(); // Shows the simulation
-        for (int i = 0; i < 200; i++) {
-            Utils.p.simulate();
-        } // k�rer 200 runder, alts� kaldes 'act' 200 gange for alle placerede akt�rer
 
+        //Simulate 200 steps
+        for (int i = 0; i < 200; i++) { 
+            Utils.p.simulate();
+        } 
     }
 
 }
