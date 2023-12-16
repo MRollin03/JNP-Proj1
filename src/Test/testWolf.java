@@ -1,26 +1,21 @@
 package Test;
 
 import org.junit.*;
-
 import static org.junit.Assert.*;
-
 import java.util.Set;
-
 import MainFolder.Utils;
 import itumulator.executable.Program;
 import itumulator.world.*; 
 import EnviormentObjects.Wolfden;
 import Animals.Animal;
 import Animals.Rabbit;
+import Animals.Bear;
 import Animals.Wolf;
 import Animals.Wolfpack;
 import itumulator.simulator.Actor;
 import itumulator.*;
 import itumulator.world.Location;
 import itumulator.world.World;
-
-
-
 
 public class testWolf {
     public World world;
@@ -30,24 +25,49 @@ public class testWolf {
 
 
     @Before
-    public void setup(){    //useless? :/
+    public void setup(){ 
         world = new World(10);
         Utils m = new Utils();
         m.world = world;
-        //home = new Wolfden(world);
-        //m.p = new Program(10,800,800);
     }
 
     @Test
     public void test_packmovement(){
-        Location l = new Location(5,5);
+        Location l1 = new Location(5, 5);
+        Location l2 = new Location(5, 4);
         int wolves = 2;
             
-        Wolfpack wolfpack = new Wolfpack(world, wolves, l);
-        Wolf wolf1 = new Wolf(1, l, wolfpack);
-        Wolf wolf2 = new Wolf(1, l, wolfpack);
+        Wolfpack wolfpack = new Wolfpack(world, wolves, l1);
+        Wolf wolf1 = new Wolf(1, l1, wolfpack);
+        Wolf wolf2 = new Wolf(1, l2, wolfpack);
         world.setTile(new Location(4, 5), wolf2);
-        world.setTile(l, wolf1);
+        world.setTile(l2, wolf1);
+
+        int iterations = 10;
+        for (int i = 0; i <= iterations; i++){
+            int counter = 0;
+            world.step();
+            world.setCurrentLocation(world.getLocation(wolf1));
+            wolf1.act(world);
+            world.setCurrentLocation(world.getLocation(wolf2));
+            wolf2.act(world);
+
+            Set<Location> packArea = world.getSurroundingTiles(wolfpack.getPackCenter(1), 3);
+            for (Location place : packArea){
+                if (world.getTile(place) instanceof Wolf){
+                    counter++;
+                }
+            }
+            if (world.getTile(wolfpack.getPackCenter(1)) instanceof Wolf) {
+                counter++;
+            }
+            //System.out.println(counter);
+            if (world.isDay()) {
+                Assert.assertTrue(counter == wolves);
+            }
+
+
+        }
     }
 
     @Test
@@ -62,6 +82,8 @@ public class testWolf {
 
         world.setTile(l1, wolf1);
         world.setTile(l2, wolf2);
+
+        world.setCurrentLocation(world.getLocation(wolf1));
         
         while (!(world.isNight())){
             world.step();
@@ -81,13 +103,20 @@ public class testWolf {
             world.step();
             if (world.isOnTile(wolf1)){
                 world.setCurrentLocation(world.getLocation(wolf1));
+                wolf1.handleNightBehavior(world);
             }
-            wolf1.handleNightBehavior(world);
+            
             if (world.isOnTile(wolf2)){
                 world.setCurrentLocation(world.getLocation(wolf2));
+                wolf2.handleNightBehavior(world);
             }
-            wolf2.handleNightBehavior(world);
+            
             world.setCurrentLocation(null);
+
+            if (!(world.isOnTile(wolf2)) && !(world.isOnTile(wolf1))){
+                System.out.println(wolf1.getmate_CD() + " " + wolf2.getmate_CD());
+                wolf1.mateWolf();
+            }
         }
 
         wolf1.act(world);
@@ -137,13 +166,53 @@ public class testWolf {
         world.setCurrentLocation(world.getLocation(wolf1));
         world.step();
         wolf1.act(world);
-        
-        world.step();
-        wolf1.act(world);
 
         System.out.println(world.getLocation(wolf1));
         System.out.println(world.getTile(l2));
         Assert.assertTrue(world.getTile(l2) instanceof Wolf);
+
+    }
+
+    @Test
+    public void test_attack_bear(){
+        Location l1 = new Location(5, 5);
+        Location l2 = new Location(5, 4);
+        Wolfpack wolfpack = new Wolfpack(m.world, 1, l1);
+        Wolf wolf1 = new Wolf(1, l1, wolfpack);
+        world.setTile(l1, wolf1);
+
+        Bear bear = new Bear();
+        world.setTile(l2, bear);
+
+        Assert.assertEquals(40,bear.getEnergy());       //pre-attack health of bear should be standard of 40
+
+        world.setCurrentLocation(world.getLocation(wolf1));
+        world.step();
+        wolf1.act(world);
+
+        Assert.assertEquals(35,bear.getEnergy());       //post-attack health of bear should be 35
+
+    }
+
+    @Test
+    public void test_attack_wolf(){
+        Location l1 = new Location(5, 5);
+        Location l2 = new Location(5, 4);
+        Wolfpack wolfpack = new Wolfpack(m.world, 1, l1);
+        Wolf wolf1 = new Wolf(1, l1, wolfpack);
+        world.setTile(l1, wolf1);
+
+        Wolfpack wolfpack2 = new Wolfpack(m.world, 2, l2);
+        Wolf wolf2 = new Wolf(1, l2, wolfpack2);
+        world.setTile(l2, wolf2);
+
+        Assert.assertEquals(40,wolf2.getEnergy());       //pre-attack health of wolf2 should be standard of 40
+
+        world.setCurrentLocation(world.getLocation(wolf1));
+        world.step();
+        wolf1.act(world);
+
+        Assert.assertEquals(35,wolf2.getEnergy());       //post-attack health of wolf2 should be 35
 
     }
 
@@ -204,8 +273,6 @@ public class testWolf {
         
     }
 
-
-    //ved ikke hvad der er galt her
     @Test
     public void test_makeHome(){
         Location l = new Location(5,5);

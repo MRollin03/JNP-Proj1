@@ -8,7 +8,7 @@ import itumulator.world.*;
 public class Animal {
     private int age;
     protected int foodmax;
-    protected int energy;
+    protected int energy;     
     protected World world;
     protected ArrayList<Wolf> Wolves = new ArrayList<>();
 

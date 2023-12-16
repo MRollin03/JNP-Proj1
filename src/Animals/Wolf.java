@@ -45,6 +45,9 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
                 world.delete(currentWolfden);
             }
         }
+        if (mate_CD > 0) {
+            mate_CD--;
+        }
         super.act(world);
     }
 
@@ -54,6 +57,9 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
 
         // if no location dont run.
         if (currentLocation == null) {
+            if (mate_CD == 0){
+                mateWolf();
+            }
             return;
         }
 
@@ -169,9 +175,36 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
     }
 
     /**
+     * Checks all other wolves in existence for suitable mates that are in same pack and hole as itself.
+     * spawns a new wolfcub in the den and resets both this wolf and the other wolfs mate cooldown timer.
+     */
+    public void mateWolf(){     //public only so that it can be tested
+        for (Wolf wolf : Wolfpack.WolvesInPacks){
+            if (wolf.getmate_CD() == 0 && wolf.getPacknr() == this.getPacknr() && !(world.isOnTile(wolf)) && wolf != this){
+                Wolf cub = new Wolf(this.getPacknr(), this.getPackCenter(), this.wolfPack);
+                world.add(cub);     //spawn cub without adding it to world
+                Wolfden hole = (Wolfden) world.getNonBlocking(wolfPack.packCenter);
+                cub.currentWolfden = currentWolfden;
+                hole.addCubToHole(cub, hole);   //add wolfcub to wolfden so it will spawn with pack in the morning
+                resetmateCD(this);
+                resetmateCD(wolf);
+                System.out.println("A wolf is born!");
+                return;
+            }
+        }
+    }
+    /**
+     * resets the mate cooldown timer for the wolf in the input
+     * returns nothing
+     */
+    protected void resetmateCD(Wolf wolf){
+        wolf.mate_CD = 18 + rand.nextInt(8);
+    }
+
+    /**
      * return the mating cooldown period of a wolf.
      */
-    private int getmate_CD() {
+    public int getmate_CD() {
         return this.mate_CD;
     }
 

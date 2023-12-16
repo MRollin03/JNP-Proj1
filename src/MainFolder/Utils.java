@@ -90,7 +90,7 @@ public class Utils {
                 Wolfden currentden = new Wolfden(world);
                 world.setTile(l, currentden);
                 di = new DisplayInformation(Color.red, "hole"); // Color Settings
-                //p.setDisplayInformation(Wolfden.class, di);
+                p.setDisplayInformation(Wolfden.class, di);
                 break;
 
             case "berry-bush":
