@@ -20,7 +20,7 @@ import itumulator.executable.*;
 public class Wolf extends Animal implements DynamicDisplayInformationProvider, Actor {
     private Homes currentWolfden = null;
     private Random rand = new Random();
-    private int mate_CD = 18 + rand.nextInt(8);
+    public int mate_CD = 18 + rand.nextInt(8);      //this is public only so it can be tested
     private Wolfpack wolfPack;
 
     public Wolf(int packnr, Location packCenter, Wolfpack wolfPack) {
@@ -48,7 +48,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         super.act(world);
     }
 
-    private void handleNightBehavior(World world) {
+    public void handleNightBehavior(World world) {
 
         Location currentLocation = world.getCurrentLocation();
 
@@ -103,12 +103,15 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         Set<Location> surroundings;
         surroundings = world.getSurroundingTiles(currentLocation);
 
-        for (Location tile : surroundings) { // delete wolfdens - could be moved to a seperate function
-            wolfPack.homeSet = true;
-            if (world.getTile(tile) instanceof Wolfden) {
-                EnvObject.deleteObj(world, world.getNonBlocking(tile));
+        if (wolfPack.gethome()){
+            for (Location tile : surroundings) { // delete wolfdens - could be moved to a seperate function
+                wolfPack.homeSet = true;
+                if (world.getTile(tile) instanceof Wolfden) {
+                    EnvObject.deleteObj(world, world.getNonBlocking(tile));
+                }
             }
         }
+        
 
         try {
             if (!world.getSurroundingTiles(wolfPack.packCenter, 2).contains(currentLocation)) {

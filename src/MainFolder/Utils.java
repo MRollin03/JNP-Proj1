@@ -81,15 +81,15 @@ public class Utils {
                 // Wolf currentWolf = new Wolf(world,1,l, wolfpack);
                 // world.setTile(l, currentWolf);
                 // WolvesInPacks.add(currentWolf);
-                di = new DisplayInformation(Color.red, "wolf"); // Color Settings
-                p.setDisplayInformation(Wolf.class, di);
+                //di = new DisplayInformation(Color.red, "wolf"); // Color Settings
+                //p.setDisplayInformation(Wolf.class, di);
                 break;
 
             case "Wolfden":
                 Wolfden currentden = new Wolfden(world);
                 world.setTile(l, currentden);
                 di = new DisplayInformation(Color.red, "hole"); // Color Settings
-                p.setDisplayInformation(Wolfden.class, di);
+                //p.setDisplayInformation(Wolfden.class, di);
                 break;
 
             case "bear":
