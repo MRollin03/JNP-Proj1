@@ -171,6 +171,12 @@ public class testWolf {
         System.out.println(world.getTile(l2));
         Assert.assertTrue(world.getTile(l2) instanceof Wolf);
 
+        Assert.assertEquals(40, wolf1.getEnergy());     //foodmax is 40, så wolf only regains energy lost from attacking
+
+        world.step();
+        wolf1.act(world);
+        Assert.assertEquals(39, wolf1.getEnergy());     
+
     }
 
     @Test
@@ -230,7 +236,7 @@ public class testWolf {
         Wolfpack wolfpack = new Wolfpack(m.world, wolves, l);
         wolfpack.spawnWolf(wolves);
 
-        Set<Location> sur = world.getSurroundingTiles(l, 5);
+        Set<Location> sur = world.getSurroundingTiles(l, 2);
         if (world.getTile(l) instanceof Wolf) {
             counter++;
         }
