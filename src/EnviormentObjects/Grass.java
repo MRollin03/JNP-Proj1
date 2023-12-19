@@ -7,7 +7,7 @@ import itumulator.world.*;
 import itumulator.simulator.*;
 
 public class Grass extends EnvObject implements Actor {
-    private int spreadChance = 5; // 15% chance to spread
+    private double spreadChance = 1; // 15% chance to spread
     private Random rand = new Random();
 
     public Grass(World world) {
@@ -34,7 +34,7 @@ public class Grass extends EnvObject implements Actor {
         ArrayList<Location> list = new ArrayList<>(neighbours);
 
         for (Location neighbor : list) {
-            rand_int = rand.nextInt(100);
+            rand_int = rand.nextInt(1000);
             if (rand_int < spreadChance) {
                 try { // have to use try, since setTile will eventually fail.
                     world.setTile(neighbor, new Grass(world)); // insert new grass at location

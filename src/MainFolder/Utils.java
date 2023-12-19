@@ -229,7 +229,6 @@ public class Utils {
      */
     public static void spawnBears() {
         List<Location> bearList = Scanner.getBears();
-        System.out.println(bearList);
 
         for (Location bear : bearList) {
             if (bear == null) {

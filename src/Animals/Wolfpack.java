@@ -42,8 +42,16 @@ public class Wolfpack {
         int accumulatorX = 0, accumulatorY = 0, counter = 0;
 
         for (Wolf wolf : this.WolvesInPacks) { // first, collect all locations for wolves in pack number: packnr
+<<<<<<< Updated upstream
             if (world.contains(wolf)) {
                 accumulator.add(world.getLocation(wolf));
+=======
+            try {
+                if (world.isOnTile(wolf)) {
+                    accumulator.add(world.getLocation(wolf));
+                }
+            } catch (Exception e) {
+>>>>>>> Stashed changes
             }
         }
 
@@ -73,7 +81,7 @@ public class Wolfpack {
             Wolf wolf = new Wolf(packnr, packCenter, this);
             if (world.isTileEmpty(list.get(i))) {
                 world.setTile(list.get(i), wolf);
-            }
+            } 
             WolvesInPacks.add(wolf);
         }
     }

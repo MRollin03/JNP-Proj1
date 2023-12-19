@@ -48,7 +48,6 @@ public class Scan {
                                 wolfPacks.put(packCounter++, value);
 
                             } else if (lastString.equals("bear")) {
-                                System.out.println("Runs bear");
                                 handleBearEntry(lineScanner, value);
                             } else {
                                 dataMap.put(lastString, value);
@@ -99,12 +98,10 @@ public class Scan {
      */
     private void handleBearEntry(Scanner scanner, int bearCount) {
         Location location = null;
-        System.out.println("100");
         if (scanner.hasNext("\\(\\d+,\\d+\\)")) {
             String locationStr = scanner.findInLine("\\(\\d+,\\d+\\)");
             location = parseLocation(locationStr);
             for (int i = 0; i < bearCount; i++) {
-                System.out.println("1 : location added" + location);
                 bears.add(location);
             }
         } else {

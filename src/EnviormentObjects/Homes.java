@@ -38,13 +38,6 @@ public class Homes extends EnvObject {
         Animal tempAnimal = (Animal) animal;
         animalsInHome.add(tempAnimal);
         world.remove(animal);
-
-        // Make sure the animal is removed from the world
-        if (world.contains(animal)) {
-            System.out.println("Animal added to the hole successfully.");
-        } else {
-            System.out.println("Error: Animal could not be removed from the world.");
-        }
     }
     
     /**

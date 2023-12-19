@@ -13,7 +13,7 @@ public class Main {
         String filepath = "data/t2-4a.txt";
         Scan Scanner = Utils.scanFile(filepath);
         size = Scanner.getSize();
-        int delay = 1000;
+        int delay = 300;
         int display_size = 600; // sk�rm opl�sningen (i px)
         Utils.newProgram(size, display_size, delay);
 
