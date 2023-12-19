@@ -67,7 +67,6 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         if (emptyTiles.isEmpty()) {
             return;
         }
-
         Location newLocation = Utils.diff(wolfPack.packCenter, currentLocation);
         if (world.isTileEmpty(newLocation)) {
             world.move(this, newLocation);
