@@ -1,10 +1,11 @@
 25
 grass 8-15
-rabbit 3
+rabbit 10
 bear 1 (1,4)
 bear 1
 wolf 3
 wolf 3
 carcass 3
-berry 3
+berry 7
+crow 4
 fungi 2

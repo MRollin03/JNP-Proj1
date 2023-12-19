@@ -54,6 +54,10 @@ public class Wolfpack {
             counter++;
         }
 
+        if (counter == 0) {
+            return;
+        }
+
         accumulatorX = accumulatorX / counter; // third, compute average of ALL locations, and set it to packCenter
         accumulatorY = accumulatorY / counter;
 

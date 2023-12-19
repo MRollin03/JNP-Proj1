@@ -10,11 +10,11 @@ public class Main {
     public static int size;
 
     public static void main(String[] args) {
-        String filepath = "data/t2-3a.txt";
+        String filepath = "data/test2.txt";
         Scan Scanner = Utils.scanFile(filepath);
         size = Scanner.getSize();
-        int delay = 500;
-        int display_size = 600; // sk�rm opl�sningen (i px)
+        int delay = 600;
+        int display_size = 700; // sk�rm opl�sningen (i px)
         Utils.newProgram(size, display_size, delay);
 
         // Making hashmap for entities and amount
@@ -38,6 +38,7 @@ public class Main {
         entSpawnMap.put("burrow", Scanner.getBurrow());
         entSpawnMap.put("carcass", Scanner.getCarcass1());
         entSpawnMap.put("Crow", Scanner.getCrow());
+        entSpawnMap.put("berry-bush", Scanner.getBerryBush());
         Utils.spawnBears();
 
         // Spawns every entitie on map.

@@ -7,7 +7,7 @@ import itumulator.world.*;
 import itumulator.simulator.*;
 
 public class Grass extends EnvObject implements Actor {
-    private double spreadChance = 1; // 15% chance to spread
+    private double spreadChance = 3; // 3% chance to spread
     private Random rand = new Random();
 
     public Grass(World world) {
