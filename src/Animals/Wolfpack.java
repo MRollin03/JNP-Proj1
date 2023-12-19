@@ -39,12 +39,12 @@ public class Wolfpack {
      * @param world  of type World, used to manipulate the world
      * @param packnr indicates which pack is being updated
      */
-    protected void updatePackCenter() {
+    protected void updatePackCenter(int packnr) {
         ArrayList<Location> accumulator = new ArrayList<>();
         int accumulatorX = 0, accumulatorY = 0, counter = 0;
 
         for (Wolf wolf : this.WolvesInPacks) { // first, collect all locations for wolves in pack number: packnr
-            if (world.contains(wolf)) {
+            if (world.contains(wolf) && wolf.getPacknr() == packnr) {
                 accumulator.add(world.getLocation(wolf));
             }
         }

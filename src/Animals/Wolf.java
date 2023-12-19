@@ -22,15 +22,18 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
     private Random rand = new Random();
     public int mate_CD = 18 + rand.nextInt(8);      //this is public only so it can be tested
     private Wolfpack wolfPack;
+    private int packnr;
 
     public Wolf(int packnr, Location packCenter, Wolfpack wolfPack) {
         super();
         this.wolfPack = wolfPack;
+        this.packnr = packnr;
         this.wolfPack.WolvesInPacks.add(this);
     }
 
     @Override
     public void act(World world) {
+        System.out.println("packnr: " + this.packnr + ", PackCenter: " + this.getPackCenter());
         if (world.isNight()) {
             handleNightBehavior(world);
             if (world.getCurrentTime() == 10) {
@@ -102,7 +105,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
             return;
         }
 
-        wolfPack.updatePackCenter();
+        wolfPack.updatePackCenter(packnr);
 
         Location currentLocation = world.getCurrentLocation();
         Set<Location> surroundings;
