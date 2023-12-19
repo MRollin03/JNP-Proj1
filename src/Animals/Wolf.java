@@ -7,10 +7,6 @@ import java.util.Random;
 import java.util.Set;
 
 import EnviormentObjects.*;
-import MainFolder.*;
-import java.util.Set;
-
-import EnviormentObjects.*;
 import MainFolder.Utils;
 import itumulator.simulator.Actor;
 import itumulator.world.*;
@@ -133,6 +129,10 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         }
     }
 
+    /**
+     * Checks if the Wolf can attack any of the Object in its surrounding tiles.
+     * @return  returns true if such Object exist in surrounding tiles,
+     */
     private boolean canAttack() {
         Set<Location> nearby = world.getSurroundingTiles();
         for (Location spot : nearby) {

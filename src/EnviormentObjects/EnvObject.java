@@ -31,6 +31,10 @@ public class EnvObject implements NonBlocking {
     }
 
     //---------------------- set methods----------------------//
+    /**
+     * Set the ObjectType of the type 
+     * @param type the wanted Object type to set
+     */
     public void setObjecType(ObjectType type){
         this.objType = type;
     }
@@ -38,7 +42,7 @@ public class EnvObject implements NonBlocking {
 
 
     //---------------------- get methods----------------------//
-    public ArrayList getLocation(){
+    public ArrayList<Location> getLocation(){
         return list;
     }
 

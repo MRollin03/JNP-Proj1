@@ -67,6 +67,8 @@ public class testWolf {
         Wolfpack wolfpack = new Wolfpack(m.world, wolves, l);
         wolfpack.spawnWolf(wolves);
 
+       
+
         if ( m.isBlockNear(new Location(5, 5),Wolf.class,2) == null) {
             Assert.fail("Test Failed");
         }
@@ -113,7 +115,6 @@ public class testWolf {
 
         world.move(wolf2, l);
         world.move(wolf1, new Location(4, 5));
-
 
         while (!(world.isNight())){
             world.step();

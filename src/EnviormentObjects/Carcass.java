@@ -10,7 +10,7 @@ import MainFolder.Utils;
 
 import java.awt.*;
 
-public class Carcass extends EnvObject implements Actor, NonBlocking, DynamicDisplayInformationProvider {
+public class Carcass extends EnvObject implements Actor, DynamicDisplayInformationProvider {
     private boolean infested;
     private boolean big;
     private int state;

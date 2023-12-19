@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Set;
 import MainFolder.*;
 import Animals.Animal;
-import Animals.Rabbit;
-import Animals.Wolf;
 import itumulator.world.*;
 
 public class Homes extends EnvObject {

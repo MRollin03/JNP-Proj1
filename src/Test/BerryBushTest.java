@@ -6,13 +6,8 @@ import org.junit.Test;
 
 import EnviormentObjects.BerryBush;
 import MainFolder.Utils;
-import itumulator.executable.DisplayInformation;
-import itumulator.executable.DynamicDisplayInformationProvider;
 import itumulator.executable.Program;
-import itumulator.simulator.Actor;
 import itumulator.world.*;
-import java.util.*;
-import java.awt.*;
 
 public class BerryBushTest {
 

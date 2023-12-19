@@ -1,6 +1,5 @@
 package EnviormentObjects;
 
-import itumulator.world.*;
 
 public class RabbitHole extends Homes {
 

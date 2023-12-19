@@ -21,7 +21,7 @@ public class BerryBush extends EnvObject implements Actor, DynamicDisplayInforma
     }
 
     /**
-     * A function that gets called and has the popebility to grow berries
+     * A function that gets called and has the probability to grow berries
      */
     public void grow() {
         Random rand = new Random();
@@ -31,11 +31,14 @@ public class BerryBush extends EnvObject implements Actor, DynamicDisplayInforma
             berries = true;
         }
     }
-
+    /**
+     * Checks if bush have berries
+     * @return returns true if it has berries and false if not
+     */
     public boolean hasBerries() {
         return berries;
     }
-
+    
     public void berriesToggle() {
         berries = !berries;
     }
