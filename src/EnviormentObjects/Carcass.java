@@ -37,7 +37,6 @@ public class Carcass extends EnvObject implements Actor, DynamicDisplayInformati
         }
         if (state < 1 && !infested) {
             Utils.world.delete(this);
-            System.out.println("gaynigga");
         }
 
         state--;

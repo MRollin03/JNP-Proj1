@@ -16,7 +16,7 @@ import itumulator.executable.*;
 public class Wolf extends Animal implements DynamicDisplayInformationProvider, Actor {
     private Homes currentWolfden = null;
     private Random rand = new Random();
-    public int mate_CD = 0;      //this is public only so it can be tested
+    public int mate_CD = 18 + rand.nextInt(8);      //this is public only so it can be tested
     private Wolfpack wolfPack;
 
     public Wolf(int packnr, Location packCenter, Wolfpack wolfPack) {
