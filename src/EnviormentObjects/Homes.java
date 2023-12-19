@@ -46,6 +46,15 @@ public class Homes extends EnvObject {
             System.out.println("Error: Animal could not be removed from the world.");
         }
     }
+    
+    /**
+    * adds a wolfcub to their respective Wolfden/burrow
+    * @param animal input of type Object but only works if is of type animal.
+    * @param hole input of type Object but only works if is of type hole. (homes?)
+    **/
+    public void addCubToHole(Wolf animal, Wolfden hole){
+            animalsInHome.add(animal);
+    }
 
     /**
      * removes all animals from their respective homes.

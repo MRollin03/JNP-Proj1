@@ -78,10 +78,17 @@ public class Wolfpack {
         }
     }
 
+    /**
+     * returns a boolean value of whether the given wolf has a home
+     * true if wolf has a home
+     */
     public boolean isHomeSet() {
         return homeSet;
     }
 
+    /**
+     * returns the Location constructor packCenter for a given packnr.
+     */
     public Location getPackCenter(int packnr) {
         return packCenter;
     }
@@ -96,6 +103,9 @@ public class Wolfpack {
 
     public void remove(Wolf wolf) {
         WolvesInPacks.remove(wolf);
+    }
+    public boolean gethome(){
+        return this.homeSet;
     }
 
     public ArrayList<Wolf> getWolfsInPack() {

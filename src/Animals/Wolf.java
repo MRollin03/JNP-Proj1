@@ -16,7 +16,7 @@ import itumulator.executable.*;
 public class Wolf extends Animal implements DynamicDisplayInformationProvider, Actor {
     private Homes currentWolfden = null;
     private Random rand = new Random();
-    private int mate_CD = 18 + rand.nextInt(8);
+    public int mate_CD = 18 + rand.nextInt(8);      //this is public only so it can be tested
     private Wolfpack wolfPack;
 
     public Wolf(int packnr, Location packCenter, Wolfpack wolfPack) {
@@ -41,15 +41,21 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
                 world.delete(currentWolfden);
             }
         }
+        if (mate_CD > 0) {
+            mate_CD--;
+        }
         super.act(world);
     }
 
-    private void handleNightBehavior(World world) {
+    public void handleNightBehavior(World world) {
 
         Location currentLocation = world.getCurrentLocation();
 
         // if no location dont run.
         if (currentLocation == null) {
+            if (mate_CD == 0){
+                mateWolf();
+            }
             return;
         }
 
@@ -99,12 +105,15 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         Set<Location> surroundings;
         surroundings = world.getSurroundingTiles(currentLocation);
 
-        for (Location tile : surroundings) { // delete wolfdens - could be moved to a seperate function
-            wolfPack.homeSet = true;
-            if (world.getTile(tile) instanceof Wolfden) {
-                EnvObject.deleteObj(world, world.getNonBlocking(tile));
+        if (wolfPack.gethome()){
+            for (Location tile : surroundings) { // delete wolfdens - could be moved to a seperate function
+                wolfPack.homeSet = true;
+                if (world.getTile(tile) instanceof Wolfden) {
+                    EnvObject.deleteObj(world, world.getNonBlocking(tile));
+                }
             }
         }
+        
 
         try {
             if (!world.getSurroundingTiles(wolfPack.packCenter, 2).contains(currentLocation)) {
@@ -166,9 +175,36 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
     }
 
     /**
+     * Checks all other wolves in existence for suitable mates that are in same pack and hole as itself.
+     * spawns a new wolfcub in the den and resets both this wolf and the other wolfs mate cooldown timer.
+     */
+    public void mateWolf(){     //public only so that it can be tested
+        for (Wolf wolf : Wolfpack.WolvesInPacks){
+            if (wolf.getmate_CD() == 0 && wolf.getPacknr() == this.getPacknr() && !(world.isOnTile(wolf)) && wolf != this){
+                Wolf cub = new Wolf(this.getPacknr(), this.getPackCenter(), this.wolfPack);
+                world.add(cub);     //spawn cub without adding it to world
+                Wolfden hole = (Wolfden) world.getNonBlocking(wolfPack.packCenter);
+                cub.currentWolfden = currentWolfden;
+                hole.addCubToHole(cub, hole);   //add wolfcub to wolfden so it will spawn with pack in the morning
+                resetmateCD(this);
+                resetmateCD(wolf);
+                System.out.println("A wolf is born!");
+                return;
+            }
+        }
+    }
+    /**
+     * resets the mate cooldown timer for the wolf in the input
+     * returns nothing
+     */
+    protected void resetmateCD(Wolf wolf){
+        wolf.mate_CD = 18 + rand.nextInt(8);
+    }
+
+    /**
      * return the mating cooldown period of a wolf.
      */
-    private int getmate_CD() {
+    public int getmate_CD() {
         return this.mate_CD;
     }
 
