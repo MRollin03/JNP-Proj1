@@ -7,10 +7,6 @@ import java.util.Random;
 import java.util.Set;
 
 import EnviormentObjects.*;
-import MainFolder.*;
-import java.util.Set;
-
-import EnviormentObjects.*;
 import MainFolder.Utils;
 import itumulator.simulator.Actor;
 import itumulator.world.*;

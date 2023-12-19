@@ -10,21 +10,17 @@ public class Scan {
     private Map<String, Integer> dataMap = new HashMap<>();
     private HashMap<Integer, Integer> wolfPacks = new HashMap<>();
     private List<Location> bears = new ArrayList<Location>();
-    private int size;
-    private int rabbit;
-    private int burrow;
-    private int grass;
-    private int berryBush;
+
+    // Int values to determen the amount of each entity to spawn
+    private int size, crow, rabbit, burrow, grass, berryBush, carcass, fungi;
     private int packCounter = 1;
-    private int carcass;
-    private int fungi;
-    private int crow;
+
 
     /**
      * This is the scanner logic thats splits and sorts the values for a given file.
      * 
      * @param filePath Filepath is the path for the input list, that are wished to
-     *                 read.
+     *                 read by the Scanner.
      */
     public Scan(String filePath) {
         scanner(filePath);
@@ -167,7 +163,10 @@ public class Scan {
     public int getCrow() {
         return crow;
     }
-
+    /**
+     * Returns the map of wolfpacks
+     * @return
+     */
     public HashMap<Integer, Integer> getHash() {
         return wolfPacks;
     }
