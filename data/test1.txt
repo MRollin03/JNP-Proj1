@@ -4,7 +4,7 @@ rabbit 3
 bear 1 (1,4)
 bear 1
 wolf 3
-wolf 3
+wolf 4
 carcass 3
 berry 3
 fungi 2

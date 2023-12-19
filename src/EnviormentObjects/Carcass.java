@@ -13,7 +13,7 @@ import java.awt.*;
 public class Carcass extends EnvObject implements Actor, DynamicDisplayInformationProvider {
     private boolean infested;
     private boolean big;
-    private int state;
+    public int state;
 
     public Carcass(World world, boolean isbig) {
         super(ObjectType.carcass, world);
@@ -37,6 +37,7 @@ public class Carcass extends EnvObject implements Actor, DynamicDisplayInformati
         }
         if (state < 1 && !infested) {
             Utils.world.delete(this);
+            System.out.println("gaynigga");
         }
 
         state--;
@@ -49,6 +50,10 @@ public class Carcass extends EnvObject implements Actor, DynamicDisplayInformati
      */
     public void setInfested(boolean value) {
         this.infested = value;
+    }
+
+       public Boolean isInfested() {
+        return infested;
     }
 
     /**

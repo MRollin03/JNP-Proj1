@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 import MainFolder.*;
-import Animals.Animal;
+import Animals.*;
 import itumulator.world.*;
 
 public class Homes extends EnvObject {
@@ -41,18 +41,22 @@ public class Homes extends EnvObject {
     }
     
     /**
-    * adds a wolfcub to their respective Wolfden/burrow
+   *adds a wolfcub to their respective Wolfden/burrow
     * @param animal input of type Object but only works if is of type animal.
-    * @param hole input of type Object but only works if is of type hole. (homes?)
     **/
-    public void addCubToHole(Wolf animal, Wolfden hole){
-            animalsInHome.add(animal);
+    public void addCubToHole(Wolf wolf){
+        Wolf cub = new Wolf(wolf.getPacknr(), world.getLocation(this),wolf.getPack());
+        world.setTile(Utils.randomMove(Utils.getWorldRandomLocation(world.getSize())), cub);
+        world.remove(cub);
+        //world.setCurrentLocation(world.getLocation(cub));
+        animalsInHome.add(cub);
     }
 
     /**
      * removes all animals from their respective homes.
      */
     public void removeFromHole() {
+        if( !world.contains(this)){return;}
         if (animalsInHome.isEmpty()) {
             return;
         }
