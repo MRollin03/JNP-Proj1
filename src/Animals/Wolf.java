@@ -141,6 +141,14 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         }
     }
 
+     /**
+     * the entire attack functionality of a wolf.
+     * searches nearby tiles for enemies to attack.
+     * if Rabbit, delete the rabbit, move to its location and gain 10 energy
+     * if Bear, deal 5 damage to the bear through 'bear.damage(5)'
+     * if Carcass, delete the Carcass and gain 4 energy
+     * if Wolf (of other packnr) deal 5 damage to it.
+     */
     private boolean canAttack() {
         Set<Location> nearby = world.getSurroundingTiles();
         for (Location spot : nearby) {
@@ -168,6 +176,13 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
                     return true;
                 }
             }
+            if (world.getTile(spot) instanceof Crow) {
+                Crow crow = (Crow) world.getTile(spot);
+                crow.die();
+                world.move(this, spot);
+                this.energy = this.energy + 10;
+                return true;
+            }
         }
 
         return false;
@@ -184,7 +199,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
                 world.add(cub);     //spawn cub without adding it to world
                 Wolfden hole = (Wolfden) world.getNonBlocking(wolfPack.packCenter);
                 cub.currentWolfden = currentWolfden;
-                hole.addCubToHole(cub, hole);   //add wolfcub to wolfden so it will spawn with pack in the morning
+                hole.addCubToHole(cub);   //add wolfcub to wolfden so it will spawn with pack in the morning
                 resetmateCD(this);
                 resetmateCD(wolf);
                 System.out.println("A wolf is born!");

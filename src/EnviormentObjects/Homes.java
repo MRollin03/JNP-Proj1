@@ -52,9 +52,8 @@ public class Homes extends EnvObject {
     /**
     * adds a wolfcub to their respective Wolfden/burrow
     * @param animal input of type Object but only works if is of type animal.
-    * @param hole input of type Object but only works if is of type hole. (homes?)
     **/
-    public void addCubToHole(Wolf animal, Wolfden hole){
+    public void addCubToHole(Wolf animal){
             animalsInHome.add(animal);
     }
 
