@@ -16,7 +16,7 @@ import itumulator.executable.*;
 public class Wolf extends Animal implements DynamicDisplayInformationProvider, Actor {
     private Homes currentWolfden = null;
     private Random rand = new Random();
-    public int mate_CD = 18 + rand.nextInt(8);      //this is public only so it can be tested
+    public int mate_CD = 0;      //this is public only so it can be tested
     private Wolfpack wolfPack;
 
     public Wolf(int packnr, Location packCenter, Wolfpack wolfPack) {
@@ -78,8 +78,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
                 if (this.getmate_CD() == 0 && hole.exists(this)) {
                     for (Wolf wolf : Wolfpack.WolvesInPacks) {
                         if (wolf.getmate_CD() == 0) {
-                            hole.addToHole(new Wolf(wolfPack.packnr, wolfPack.packCenter, this.wolfPack),
-                                    wolfPack.packCenter);
+                            hole.addCubToHole(new Wolf(wolfPack.packnr, wolfPack.packCenter, this.wolfPack));
                             System.out.println("A wolf is born!");
                         }
                     }
@@ -190,12 +189,8 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
      */
     public void mateWolf(){     //public only so that it can be tested
         for (Wolf wolf : Wolfpack.WolvesInPacks){
-            if (wolf.getmate_CD() == 0 && wolf.getPacknr() == this.getPacknr() && !(world.isOnTile(wolf)) && wolf != this){
-                Wolf cub = new Wolf(this.getPacknr(), this.getPackCenter(), this.wolfPack);
-                world.add(cub);     //spawn cub without adding it to world
-                Wolfden hole = (Wolfden) world.getNonBlocking(wolfPack.packCenter);
-                cub.currentWolfden = currentWolfden;
-                hole.addCubToHole(cub);   //add wolfcub to wolfden so it will spawn with pack in the morning
+            if (wolf.getmate_CD() == 0 && wolf.getPacknr() == this.getPacknr() && wolf != this){
+                this.wolfPack.spawnWolf(1);
                 resetmateCD(this);
                 resetmateCD(wolf);
                 System.out.println("A wolf is born!");
@@ -223,6 +218,10 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
      */
     public int getPacknr() {
         return wolfPack.packnr;
+    }
+
+    public Wolfpack getPack(){
+        return wolfPack;
     }
 
     /**
@@ -265,9 +264,9 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
 
     public DisplayInformation getInformation() {
         if (super.getAge() > 1) {
-            return new DisplayInformation(Color.BLUE, "wolf");
+            return new DisplayInformation(Color.GREEN, "wolf");
         } else {
-            return new DisplayInformation(Color.BLUE, "wolf-small");
+            return new DisplayInformation(Color.ORANGE, "wolf-small");
         }
     }
 }

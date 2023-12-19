@@ -42,9 +42,14 @@ public class Wolfpack {
         int accumulatorX = 0, accumulatorY = 0, counter = 0;
 
         for (Wolf wolf : this.WolvesInPacks) { // first, collect all locations for wolves in pack number: packnr
-            if (world.contains(wolf)) {
-                accumulator.add(world.getLocation(wolf));
+            try {
+                if (world.isOnTile(wolf)) {
+                    System.out.println(world.getLocation(wolf).getX()+"X");;
+                    accumulator.add(world.getLocation(wolf));
+                }
+            } catch (Exception e) {
             }
+            
         }
 
         for (Location place : accumulator) { // second, accumulate value of ALL locations from wolves in the pack
