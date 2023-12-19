@@ -8,10 +8,10 @@ import EnviormentObjects.*;
 import MainFolder.*;
 import java.util.*;
 import java.awt.*;
-import java.util.ArrayList.*;
 
 public class Crow extends Animal implements Actor, DynamicDisplayInformationProvider {
     private int mate_CD = 15;
+    private boolean isFlying = true;
 
     public Crow() {
         super();
@@ -38,10 +38,9 @@ public class Crow extends Animal implements Actor, DynamicDisplayInformationProv
         if (world.getCurrentLocation() == null) {
             return;
         }
+        isFlying = false;
 
     }
-
-    // Trying to find if there is any CrowHoles nearby the location.
 
     private void handleDayBehavior(World world) {
 
@@ -99,9 +98,15 @@ public class Crow extends Animal implements Actor, DynamicDisplayInformationProv
             if (Utils.checkNonBlockingType(newLocation, BerryBush.class)) {
                 BerryBush bush = (BerryBush) world.getNonBlocking(newLocation);
                 if (bush.hasBerries()) {
+                    isFlying = false;
                     bush.berriesToggle();
                     energy += 10;
                 }
+            }
+            if (world.getTile(newLocation) instanceof Carcass) {
+                Carcass carcass = (Carcass) world.getTile(newLocation);
+                isFlying = false;
+                world.delete(carcass);
             }
 
         } catch (Exception e) {
@@ -158,10 +163,10 @@ public class Crow extends Animal implements Actor, DynamicDisplayInformationProv
     }
 
     public DisplayInformation getInformation() {
-        if (super.getAge() > 1) {
-            return new DisplayInformation(Color.BLACK);
+        if (isFlying) {
+            return new DisplayInformation(Color.BLACK, "CrowFly");
         } else {
-            return new DisplayInformation(Color.BLACK);
+            return new DisplayInformation(Color.BLACK, "Crow");
         }
     }
 

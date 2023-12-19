@@ -8,7 +8,6 @@ import EnviormentObjects.*;
 import MainFolder.*;
 import java.util.*;
 import java.awt.*;
-import java.util.ArrayList.*;
 
 public class Rabbit extends Animal implements Actor, DynamicDisplayInformationProvider {
     private Homes currentRabbitHole = null;

@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 import MainFolder.*;
-import Animals.Animal;
-import Animals.Rabbit;
-import Animals.Wolf;
+import Animals.*;
 import itumulator.world.*;
 
 public class Homes extends EnvObject {
@@ -40,27 +38,20 @@ public class Homes extends EnvObject {
         Animal tempAnimal = (Animal) animal;
         animalsInHome.add(tempAnimal);
         world.remove(animal);
-
-        // Make sure the animal is removed from the world
-        if (world.contains(animal)) {
-            System.out.println("Animal added to the hole successfully.");
-        } else {
-            System.out.println("Error: Animal could not be removed from the world.");
-        }
     }
     
     /**
-    * adds a wolfcub to their respective Wolfden/burrow
+   *adds a wolfcub to their respective Wolfden/burrow
     * @param animal input of type Object but only works if is of type animal.
     **/
     public void addCubToHole(Wolf animal){
             animalsInHome.add(animal);
     }
-
     /**
      * removes all animals from their respective homes.
      */
     public void removeFromHole() {
+        if( !world.contains(this)){return;}
         if (animalsInHome.isEmpty()) {
             return;
         }

@@ -18,6 +18,12 @@ public class Utils {
 
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255, 0, 255));
 
+    /**
+     * Scans the File and returns the Scanner (Used to get acces from the main.java class)
+     * @param Filepath
+     * @return
+     *  
+     */
     static public Scan scanFile(String Filepath){
         Scanner =  new Scan(Filepath);
         return Scanner;
@@ -138,7 +144,7 @@ public class Utils {
             case "Crow":
                 Animal currentCrow = new Crow();
                 world.setTile(l, currentCrow);
-                di = new DisplayInformation(Color.BLACK, "Crow.gif"); // Color Settings
+                di = new DisplayInformation(Color.BLACK, "CrowFly"); // Color Settings
                 p.setDisplayInformation(Crow.class, di);
                 break;
         }
@@ -217,9 +223,12 @@ public class Utils {
 
     }
 
+    /**
+     * Instasiates bears depending on if they have a dedicated cordinate,
+     * or if the have non.
+     */
     public static void spawnBears() {
         List<Location> bearList = Scanner.getBears();
-        System.out.println(bearList);
 
         for (Location bear : bearList) {
             if (bear == null) {
@@ -372,10 +381,10 @@ public class Utils {
     // ------------- Boolean Functions ------------//
 
     /**
-     * 
-     * @param l
-     * @param objClass
-     * @return
+     * Checks for nonblocking obejct of a specific type,
+     * @param l the location to check
+     * @param objClass  The object class to check for.
+     * @return  returns true if the tile has nonblocking of given class
      */
     public static boolean checkNonBlockingType(Location l, Class objClass) {
         try {

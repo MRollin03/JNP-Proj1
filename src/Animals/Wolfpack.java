@@ -1,11 +1,9 @@
 package Animals;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Set;
 
 import MainFolder.Utils;
-import itumulator.simulator.Actor;
 import itumulator.world.*;
 
 public class Wolfpack {
@@ -47,6 +45,7 @@ public class Wolfpack {
             if (world.contains(wolf) && wolf.getPacknr() == packnr) {
                 accumulator.add(world.getLocation(wolf));
             }
+            
         }
 
         for (Location place : accumulator) { // second, accumulate value of ALL locations from wolves in the pack
@@ -75,7 +74,7 @@ public class Wolfpack {
             Wolf wolf = new Wolf(packnr, packCenter, this);
             if (world.isTileEmpty(list.get(i))) {
                 world.setTile(list.get(i), wolf);
-            }
+            } 
             WolvesInPacks.add(wolf);
         }
     }

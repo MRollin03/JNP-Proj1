@@ -10,7 +10,7 @@ import MainFolder.Utils;
 
 import java.awt.*;
 
-public class Carcass extends EnvObject implements Actor, NonBlocking, DynamicDisplayInformationProvider {
+public class Carcass extends EnvObject implements Actor, DynamicDisplayInformationProvider {
     private boolean infested;
     private boolean big;
     public int state;
@@ -37,7 +37,6 @@ public class Carcass extends EnvObject implements Actor, NonBlocking, DynamicDis
         }
         if (state < 1 && !infested) {
             Utils.world.delete(this);
-            System.out.println("gaynigga");
         }
 
         state--;

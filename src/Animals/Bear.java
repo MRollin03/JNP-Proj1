@@ -8,7 +8,6 @@ import EnviormentObjects.*;
 import MainFolder.*;
 import java.util.*;
 import java.awt.*;
-import java.util.ArrayList.*;
 
 public class Bear extends Animal implements Actor, DynamicDisplayInformationProvider {
 
@@ -70,7 +69,6 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
         while (!terrortories.contains(newLocation)) {
             currentLocation = world.getCurrentLocation();
             newLocation = Utils.randomMove(currentLocation);
-            System.out.println(newLocation);
         }
 
         // Tries to find a food source on the next step
@@ -82,7 +80,6 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
                 if (bush.hasBerries()) {
                     bush.berriesToggle();
                     super.energy = super.getEnergy() + 5;
-                    System.err.println(this.getEnergy());
                 }
             }
 
@@ -94,7 +91,6 @@ public class Bear extends Animal implements Actor, DynamicDisplayInformationProv
             }
 
             if (canAttack()) {
-                System.out.println("Attack Successful!");
             } else {
                 try {
                     world.move(this, Utils.randomMove(currentLocation));
