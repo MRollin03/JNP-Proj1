@@ -33,7 +33,6 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
 
     @Override
     public void act(World world) {
-        System.out.println("packnr: " + this.packnr + ", PackCenter: " + this.getPackCenter());
         if (world.isNight()) {
             handleNightBehavior(world);
             if (world.getCurrentTime() == 10) {
@@ -74,25 +73,12 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         if (world.isTileEmpty(newLocation)) {
             world.move(this, newLocation);
         }
-        // Location currentLocation = world.getCurrentLocation(); //change to fit wolves
-        // (old rabbit code for now)
 
         if (Utils.checkNonBlocking(currentLocation)) {
             if (world.getNonBlocking(currentLocation) instanceof Wolfden) {
                 Wolfden hole = (Wolfden) world.getNonBlocking(wolfPack.packCenter);
                 currentWolfden = hole;
                 hole.addToHole(this, hole);
-                if (this.getmate_CD() == 0 && hole.exists(this)) {
-                    for (Wolf wolf : Wolfpack.WolvesInPacks) {
-                        if (wolf.getmate_CD() == 0) {
-                            hole.addToHole(new Wolf(wolfPack.packnr, wolfPack.packCenter, this.wolfPack),
-                                    wolfPack.packCenter);
-                            System.out.println("A wolf is born!");
-                        }
-                    }
-
-                }
-                return;
             }
         }
     }
@@ -105,7 +91,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
             return;
         }
 
-        wolfPack.updatePackCenter(packnr);
+        wolfPack.updatePackCenter(this.packnr);
 
         Location currentLocation = world.getCurrentLocation();
         Set<Location> surroundings;
@@ -147,7 +133,7 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
      /**
      * the entire attack functionality of a wolf.
      * searches nearby tiles for enemies to attack.
-     * if Rabbit, delete the rabbit, move to its location and gain 10 energy
+     * if Rabbit or crow, delete the rabbit or crow, move to its location and gain 10 energy
      * if Bear, deal 5 damage to the bear through 'bear.damage(5)'
      * if Carcass, delete the Carcass and gain 4 energy
      * if Wolf (of other packnr) deal 5 damage to it.
@@ -252,10 +238,18 @@ public class Wolf extends Animal implements DynamicDisplayInformationProvider, A
         wolfPack.packCenter = l;
     }
 
+    /**
+     * returns the current wolfs wolfden
+     * return type Homes
+     */
     public Homes getCurrentWolfden() {
         return currentWolfden;
     }
 
+    /**
+     * sets the wolfs current wolfden to the input
+     * @param wolfden of type Homes
+     */
     public void setCurrentWolfden(Homes wolfden) {
         this.currentWolfden = wolfden;
     }
