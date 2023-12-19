@@ -41,13 +41,6 @@ public class Homes extends EnvObject {
     }
     
     /**
-   *adds a wolfcub to their respective Wolfden/burrow
-    * @param animal input of type Object but only works if is of type Wolf.
-    **/
-    public void addCubToHole(Wolf animal){
-            animalsInHome.add(animal);
-    }
-    /**
      * removes all animals from their respective homes.
      */
     public void removeFromHole() {
