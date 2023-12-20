@@ -8,7 +8,6 @@ import java.util.List;
 
 import Animals.*;
 import EnviormentObjects.*;
-import MainFolder.*;
 
 public class Utils {
     public static Scan Scanner = null;
@@ -19,13 +18,15 @@ public class Utils {
     private static DisplayInformation di = new DisplayInformation(Color.getHSBColor(255, 0, 255));
 
     /**
-     * Scans the File and returns the Scanner (Used to get acces from the main.java class)
+     * Scans the File and returns the Scanner (Used to get acces from the main.java
+     * class)
+     * 
      * @param Filepath
      * @return
-     *  
+     * 
      */
-    static public Scan scanFile(String Filepath){
-        Scanner =  new Scan(Filepath);
+    static public Scan scanFile(String Filepath) {
+        Scanner = new Scan(Filepath);
         return Scanner;
     }
 
@@ -55,171 +56,172 @@ public class Utils {
         }
 
         // Spawn fuction if there exist a program (Grapics)
-        if(p != null){switch (entType) {
-            case "Rabbit":
-                Animal currentRabbit = new Rabbit();
-                world.setTile(l, currentRabbit);
-                di = new DisplayInformation(Color.blue, "rabbit-small"); // Color Settings
-                p.setDisplayInformation(Rabbit.class, di);
-                break;
+        if (p != null) {
+            switch (entType) {
+                case "Rabbit":
+                    Animal currentRabbit = new Rabbit();
+                    world.setTile(l, currentRabbit);
+                    di = new DisplayInformation(Color.blue, "rabbit-small"); // Color Settings
+                    p.setDisplayInformation(Rabbit.class, di);
+                    break;
 
-            case "Grass":
-                EnvObject currentObject = new Grass(world);
-                world.setTile(l, currentObject);
-                di = new DisplayInformation(Color.yellow, "grass"); // Color Settings
-                p.setDisplayInformation(Grass.class, di);
-                break;
+                case "Grass":
+                    EnvObject currentObject = new Grass(world);
+                    world.setTile(l, currentObject);
+                    di = new DisplayInformation(Color.yellow, "grass"); // Color Settings
+                    p.setDisplayInformation(Grass.class, di);
+                    break;
 
-            case "RabbitHole":
-                EnvObject currentRabbitHole = new RabbitHole();
-                world.setTile(l, currentRabbitHole);
-                di = new DisplayInformation(Color.GRAY, "hole-small"); // Color Settings
-                p.setDisplayInformation(RabbitHole.class, di);
-                break;
+                case "RabbitHole":
+                    EnvObject currentRabbitHole = new RabbitHole();
+                    world.setTile(l, currentRabbitHole);
+                    di = new DisplayInformation(Color.GRAY, "hole-small"); // Color Settings
+                    p.setDisplayInformation(RabbitHole.class, di);
+                    break;
 
-            case "Person":
-                Person currentPerson = new Person();
-                world.setTile(l, currentPerson);
-                di = new DisplayInformation(Color.red); // Color Settings
-                p.setDisplayInformation(Person.class, di);
-                break;
+                case "Person":
+                    Person currentPerson = new Person();
+                    world.setTile(l, currentPerson);
+                    di = new DisplayInformation(Color.red); // Color Settings
+                    p.setDisplayInformation(Person.class, di);
+                    break;
 
-            case "Wolf": // unused, consider deleting
-                // Wolf currentWolf = new Wolf(world,1,l, wolfpack);
-                // world.setTile(l, currentWolf);
-                // WolvesInPacks.add(currentWolf);
-                //di = new DisplayInformation(Color.red, "wolf"); // Color Settings
-                //p.setDisplayInformation(Wolf.class, di);
-                break;
+                case "Wolf": // unused, consider deleting
+                    // Wolf currentWolf = new Wolf(world,1,l, wolfpack);
+                    // world.setTile(l, currentWolf);
+                    // WolvesInPacks.add(currentWolf);
+                    // di = new DisplayInformation(Color.red, "wolf"); // Color Settings
+                    // p.setDisplayInformation(Wolf.class, di);
+                    break;
 
-            case "Wolfden":
-                Wolfden currentden = new Wolfden(world);
-                world.setTile(l, currentden);
-                di = new DisplayInformation(Color.red, "hole"); // Color Settings
-                p.setDisplayInformation(Wolfden.class, di);
-                break;
+                case "Wolfden":
+                    Wolfden currentden = new Wolfden(world);
+                    world.setTile(l, currentden);
+                    di = new DisplayInformation(Color.red, "hole"); // Color Settings
+                    p.setDisplayInformation(Wolfden.class, di);
+                    break;
 
-            case "berry-bush":
-                BerryBush currentBush = new BerryBush(world);
-                world.setTile(l, currentBush);
-                di = new DisplayInformation(Color.green, "bush"); // Color Settings
-                p.setDisplayInformation(BerryBush.class, di);
-                break;
+                case "berry-bush":
+                    BerryBush currentBush = new BerryBush(world);
+                    world.setTile(l, currentBush);
+                    di = new DisplayInformation(Color.green, "bush"); // Color Settings
+                    p.setDisplayInformation(BerryBush.class, di);
+                    break;
 
-            case "fungi":
-                Fungi currentFungi = new Fungi(true);
-                world.setTile(l, currentFungi);
-                di = new DisplayInformation(Color.green, "fungi"); // Color Settings
-                p.setDisplayInformation(Fungi.class, di);
-                break;
+                case "fungi":
+                    Fungi currentFungi = new Fungi(true);
+                    world.setTile(l, currentFungi);
+                    di = new DisplayInformation(Color.green, "fungi"); // Color Settings
+                    p.setDisplayInformation(Fungi.class, di);
+                    break;
 
-            case "fungi-small":
-                Fungi currentFungiSmall = new Fungi(false);
-                world.setTile(l, currentFungiSmall);
-                di = new DisplayInformation(Color.green, "fungi-small"); // Color Settings
-                p.setDisplayInformation(Fungi.class, di);
-                break;
+                case "fungi-small":
+                    Fungi currentFungiSmall = new Fungi(false);
+                    world.setTile(l, currentFungiSmall);
+                    di = new DisplayInformation(Color.green, "fungi-small"); // Color Settings
+                    p.setDisplayInformation(Fungi.class, di);
+                    break;
 
-            case "carcass-small":
-                EnvObject carcass1 = new Carcass(world, false);
-                if (checkNonBlocking(l) == true) {
-                    world.delete(world.getNonBlocking(l));
-                }
-                world.setTile(l, carcass1);
-                di = new DisplayInformation(Color.red, "carcass"); // Color Settings
-                System.out.println(p +"p");
-                p.setDisplayInformation(Carcass.class, di);
-                break;
+                case "carcass-small":
+                    EnvObject carcass1 = new Carcass(world, false);
+                    if (checkNonBlocking(l) == true) {
+                        world.delete(world.getNonBlocking(l));
+                    }
+                    world.setTile(l, carcass1);
+                    di = new DisplayInformation(Color.red, "carcass"); // Color Settings
+                    System.out.println(p + "p");
+                    p.setDisplayInformation(Carcass.class, di);
+                    break;
 
-            case "carcass":
-                EnvObject carcass2 = new Carcass(world, true);
-                if (checkNonBlocking(l) == true) {
-                    world.delete(world.getNonBlocking(l));
-                }
-                world.setTile(l, carcass2);
-                di = new DisplayInformation(Color.red, "carcass-small"); // Color Settings
-                p.setDisplayInformation(Carcass.class, di);
-                break;
+                case "carcass":
+                    EnvObject carcass2 = new Carcass(world, true);
+                    if (checkNonBlocking(l) == true) {
+                        world.delete(world.getNonBlocking(l));
+                    }
+                    world.setTile(l, carcass2);
+                    di = new DisplayInformation(Color.red, "carcass-small"); // Color Settings
+                    p.setDisplayInformation(Carcass.class, di);
+                    break;
 
-            case "Crow":
-                Animal currentCrow = new Crow();
-                world.setTile(l, currentCrow);
-                di = new DisplayInformation(Color.BLACK, "CrowFly"); // Color Settings
-                p.setDisplayInformation(Crow.class, di);
-                break;
+                case "Crow":
+                    Animal currentCrow = new Crow();
+                    world.setTile(l, currentCrow);
+                    di = new DisplayInformation(Color.BLACK, "CrowFly"); // Color Settings
+                    p.setDisplayInformation(Crow.class, di);
+                    break;
+            }
         }
-    }
-    
-    // Spawn fuction if there do NOT! exist a program
-    else{
-        switch (entType) {
-            case "Rabbit":
-                Animal currentRabbit = new Rabbit();
-                world.setTile(l, currentRabbit);
-                break;
 
-            case "Grass":
-                EnvObject currentObject = new Grass(world);
-                world.setTile(l, currentObject);
-                break;
+        // Spawn fuction if there do NOT! exist a program
+        else {
+            switch (entType) {
+                case "Rabbit":
+                    Animal currentRabbit = new Rabbit();
+                    world.setTile(l, currentRabbit);
+                    break;
 
-            case "RabbitHole":
-                EnvObject currentRabbitHole = new RabbitHole();
-                world.setTile(l, currentRabbitHole);
-                break;
+                case "Grass":
+                    EnvObject currentObject = new Grass(world);
+                    world.setTile(l, currentObject);
+                    break;
 
-            case "Person":
-                Person currentPerson = new Person();
-                world.setTile(l, currentPerson);
-                break;
+                case "RabbitHole":
+                    EnvObject currentRabbitHole = new RabbitHole();
+                    world.setTile(l, currentRabbitHole);
+                    break;
 
-            case "Wolf": // unused, consider deleting
-                // Wolf currentWolf = new Wolf(world,1,l, wolfpack);
-                // world.setTile(l, currentWolf);
-                // WolvesInPacks.add(currentWolf);
-                 break;
+                case "Person":
+                    Person currentPerson = new Person();
+                    world.setTile(l, currentPerson);
+                    break;
 
-            case "Wolfden":
-                Wolfden currentden = new Wolfden(world);
-                world.setTile(l, currentden);
-                break;
+                case "Wolf": // unused, consider deleting
+                    // Wolf currentWolf = new Wolf(world,1,l, wolfpack);
+                    // world.setTile(l, currentWolf);
+                    // WolvesInPacks.add(currentWolf);
+                    break;
 
-            case "berry-bush":
-                BerryBush currentBush = new BerryBush(world);
-                world.setTile(l, currentBush);
-                break;
+                case "Wolfden":
+                    Wolfden currentden = new Wolfden(world);
+                    world.setTile(l, currentden);
+                    break;
 
-            case "fungi":
-                Fungi currentFungi = new Fungi(true);
-                world.setTile(l, currentFungi);
-                break;
+                case "berry-bush":
+                    BerryBush currentBush = new BerryBush(world);
+                    world.setTile(l, currentBush);
+                    break;
 
-            case "fungi-small":
-                Fungi currentFungiSmall = new Fungi(false);
-                world.setTile(l, currentFungiSmall);
-                break;
+                case "fungi":
+                    Fungi currentFungi = new Fungi(true);
+                    world.setTile(l, currentFungi);
+                    break;
 
-            case "carcass-small":
-                EnvObject carcass1 = new Carcass(world, false);
-                if (checkNonBlocking(l) == true) {
-                    world.delete(world.getNonBlocking(l));
-                }
-                world.setTile(l, carcass1);
-                break;
+                case "fungi-small":
+                    Fungi currentFungiSmall = new Fungi(false);
+                    world.setTile(l, currentFungiSmall);
+                    break;
 
-            case "carcass":
-                EnvObject carcass2 = new Carcass(world, true);
-                if (checkNonBlocking(l) == true) {
-                    world.delete(world.getNonBlocking(l));
-                }
-                break;
+                case "carcass-small":
+                    EnvObject carcass1 = new Carcass(world, false);
+                    if (checkNonBlocking(l) == true) {
+                        world.delete(world.getNonBlocking(l));
+                    }
+                    world.setTile(l, carcass1);
+                    break;
 
-            case "Crow":
-                Animal currentCrow = new Crow();
-                world.setTile(l, currentCrow);
-                break;
+                case "carcass":
+                    EnvObject carcass2 = new Carcass(world, true);
+                    if (checkNonBlocking(l) == true) {
+                        world.delete(world.getNonBlocking(l));
+                    }
+                    break;
+
+                case "Crow":
+                    Animal currentCrow = new Crow();
+                    world.setTile(l, currentCrow);
+                    break;
+            }
         }
-    }
 
     }
 
@@ -382,9 +384,10 @@ public class Utils {
 
     /**
      * Checks for nonblocking obejct of a specific type,
-     * @param l the location to check
-     * @param objClass  The object class to check for.
-     * @return  returns true if the tile has nonblocking of given class
+     * 
+     * @param l        the location to check
+     * @param objClass The object class to check for.
+     * @return returns true if the tile has nonblocking of given class
      */
     public static boolean checkNonBlockingType(Location l, Class objClass) {
         try {

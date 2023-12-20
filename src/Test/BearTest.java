@@ -1,7 +1,6 @@
 package Test;
 
 import itumulator.executable.*;
-import itumulator.simulator.Actor;
 import itumulator.world.*;
 import EnviormentObjects.*;
 
@@ -9,7 +8,6 @@ import org.junit.*;
 
 import static org.junit.Assert.*;
 
-import java.util.*;
 import Animals.*;
 import MainFolder.*;
 

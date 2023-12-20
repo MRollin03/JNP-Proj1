@@ -1,15 +1,12 @@
 package Test;
 
 import itumulator.executable.*;
-import itumulator.simulator.Actor;
 import itumulator.world.*;
 import EnviormentObjects.*;
 
 import org.junit.*;
 
 import static org.junit.Assert.*;
-
-import java.util.*;
 import Animals.*;
 import MainFolder.*;
 
@@ -67,7 +64,7 @@ public class RabbitTest {
         rabbit.act(world);
         rabbit.setMate_CD(10);
         rabbit.resetmateCD(world.getLocation(rabbit));
-        
+
         world.step();
         rabbit.act(world);
         Assert.assertEquals(rabbit.getmate_CD(), 15);
